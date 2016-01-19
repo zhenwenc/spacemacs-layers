@@ -22,14 +22,19 @@
     (progn
       (setq user-emacs-ensime-directory ".cache/ensime")
 
-      (evil-define-key 'insert ensime-mode-map
-        (kbd ".") 'scala/completing-dot
-        (kbd "M-.") 'ensime-edit-definition
-        (kbd "M-,") 'ensime-pop-find-definition-stack)
+;;      (evil-define-key 'insert ensime-mode-map
+;;        (kbd ".") 'scala/completing-dot
+;;        (kbd "M-.") 'ensime-edit-definition
+;;        (kbd "M-,") 'ensime-pop-find-definition-stack)
 
-      (evil-define-key 'normal ensime-mode-map
-        (kbd "M-.") 'ensime-edit-definition
-        (kbd "M-,") 'ensime-pop-find-definition-stack)
+;;      (evil-define-key 'normal ensime-mode-map
+;;        (kbd "M-.") 'ensime-edit-definition
+;;        (kbd "M-,") 'ensime-pop-find-definition-stack)
+
+      (define-key ensime-mode-map
+        (kbd "M-.") 'ensime-edit-definition-with-fallback)
+      (define-key ensime-mode-map
+        (kbd "M-,") 'ensime-pop-stack-with-fallback)
 
       (evil-define-key 'normal ensime-popup-buffer-map
         (kbd "q") 'ensime-popup-buffer-quit-function)
