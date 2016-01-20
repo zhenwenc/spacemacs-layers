@@ -19,7 +19,7 @@
 
 (global-set-key (kbd "A-<left>")        'backward-word)
 (global-set-key (kbd "A-<right>")       'forward-word)
-(global-set-key (kbd "A-<backspace>")   'core/backward-kill-word)
+(global-set-key (kbd "A-<backspace>")   'backward-kill-word)
 
 (global-set-key (kbd "M-<left>")        'move-beginning-of-line)
 (global-set-key (kbd "M-<right>")       'move-end-of-line)
@@ -42,8 +42,16 @@
 (global-set-key (kbd "C-s")             'helm-occur)
 (global-set-key (kbd "C-S-s")           'helm-projectile-ag)
 
-(evil-global-set-key 'normal (kbd "M-C-<left>")     'core/move-line-up)
-(evil-global-set-key 'normal (kbd "M-C-<right>")    'core/move-line-down)
+(global-set-key (kbd "M-C-<up>")        'core/move-line-up)
+(global-set-key (kbd "M-C-<down>")      'core/move-line-down)
+
+;; Multiple cursors
+
+(global-set-key (kbd "C-S-c C-S-c")     'mc/edit-lines)
+(global-set-key (kbd "C->")             'mc/mark-next-like-this)
+(global-set-key (kbd "C-<")             'mc/mark-previous-like-this)
+(global-set-key (kbd "C-c C-<")         'mc/mark-all-like-this)
+(global-set-key (kbd "C-c C->")         'mc/mark-all-like-this)
 
 ;; I-Search
 
