@@ -5,6 +5,12 @@
 ;; ----------------------------------------------------------------------------
 ;; Key bindings
 
+;; GG
+
+(with-eval-after-load 'auto-highlight-symbol
+  (define-key auto-highlight-symbol-mode-map (kbd "M-<left>") nil)
+  (define-key auto-highlight-symbol-mode-map (kbd "M-<right>") nil))
+
 ;; Fullscreen on Mac
 
 (global-set-key (kbd "C-x 9")           'toggle-frame-fullscreen)
