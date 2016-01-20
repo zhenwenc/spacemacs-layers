@@ -1,7 +1,8 @@
 ;;; funcs.el --- Scala Layer functions File for My Spacemacs
 
-;;; Ensime
+(require 'f nil t)
 
+(autoload 'ensime "ensime")
 (autoload 'ensime-config-find-file "ensime-config")
 (autoload 'ensime-config-find "ensime-config")
 (autoload 'projectile-project-p "projectile")
@@ -22,6 +23,13 @@
   (if (ensime-connection-or-nil)
       (pop-tag-mark)
     (helm-gtags-pop-stack)))
+
+;; TODO Investigate if this function might cause any performance impact 
+(defun ensime-set-company-backend ()
+  "Company backend for ctags if ENSIME is not available."
+  (set (make-local-variable 'company-backends)
+       '(ensime-company
+         (company-keywords company-dabbrev-code company-gtags company-yasnippet))))
 
 ;; -----------------------------------------------------------------------------
 ;; Automatically replace arrows with unicode ones when enabled
@@ -59,88 +67,71 @@ replace it with the unicode arrow."
   (scala/replace-arrow-at-point))
 
 ;; -----------------------------------------------------------------------------
+;; SBT
+;; - ref:
+;; https://github.com/chrisbarrett/spacemacs-layers/blob/master/cb-scala/funcs.el
 
-(defun scala/configure-ensime ()
-  "Ensure the file exists before starting `ensime-mode'."
-  (cond
-   ((and (buffer-file-name) (file-exists-p (buffer-file-name)))
-    (ensime-mode +1))
-   ((buffer-file-name)
-    (add-hook 'after-save-hook (lambda () (ensime-mode +1)) nil t))))
+(defun scala/maybe-project-root ()
+  (or (locate-dominating-file default-directory ".ensime") (projectile-project-p)))
 
-(defun scala/maybe-start-ensime ()
-  (when (buffer-file-name)
-    (let ((ensime-buffer (scala/ensime-buffer-for-file (buffer-file-name)))
-          (file (ensime-config-find-file (buffer-file-name)))
-          (is-source-file (s-matches? (rx (or "/src/" "/test/")) (buffer-file-name))))
+;; TODO Fix this function
+(defun scala/sbt-gen-ensime (dir)
+  (interactive (list
+                (read-directory-name "Directory: " nil nil t (scala/maybe-project-root))))
 
-      (when (and is-source-file (null ensime-buffer))
-        (noflet ((ensime-config-find (&rest _) file))
-          (save-window-excursion
-            (ensime)))))))
+  (let ((default-directory (f-slash dir)))
+    (-when-let (buf (scala/inf-ensime-buffer))
+      (message "Killing an existing Ensime server.")
+      (kill-buffer buf))
 
-(defun scala/ensime-buffer-for-file (file)
-  "Find the Ensime server buffer corresponding to FILE."
-  (let ((default-directory (file-name-directory file)))
-    (-when-let (project-name (projectile-project-p))
-      (--first (-when-let (bufname (buffer-name it))
-                 (and (s-contains? "inferior-ensime-server" bufname)
-                      (s-contains? (file-name-nondirectory project-name) bufname)))
-               (buffer-list)))))
+    (message "Initialising Ensime at %s." default-directory)
 
-(defun scala/enable-eldoc ()
-  (setq-local eldoc-documentation-function
-              (lambda ()
-                (when (ensime-connected-p)
-                  (ensime-print-type-at-point))))
-  (eldoc-mode +1))
+    (let* ((bufname (format "*sbt gen-ensime [%s]*" (f-filename dir)))
+           (proc (start-process "gen-ensime" bufname "sbt" "gen-ensime"))
 
-(defun spacemacs/ensime-refactor-accept ()
+           (kill-process-buffer
+            (lambda ()
+              (when (get-buffer bufname)
+                (-when-let (windows (--filter (equal (get-buffer bufname)
+                                                     (window-buffer it))
+                                              (window-list)))
+                  (-each windows 'delete-window))
+                (kill-buffer bufname))))
+
+           (kill-proc-buffer
+            (lambda (_ status)
+              (when (s-matches? "finished" status)
+                (scala/fix-ensime-file)
+                (ignore-errors
+                  (funcall kill-process-buffer))
+                (ensime)
+                (message "Ensime ready.")))))
+
+      (set-process-sentinel proc kill-proc-buffer)
+      (display-buffer bufname)
+      (recenter-top-bottom -1)
+      (redisplay))))
+
+(defun scala/fix-ensime-file (&optional file)
+  "Fix malformed scalariform settings in FILE."
   (interactive)
-  (funcall continue-refactor)
-  (ensime-popup-buffer-quit-function))
+  (require 'ensime)
+  (let* ((ensime-prefer-noninteractive t)
+         (file (or file (ensime-config-find)))
+         (buf (find-file-noselect file)))
+    (with-current-buffer buf
+      (scala/fix-dot-ensime)
+      (let ((modified? (buffer-modified-p)))
+        (save-buffer 0)
+        (if modified?
+            (message "Fixed ensime file")
+          (message "No changes were needed"))))
+    (kill-buffer buf)))
 
-(defun spacemacs/ensime-refactor-cancel ()
-  (interactive)
-  (funcall cancel-refactor)
-  (ensime-popup-buffer-quit-function))
-
-;;; Interactive commands
-
-(defun spacemacs/scala-join-line ()
-  "Adapt `scala-indent:join-line' to behave more like evil's line join.
-`scala-indent:join-line' acts like the vanilla `join-line',
-joining the current line with the previous one. The vimmy way is
-to join the current line with the next.
-Try to move to the subsequent line and then join. Then manually move
-point to the position of the join."
-  (interactive)
-  (let (join-pos)
+(defun scala/fix-dot-ensime ()
+  (let ((invalid-formatter-rx
+         (rx ":alignSingleLineCaseStatements" (group ".") "maxArrowIndent")))
     (save-excursion
-      (goto-char (line-end-position))
-      (unless (eobp)
-        (forward-line)
-        (call-interactively 'scala-indent:join-line)
-        (setq join-pos (point))))
-
-    (when join-pos
-      (goto-char join-pos))))
-
-(defun scala/completing-dot ()
-  "Insert a period and show company completions."
-  (interactive "*")
-  (when (s-matches? (rx (+ (not space)))
-                    (buffer-substring (line-beginning-position) (point)))
-    (delete-horizontal-space t))
-  (insert ".")
-  (company-complete))
-
-;;; Flyspell
-
-(defun scala/flyspell-verify ()
-  "Prevent common flyspell false positives in scala-mode."
-  (and (flyspell-generic-progmode-verify)
-       (not (s-matches? (rx bol (* space) "package") (current-line)))))
-
-(defun scala/configure-flyspell ()
-  (setq-local flyspell-generic-check-word-predicate 'scala/flyspell-verify))
+      (goto-char (point-min))
+      (while (search-forward-regexp invalid-formatter-rx nil t)
+        (replace-match "_" t t nil 1)))))

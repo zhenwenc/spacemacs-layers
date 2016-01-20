@@ -9,7 +9,9 @@
 
 (with-eval-after-load 'auto-highlight-symbol
   (define-key auto-highlight-symbol-mode-map (kbd "M-<left>") nil)
-  (define-key auto-highlight-symbol-mode-map (kbd "M-<right>") nil))
+  (define-key auto-highlight-symbol-mode-map (kbd "M-<right>") nil)
+  (define-key auto-highlight-symbol-mode-map (kbd "M-S-<left>") nil)
+  (define-key auto-highlight-symbol-mode-map (kbd "M-S-<right>") nil))
 
 ;; Fullscreen on Mac
 
@@ -35,6 +37,7 @@
 (global-set-key (kbd "C-<return>")      'core/start-newline-next)
 (global-set-key (kbd "M-<backspace>")   'core/backward-kill-line)
 (global-set-key (kbd "C-S-k")           'kill-whole-line)
+(global-set-key (kbd "M-k")             'kill-whole-line)
 
 (global-set-key (kbd "M-<down>")        'scroll-up-command)
 (global-set-key (kbd "M-<up>")          'scroll-down-command)
