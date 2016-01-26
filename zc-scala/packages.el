@@ -15,6 +15,8 @@
     :defer t
     :config
     (progn
+      ;; Show line number
+      (add-hook 'scala-mode-hook (lambda () (linum-mode t)))
       ;; Automatically replace arrows with unicode ones when enabled
       (when scala-use-unicode-arrows
         (define-key scala-mode-map (kbd ">") 'scala/unicode-gt)

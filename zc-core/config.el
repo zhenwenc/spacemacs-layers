@@ -66,3 +66,12 @@
 
 (define-key isearch-mode-map (kbd "M-v")           'isearch-yank-pop)
 (define-key isearch-mode-map (kbd "M-<backspace>") 'isearch-delete-char)
+
+;; Company
+
+(with-eval-after-load 'company
+  (dolist (map (list company-active-map company-search-map company-filter-map))
+    (define-key map (kbd "C-n") 'company-select-next)
+    (define-key map (kbd "C-p") 'company-select-previous)
+    (define-key map (kbd "C-h") 'company-show-doc-buffer)
+    (define-key map (kbd "C-w") nil)))
