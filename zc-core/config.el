@@ -6,34 +6,34 @@
 ;; Key bindings
 
 ;; GG
-
 (with-eval-after-load 'auto-highlight-symbol
+
   (define-key auto-highlight-symbol-mode-map (kbd "M-<left>") nil)
   (define-key auto-highlight-symbol-mode-map (kbd "M-<right>") nil)
   (define-key auto-highlight-symbol-mode-map (kbd "M-S-<left>") nil)
   (define-key auto-highlight-symbol-mode-map (kbd "M-S-<right>") nil))
 
 ;; Fullscreen on Mac
-
 (global-set-key (kbd "C-x 9")           'toggle-frame-fullscreen)
 
-(global-set-key (kbd "M-z")             'undo-tree-undo)
+;; OSX
 (global-set-key (kbd "M-Z")             'undo-tree-redo)
+(global-set-key (kbd "M-z")             'undo-tree-undo)
+(global-set-key (kbd "M-v")             'yank)
 (global-set-key (kbd "M-s")             'save-buffer)
 (global-set-key (kbd "M-c")             'kill-ring-save)
-(global-set-key (kbd "M-v")             'yank)
 
 ;; Custom key bindings
-
 (global-set-key (kbd "A-<left>")        'backward-word)
-(global-set-key (kbd "A-<right>")       'forward-word)
+
 (global-set-key (kbd "A-<backspace>")   'backward-kill-word)
+(global-set-key (kbd "A-<right>")       'forward-word)
+(global-set-key (kbd "C-<left>")        'backward-sentence)
 
 (global-set-key (kbd "M-<left>")        'move-beginning-of-line)
 (global-set-key (kbd "M-<right>")       'move-end-of-line)
-(global-set-key (kbd "C-<left>")        'backward-sentence)
-(global-set-key (kbd "C-<right>")       'forward-sentence)
 
+(global-set-key (kbd "C-<right>")       'forward-sentence)
 (global-set-key (kbd "C-<return>")      'core/start-newline-next)
 (global-set-key (kbd "M-<backspace>")   'core/backward-kill-line)
 (global-set-key (kbd "C-S-k")           'kill-whole-line)
@@ -53,6 +53,11 @@
 
 (global-set-key (kbd "M-C-<up>")        'core/move-line-up)
 (global-set-key (kbd "M-C-<down>")      'core/move-line-down)
+
+;; (global-set-key (kbd "A-M-<left>")      'windmove-left)
+;; (global-set-key (kbd "A-M-<right>")     'windmove-right)
+;; (global-set-key (kbd "A-M-<up>")        'windmove-up)
+;; (global-set-key (kbd "A-M-<down>")      'windmove-down)
 
 ;; Multiple cursors
 

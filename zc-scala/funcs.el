@@ -21,7 +21,7 @@
   "Variant of `pop-tag-mark` with ctags if ENSIME is not available."
   (interactive)
   (if (ensime-connection-or-nil)
-      (pop-tag-mark)
+      (ensime-pop-find-definition-stack)
     (helm-gtags-pop-stack)))
 
 ;; TODO Investigate if this function might cause any performance impact 
