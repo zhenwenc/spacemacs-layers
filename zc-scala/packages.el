@@ -40,4 +40,19 @@
     (define-key ensime-mode-map (kbd "M-.") 'ensime-edit-definition-with-fallback)
     (define-key ensime-mode-map (kbd "M-,") 'ensime-pop-stack-with-fallback))
 
+  ;; HACK: Reset company idle delay.
+  (advice-add 'ensime-company-enable :after #'scala/set-company-variables)
+
+  ;; HACK: Fix errors with ensime eldoc function.
+  (with-eval-after-load 'ensime-inspector
+    (defun ensime-type-at-point (&optional arg)
+      "Echo the type at point to the minibuffer.
+A prefix argument will add the type to the kill ring."
+      (interactive "P")
+      (let* ((type (ensime-rpc-get-type-at-point))
+             (fullname (ensime-type-full-name-with-args type)))
+        (when arg
+          (kill-new fullname))
+        (message fullname))))
+
   (spacemacs/set-leader-keys-for-major-mode 'scala-mode "ii" 'ensime-import-type-at-point))

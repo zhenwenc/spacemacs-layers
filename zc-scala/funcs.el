@@ -24,7 +24,7 @@
       (ensime-pop-find-definition-stack)
     (helm-gtags-pop-stack)))
 
-;; TODO Investigate if this function might cause any performance impact 
+;; TODO Investigate if this function might cause any performance impact
 (defun ensime-set-company-backend ()
   "Company backend for ctags if ENSIME is not available."
   (set (make-local-variable 'company-backends)
@@ -75,42 +75,42 @@ replace it with the unicode arrow."
   (or (locate-dominating-file default-directory ".ensime") (projectile-project-p)))
 
 ;; TODO Fix this function
-(defun scala/sbt-gen-ensime (dir)
-  (interactive (list
-                (read-directory-name "Directory: " nil nil t (scala/maybe-project-root))))
-
-  (let ((default-directory (f-slash dir)))
-    (-when-let (buf (scala/inf-ensime-buffer))
-      (message "Killing an existing Ensime server.")
-      (kill-buffer buf))
-
-    (message "Initialising Ensime at %s." default-directory)
-
-    (let* ((bufname (format "*sbt gen-ensime [%s]*" (f-filename dir)))
-           (proc (start-process "gen-ensime" bufname "sbt" "gen-ensime"))
-
-           (kill-process-buffer
-            (lambda ()
-              (when (get-buffer bufname)
-                (-when-let (windows (--filter (equal (get-buffer bufname)
-                                                     (window-buffer it))
-                                              (window-list)))
-                  (-each windows 'delete-window))
-                (kill-buffer bufname))))
-
-           (kill-proc-buffer
-            (lambda (_ status)
-              (when (s-matches? "finished" status)
-                (scala/fix-ensime-file)
-                (ignore-errors
-                  (funcall kill-process-buffer))
-                (ensime)
-                (message "Ensime ready.")))))
-
-      (set-process-sentinel proc kill-proc-buffer)
-      (display-buffer bufname)
-      (recenter-top-bottom -1)
-      (redisplay))))
+;; (defun scala/sbt-gen-ensime (dir)
+;;   (interactive (list
+;;                 (read-directory-name "Directory: " nil nil t (scala/maybe-project-root))))
+;;
+;;   (let ((default-directory (f-slash dir)))
+;;     (-when-let (buf (scala/inf-ensime-buffer))
+;;       (message "Killing an existing Ensime server.")
+;;       (kill-buffer buf))
+;;
+;;     (message "Initialising Ensime at %s." default-directory)
+;;
+;;     (let* ((bufname (format "*sbt gen-ensime [%s]*" (f-filename dir)))
+;;            (proc (start-process "gen-ensime" bufname "sbt" "gen-ensime"))
+;;
+;;            (kill-process-buffer
+;;             (lambda ()
+;;               (when (get-buffer bufname)
+;;                 (-when-let (windows (--filter (equal (get-buffer bufname)
+;;                                                      (window-buffer it))
+;;                                               (window-list)))
+;;                   (-each windows 'delete-window))
+;;                 (kill-buffer bufname))))
+;;
+;;            (kill-proc-buffer
+;;             (lambda (_ status)
+;;               (when (s-matches? "finished" status)
+;;                 (scala/fix-ensime-file)
+;;                 (ignore-errors
+;;                   (funcall kill-process-buffer))
+;;                 (ensime)
+;;                 (message "Ensime ready.")))))
+;;
+;;       (set-process-sentinel proc kill-proc-buffer)
+;;       (display-buffer bufname)
+;;       (recenter-top-bottom -1)
+;;       (redisplay))))
 
 (defun scala/fix-ensime-file (&optional file)
   "Fix malformed scalariform settings in FILE."
@@ -135,3 +135,11 @@ replace it with the unicode arrow."
       (goto-char (point-min))
       (while (search-forward-regexp invalid-formatter-rx nil t)
         (replace-match "_" t t nil 1)))))
+
+;; -----------------------------------------------------------------------------
+;; HACK: Manually reset some company variables that were set by Ensime
+
+(defun scala/set-company-variables (&rest _)
+  (unless (ensime-connected-p)
+    (setq-local company-idle-delay (default-value 'company-idle-delay))
+    (setq-local company-minimum-prefix-length (default-value 'company-minimum-prefix-length))))

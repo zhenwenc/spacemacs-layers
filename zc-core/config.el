@@ -2,6 +2,9 @@
 (defvar spacemacs-autosaves-directory
   (concat user-emacs-directory "autosaves/"))
 
+;; Turn on delete selection mode
+(delete-selection-mode 1)
+
 ;; ----------------------------------------------------------------------------
 ;; Key bindings
 
