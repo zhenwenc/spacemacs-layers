@@ -17,16 +17,23 @@
     (progn
       ;; Show line number
       (add-hook 'scala-mode-hook (lambda () (linum-mode t)))
+
       ;; Automatically replace arrows with unicode ones when enabled
       (when scala-use-unicode-arrows
         (define-key scala-mode-map (kbd ">") 'scala/unicode-gt)
-        (define-key scala-mode-map (kbd "-") 'scala/unicode-hyphen)))))
+        (define-key scala-mode-map (kbd "-") 'scala/unicode-hyphen))
+
+      ;; Fuck the `aggressive-indent'
+      (setq scala-indent:align-forms t
+            scala-indent:align-parameters nil
+            scala-indent:default-run-on-strategy scala-indent:operator-strategy))))
 
 (defun zc-scala/post-init-ensime ()
-  (add-hook 'scala-mode-hook 'scala/maybe-start-ensime)
-  (add-hook 'ensime-mode-hook 'ensime-set-company-backend)
+  ;; Disabled by performance impact
+  ;; (add-hook 'scala-mode-hook 'scala/maybe-start-ensime)
+  ;; (add-hook 'ensime-mode-hook 'ensime-set-company-backend)
 
-  (setq ensime-auto-generate-config t)
+  (setq ensime-auto-generate-config nil)
   (setq ensime-prefer-noninteractive t)
   (setq ensime-implicit-gutter-icons nil)
 
@@ -38,7 +45,10 @@
     (define-key ensime-mode-map (kbd "M-N") 'ensime-backward-note)
 
     (define-key ensime-mode-map (kbd "M-.") 'ensime-edit-definition-with-fallback)
-    (define-key ensime-mode-map (kbd "M-,") 'ensime-pop-stack-with-fallback))
+    (define-key ensime-mode-map (kbd "M-,") 'ensime-pop-stack-with-fallback)
+
+    (define-key ensime-mode-map (kbd "M-S-.") 'ensime-edit-definition)
+    (define-key ensime-mode-map (kbd "M-S-,") 'ensime-pop-find-definition-stack))
 
   ;; HACK: Reset company idle delay.
   (advice-add 'ensime-company-enable :after #'scala/set-company-variables)
