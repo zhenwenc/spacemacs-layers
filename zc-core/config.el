@@ -83,3 +83,13 @@
     (define-key map (kbd "C-p") 'company-select-previous)
     (define-key map (kbd "C-h") 'company-show-doc-buffer)
     (define-key map (kbd "C-w") nil)))
+
+
+;; ----------------------------------------------------------------------------
+
+;; Resolve HELM find file slow issue
+;;
+;; NOTE: If projectile cache gets out of sync, running 'projectile-find-file'
+;;       again with a prefix argument (SPC u) or (C-u) will refresh the cache.
+(setq projectile-enable-caching t)
+
