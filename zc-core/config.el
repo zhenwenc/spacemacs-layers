@@ -42,10 +42,10 @@
 (global-set-key (kbd "C-S-k")           'kill-whole-line)
 (global-set-key (kbd "M-k")             'kill-whole-line)
 
-(global-set-key (kbd "M-<down>")        'scroll-up-command)
-(global-set-key (kbd "M-<up>")          'scroll-down-command)
-(global-set-key (kbd "C-v")             'scroll-up-command)
-(global-set-key (kbd "C-S-v")           'scroll-down-command)
+(global-set-key (kbd "M-<up>")          'evil-scroll-up)
+(global-set-key (kbd "M-<down>")        'evil-scroll-down)
+(global-set-key (kbd "C-S-v")           'evil-scroll-up)
+(global-set-key (kbd "C-v")             'evil-scroll-down)
 
 (global-set-key (kbd "M-p")             'helm-projectile-find-file)
 (global-set-key (kbd "M-P")             'helm-projectile-switch-project)
