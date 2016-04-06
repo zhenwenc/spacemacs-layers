@@ -53,6 +53,7 @@ values."
      (scala
       :variables
       scala-enable-eldoc t
+      scala-auto-start-ensime nil
       scala-auto-insert-asterisk-in-comments t)
      sql
      shell-scripts
