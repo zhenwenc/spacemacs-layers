@@ -33,7 +33,7 @@
 (global-set-key (kbd "A-<right>")       'forward-word)
 (global-set-key (kbd "C-<left>")        'backward-sentence)
 
-(global-set-key (kbd "M-<left>")        'move-beginning-of-line)
+(global-set-key (kbd "M-<left>")        'spacemacs/smart-move-beginning-of-line)
 (global-set-key (kbd "M-<right>")       'move-end-of-line)
 
 (global-set-key (kbd "C-<right>")       'forward-sentence)
@@ -75,6 +75,10 @@
 (define-key isearch-mode-map (kbd "M-v")           'isearch-yank-pop)
 (define-key isearch-mode-map (kbd "M-<backspace>") 'isearch-delete-char)
 
+;; Browse file system
+
+(global-set-key (kbd "M-0")             'neotree-toggle)
+
 ;; Company
 
 (with-eval-after-load 'company
@@ -92,4 +96,3 @@
 ;; NOTE: If projectile cache gets out of sync, running 'projectile-find-file'
 ;;       again with a prefix argument (SPC u) or (C-u) will refresh the cache.
 (setq projectile-enable-caching t)
-

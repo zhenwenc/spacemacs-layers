@@ -16,7 +16,8 @@
     :config
     (progn
       ;; Show line number
-      (add-hook 'scala-mode-hook (lambda () (linum-mode t)))
+      ;; NOTE: Disabled to avoid performance impact
+      ;; (add-hook 'scala-mode-hook (lambda () (linum-mode t)))
 
       ;; Automatically replace arrows with unicode ones when enabled
       (when zc-scala-use-unicode-arrows
@@ -44,14 +45,25 @@
     (define-key ensime-mode-map (kbd "M-n") 'ensime-forward-note)
     (define-key ensime-mode-map (kbd "M-N") 'ensime-backward-note)
 
-    (define-key ensime-mode-map (kbd "M-.") 'ensime-edit-definition-with-fallback)
-    (define-key ensime-mode-map (kbd "M-,") 'ensime-pop-stack-with-fallback)
+  ;; (define-key ensime-mode-map (kbd "M-.") 'ensime-edit-definition-with-fallback)
+  ;; (define-key ensime-mode-map (kbd "M-,") 'ensime-pop-stack-with-fallback)
 
-    (define-key ensime-mode-map (kbd "M-S-.") 'ensime-edit-definition)
-    (define-key ensime-mode-map (kbd "M-S-,") 'ensime-pop-find-definition-stack))
+    (define-key ensime-mode-map (kbd "M-.") 'ensime-edit-definition)
+    (define-key ensime-mode-map (kbd "M-,") 'ensime-pop-find-definition-stack)
+
+    ;; Never ever let ensime check the whole project
+    (define-key ensime-mode-map (kbd "C-c C-c a") 'ensime-show-all-errors-and-warnings))
 
   ;; HACK: Reset company idle delay.
-  (advice-add 'ensime-company-enable :after #'scala/set-company-variables)
+  ;; (advice-add 'ensime-company-enable :after #'scala/set-company-variables)
+
+  ;; HACK: Prevent ensime from clobbering company settings.
+  ;; (with-eval-after-load 'ensime-company
+  ;;   (defun ensime-company-enable ()
+  ;;     (set (make-local-variable 'company-backends) '(ensime-company))
+  ;;     (company-mode)
+  ;;     (yas-minor-mode-on)
+  ;;     (set (make-local-variable 'company-idle-delay) 0)))
 
   ;; HACK: Fix errors with ensime eldoc function.
   (with-eval-after-load 'ensime-inspector
