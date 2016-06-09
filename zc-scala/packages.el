@@ -4,14 +4,14 @@
   (require 'use-package nil t))
 
 (defconst zc-scala-packages
-  '(scala-mode2
+  '(scala-mode
     sbt-mode
     ensime
     noflet
     ))
 
-(defun zc-scala/post-init-scala-mode2 ()
-  (use-package scala-mode2
+(defun zc-scala/post-init-scala-mode ()
+  (use-package scala-mode
     :defer t
     :config
     (progn
