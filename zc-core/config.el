@@ -39,7 +39,7 @@
 (global-set-key (kbd "C-<right>")       'forward-sentence)
 (global-set-key (kbd "C-<return>")      'core/start-newline-next)
 (global-set-key (kbd "M-<backspace>")   'core/backward-kill-line)
-(global-set-key (kbd "C-S-k")           'kill-whole-line)
+(global-set-key (kbd "C-S-d")           'kill-whole-line)
 (global-set-key (kbd "M-k")             'kill-whole-line)
 
 (global-set-key (kbd "M-<up>")          'evil-scroll-up)
