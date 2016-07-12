@@ -33,8 +33,8 @@
 (global-set-key (kbd "A-<right>")       'forward-word)
 (global-set-key (kbd "C-<left>")        'backward-sentence)
 
-(global-set-key (kbd "M-<left>")        'spacemacs/smart-move-beginning-of-line)
-(global-set-key (kbd "M-<right>")       'move-end-of-line)
+(global-set-key (kbd "M-<left>")        'mwim-beginning-of-code-or-line)
+(global-set-key (kbd "M-<right>")       'mwim-end-of-code-or-line)
 
 (global-set-key (kbd "C-<right>")       'forward-sentence)
 (global-set-key (kbd "C-<return>")      'core/start-newline-next)
