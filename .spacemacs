@@ -91,11 +91,11 @@ values."
      zc-go
      zc-highlight
      zc-js
+     zc-layouts
      zc-scala
      zc-ts
 
      cb-git
-     cb-layouts
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
