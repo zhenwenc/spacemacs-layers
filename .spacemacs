@@ -61,7 +61,7 @@ values."
      rust
      (scala
       :variables
-      scala-enable-eldoc t
+      scala-enable-eldoc nil
       scala-auto-start-ensime nil
       scala-auto-insert-asterisk-in-comments t)
      sql
@@ -90,12 +90,12 @@ values."
      zc-eshell
      zc-go
      zc-highlight
-     zc-js
      zc-layouts
      zc-scala
-     zc-ts
 
      cb-git
+     cb-groovy
+     cb-js
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -156,8 +156,10 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(ample
-                         sanityinc-solarized-light
+   dotspacemacs-themes '(spacemacs-dark
+                         solarized-light
+                      ;; sanityinc-solarized-light
+                      ;; ample
                       ;; solarized-light
                       ;; monokai
                       ;; solarized-dark
