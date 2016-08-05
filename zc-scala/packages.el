@@ -45,11 +45,10 @@
     (define-key ensime-mode-map (kbd "M-n") 'ensime-forward-note)
     (define-key ensime-mode-map (kbd "M-N") 'ensime-backward-note)
 
-  ;; (define-key ensime-mode-map (kbd "M-.") 'ensime-edit-definition-with-fallback)
-  ;; (define-key ensime-mode-map (kbd "M-,") 'ensime-pop-stack-with-fallback)
+    (define-key ensime-inspector-mode-map (kbd "DEL") 'ensime-inspector-backward-page)
 
-    (define-key ensime-mode-map (kbd "M-.") 'ensime-edit-definition)
-    (define-key ensime-mode-map (kbd "M-,") 'ensime-pop-find-definition-stack)
+    ;; (define-key ensime-mode-map (kbd "M-.") 'ensime-edit-definition)
+    ;; (define-key ensime-mode-map (kbd "M-,") 'ensime-pop-find-definition-stack)
 
     ;; Never ever let ensime check the whole project
     (define-key ensime-mode-map (kbd "C-c C-c a") 'ensime-show-all-errors-and-warnings))

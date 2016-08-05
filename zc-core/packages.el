@@ -12,7 +12,13 @@
   '(wgrep-ag
     goto-chg
     nginx-mode
+    (cb-buffers :location local)
+    (smart-ops :location local)
+    (sp-generic-prog :location local)
     evil))
+
+(defun zc-core/init-cb-buffers ()
+  (use-package cb-buffers))
 
 (defun zc-core/post-init-evil ()
   (with-eval-after-load 'evil

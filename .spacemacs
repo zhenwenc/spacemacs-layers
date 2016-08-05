@@ -59,11 +59,11 @@ values."
       ranger-cleanup-eagerly t)
      restclient
      rust
-     (scala
-      :variables
-      scala-enable-eldoc nil
-      scala-auto-start-ensime nil
-      scala-auto-insert-asterisk-in-comments t)
+     ;; (scala
+     ;;  :variables
+     ;;  scala-enable-eldoc nil
+     ;;  scala-auto-start-ensime nil
+     ;;  scala-auto-insert-asterisk-in-comments t)
      sql
      shell-scripts
      typescript
@@ -98,6 +98,7 @@ values."
      cb-git
      cb-groovy
      cb-js
+     cb-scala
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -136,7 +137,7 @@ values."
    ;; variable is `emacs' then the `holy-mode' is enabled at startup. `hybrid'
    ;; uses emacs key bindings for vim's insert mode, but otherwise leaves evil
    ;; unchanged. (default 'vim)
-   dotspacemacs-editing-style 'emacs
+   dotspacemacs-editing-style 'vim
    ;; If non nil output loading progress in `*Messages*' buffer. (default nil)
    dotspacemacs-verbose-loading nil
    ;; Specify the startup banner. Default value is `official', it displays
@@ -307,6 +308,27 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
+
+
+  ;; Initialize package.el and repositories.
+  (require 'package)
+  (package-initialize)
+  (dolist (archive '(("melpa" . "https://melpa.org/packages/")
+                     ("org" . "http://orgmode.org/elpa/")))
+    (add-to-list 'package-archives archive))
+
+  (unless package-archives
+    (package-refresh-contents))
+
+  ;; Install core packages required for boostrap.
+  (dolist (pkg '(dash f s use-package))
+    (unless (package-installed-p pkg)
+      (package-install pkg)))
+
+  (require 'cb-vars "~/spacemacs-layers-cb/cb-vars.el")
+  (require 'cb-buffers "~/spacemacs-layers-cb/cb-core/local/cb-buffers/cb-buffers.el")
+  (require 'smart-ops "~/spacemacs-layers-cb/cb-core/local/smart-ops/smart-ops.el")
+  (require 'sp-generic-prog "~/spacemacs-layers-cb/cb-smartparens/local/sp-generic-prog/sp-generic-prog.el")
   )
 
 (defun dotspacemacs/user-config ()
