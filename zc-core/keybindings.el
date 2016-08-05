@@ -22,13 +22,20 @@
 (global-set-key (kbd "M-s")             'save-buffer)
 (global-set-key (kbd "M-c")             'kill-ring-save)
 
-;; Vim mode
+;; Vim key bindings
 (setq-default evil-escape-key-sequence "jk")
 
-(evil-global-set-key 'normal (kbd "C-e") 'evil-end-of-line)
-(evil-global-set-key 'insert (kbd "C-e") 'evil-end-of-line)
+(global-set-key (kbd "M-SPC") 'cycle-spacing)
 
-;; Custom key bindings
+(evil-global-set-key 'normal (kbd "C-e")   'evil-end-of-line)
+(evil-global-set-key 'insert (kbd "C-e")   'evil-end-of-line)
+(evil-global-set-key 'visual (kbd "C-e")   'evil-end-of-line)
+
+(evil-global-set-key 'insert (kbd "C-d")   'delete-char)
+(evil-global-set-key 'insert (kbd "C-S-d") 'backward-kill-word)
+(evil-global-set-key 'insert (kbd "C-w")   'spacemacs/backward-kill-word-or-region)
+
+;; Emacs key bindings
 (global-set-key (kbd "A-<left>")        'backward-word)
 
 (global-set-key (kbd "A-<backspace>")   'backward-kill-word)
