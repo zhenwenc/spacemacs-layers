@@ -49,7 +49,6 @@ values."
      gtags
      html
      java
-     javascript
      markdown
      org
      php
@@ -90,11 +89,13 @@ values."
      zc-editing
      zc-eshell
      zc-go
+     zc-html
      zc-highlight
      zc-layouts
      zc-scala
      zc-typescript
 
+     cb-coffeescript
      cb-git
      cb-groovy
      cb-js
