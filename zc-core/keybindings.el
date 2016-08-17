@@ -23,12 +23,18 @@
 (global-set-key (kbd "M-c")             'kill-ring-save)
 
 ;; Vim key bindings
+;; https://github.com/syl20bnr/evil-escape
 (setq-default evil-escape-key-sequence "jk")
+(setq-default evil-escape-delay 0.85)
+(setq-default evil-escape-unordered-key-sequence t)
 
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
 
+(evil-global-set-key 'normal (kbd "M-s")   'save-buffer)
+(evil-global-set-key 'insert (kbd "M-s")   'core/evil-escape-and-save)
+
 (evil-global-set-key 'normal (kbd "C-e")   'evil-end-of-line)
-(evil-global-set-key 'insert (kbd "C-e")   'evil-end-of-line)
+(evil-global-set-key 'insert (kbd "C-e")   'mwim-end-of-code-or-line)
 (evil-global-set-key 'visual (kbd "C-e")   'evil-end-of-line)
 
 (evil-global-set-key 'insert (kbd "C-d")   'delete-char)
