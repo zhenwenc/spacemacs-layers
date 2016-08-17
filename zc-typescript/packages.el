@@ -10,9 +10,29 @@
 ;;; License: GPLv3
 
 (defconst zc-typescript-packages
-  '(web-mode
+  '(tide
+    web-mode
     smartparens
     typescript-mode))
+
+(defun zc-typescript/post-init-tide ()
+  (use-package tide
+    :defer t
+    :init (progn
+            (evilified-state-evilify tide-references-mode tide-references-mode-map
+              (kbd "p") 'tide-find-previous-reference
+              (kbd "n") 'tide-find-next-reference
+              (kbd "g") 'tide-goto-reference
+              (kbd "q") 'quit-window))
+    :evil-bind
+    (:map
+     tide-mode-map
+     :state normal
+     ("M-." . tide-jump-to-definition)
+     ("M-," . tide-jump-back)
+     :state insert
+     ("M-." . tide-jump-to-definition)
+     ("M-," . tide-jump-back))))
 
 (defun zc-typescript/post-init-typescript-mode ()
   (use-package typescript-mode
