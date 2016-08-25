@@ -53,3 +53,11 @@
     (transpose-lines 1)
     (forward-line -1)
     (indent-according-to-mode)))
+
+;; Evil escape everything and save buffer
+(defun core/evil-escape-and-save ()
+  "Escape everything and save buffer."
+  (interactive)
+  (evil-escape)
+  (evil-mc-undo-all-cursors)
+  (save-buffer))
