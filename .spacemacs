@@ -4,7 +4,8 @@
 
 ;; SPC h Space
 
-(defconst user-layers-directory "~/.spacemacs-layers-cb/")
+(defconst root-layers-directory "~/spacemacs-layers/")
+(defconst user-layers-directory "~/spacemacs-layers-cb/")
 (add-to-list 'load-path "~/spacemacs-layers-cb")
 
 (defun dotspacemacs/layers ()
@@ -94,6 +95,7 @@ values."
      zc-layouts
      zc-scala
      zc-typescript
+     zc-yasnippet
 
      cb-coffeescript
      cb-git
