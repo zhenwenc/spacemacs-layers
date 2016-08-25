@@ -30,11 +30,19 @@
 ;;; Code:
 
 (defconst zc-editing-packages
-  '(iedit))
+  '(iedit
+    evil-mc))
 
 (defun zc-editing/init-iedit ()
   (use-package iedit
     :config
     (spacemacs/set-leader-keys "se" #'iedit-mode)))
+
+(defun zc-editing/post-init-evil-mc ()
+  (use-package evil-mc
+    :defer t
+    :config
+    (progn
+      (evil-define-key 'normal map (kbd "C-p") nil))))
 
 ;;; packages.el ends here

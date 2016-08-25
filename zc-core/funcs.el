@@ -59,4 +59,5 @@
   "Escape everything and save buffer."
   (interactive)
   (evil-escape)
+  (evil-mc-undo-all-cursors)
   (save-buffer))
