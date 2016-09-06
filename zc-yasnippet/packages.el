@@ -26,8 +26,6 @@
 
       (bind-key (kbd "TAB") #'yas-expand prog-mode-map)
       (evil-define-key 'insert yas-minor-mode-map (kbd "TAB") #'yas-expand)
-      (bind-key "<backspace>" 'yas/backspace yas-keymap)
-      (evil-define-key 'insert yas-keymap (kbd "SPC") #'yas/space)
 
       (yas/reload-all)
       (yas-global-mode +1)
