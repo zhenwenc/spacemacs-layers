@@ -24,9 +24,11 @@
 
 ;; Vim key bindings
 ;; https://github.com/syl20bnr/evil-escape
-(setq-default evil-escape-key-sequence "jk")
-(setq-default evil-escape-delay 0.85)
-(setq-default evil-escape-unordered-key-sequence t)
+
+;; NOTE: Disabled as it creates weird effect while using j/k
+;; (setq-default evil-escape-key-sequence "jk")
+;; (setq-default evil-escape-delay 0.85)
+;; (setq-default evil-escape-unordered-key-sequence t)
 
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
 
