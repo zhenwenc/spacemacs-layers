@@ -57,7 +57,7 @@
 ;; Evil escape everything and save buffer
 (defun core/evil-escape-and-save ()
   "Escape everything and save buffer."
+  (save-buffer)
   (interactive)
-  (evil-escape)
   (evil-mc-undo-all-cursors)
-  (save-buffer))
+  (evil-escape))
