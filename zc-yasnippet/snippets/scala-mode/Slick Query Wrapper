@@ -1,0 +1,30 @@
+# -*- mode: snippet -*-
+# name: Slick Query Wrapper
+# key: querywrapper
+# --
+package models.${1:package}
+
+import core.slick.driver.PostgresDriver.api._
+import core.slick.BaseQueryWrapper
+import models.Tables._
+import models.IdTypes._
+
+import $2QueryWrapper._
+
+object ${2:Entity}QueryWrapper {
+  type $2Query = Query[$2T, $2, Seq]
+
+  def apply(): $2QueryWrapper = $2QueryWrapper(Tables.$1)
+}
+
+case class $2QueryWrapper(query: $2Query)
+    extends BaseQueryWrapper(query) {
+
+  def insert(new$2: $2): DBIO[$2] =
+    query returning query.map(_.id) into { ($1, id) ⇒
+      $1.copy(id = id)
+    } += new$2
+
+  def filterById(id: $2Id) = $2QueryWrapper(query.filter(_.id === id))
+
+}

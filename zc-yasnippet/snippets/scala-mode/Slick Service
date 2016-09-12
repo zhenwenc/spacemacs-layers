@@ -1,0 +1,35 @@
+# -*- mode: snippet -*-
+# name: Slick Service
+# key: service
+# --
+package services
+
+import javax.inject.{Inject, Singleton}
+
+import com.navch.logging.Logging
+
+import core.slick.driver.PostgresDriver.api._
+import models.api._
+import models.${1:package}._
+
+class ${2:entity}Service @Singleton @Inject() extends Logging {
+
+  private val defaultMaxResultCount = 1000
+
+  def insert(new$2: $2): DBIO[$2] = {
+    $2Query.insert(new$2)
+  }
+
+  def update(updated: $2): DBIO[Int] = {
+    $2Query.filterById(updated.id).update(updated)
+  }
+
+  def findAll(offset: Option[Int], limit: Option[Int]): StreamingDBIO[Seq[$2], $2] = {
+    $2Query.pagingMaybe(offset, limit, Some(defaultMaxResultCount)).result
+  }
+
+  def findById(id: $2Id): DBIO[Option[$2]] = {
+    $2Query.filterById(id).headOption
+  }
+
+}
