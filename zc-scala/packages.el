@@ -34,6 +34,8 @@
   ;; (add-hook 'scala-mode-hook 'scala/maybe-start-ensime)
   ;; (add-hook 'ensime-mode-hook 'ensime-set-company-backend)
 
+  (add-hook 'scala-mode-hook 'ensime-mode)
+
   (setq ensime-auto-generate-config nil)
   (setq ensime-prefer-noninteractive t)
   (setq ensime-implicit-gutter-icons nil)
