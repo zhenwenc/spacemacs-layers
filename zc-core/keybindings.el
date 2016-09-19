@@ -33,8 +33,13 @@
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
 (global-set-key (kbd "C-c C-g") 'evil-escape)
 
-(evil-global-set-key 'normal (kbd "M-s")   'save-buffer)
+(evil-global-set-key 'normal (kbd "M-s")   'core/evil-escape-and-save)
 (evil-global-set-key 'insert (kbd "M-s")   'core/evil-escape-and-save)
+(evil-global-set-key 'visual (kbd "M-s")   'core/evil-escape-and-save)
+
+(evil-global-set-key 'normal (kbd "M-a")   'core/evil-escape)
+(evil-global-set-key 'insert (kbd "M-a")   'core/evil-escape)
+(evil-global-set-key 'visual (kbd "M-a")   'core/evil-escape)
 
 (evil-global-set-key 'normal (kbd "C-e")   'evil-end-of-line)
 (evil-global-set-key 'insert (kbd "C-e")   'mwim-end-of-code-or-line)

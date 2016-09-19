@@ -57,7 +57,15 @@
 ;; Evil escape everything and save buffer
 (defun core/evil-escape-and-save ()
   "Escape everything and save buffer."
-  (save-buffer)
   (interactive)
+  (core/evil-escape)
+  (save-buffer))
+
+;; Evil escape everything
+(defun core/evil-escape ()
+  "Escape everything."
+  (interactive)
+  (if (bound-and-true-p iedit-mode)
+      (iedit-quit))
   (evil-mc-undo-all-cursors)
   (evil-escape))
