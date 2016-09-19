@@ -6,13 +6,21 @@ package services
 
 import javax.inject.{Inject, Singleton}
 
+import scala.concurrent.ExecutionContext.Implicits.global
+
 import com.navch.logging.Logging
 
 import core.slick.driver.PostgresDriver.api._
 import models.api._
 import models.${1:package}._
 
+object $2Service {
+  case class $2NotFound($1: $2)
+    extends Exception(s"No $1 found with id [\${$1.id}]")
+}
+
 class ${2:entity}Service @Singleton @Inject() extends Logging {
+  import $2Service._
 
   private val defaultMaxResultCount = 1000
 
@@ -20,8 +28,19 @@ class ${2:entity}Service @Singleton @Inject() extends Logging {
     $2Query.insert(new$2)
   }
 
-  def update(updated: $2): DBIO[Int] = {
-    $2Query.filterById(updated.id).update(updated)
+  def update(updated: $2): DBIO[$2] = {
+    (for {
+      existing ← $2Query.filterById(updated.id).headOption
+      $1 = existing match {
+        case Some(x) ⇒ updated.copy(id = x.id)
+        case _       ⇒ throw $2NotFound(updated)
+      }
+      _ ← $2Query.filterById($1.id).update($1)
+    } yield ($1)).transactionally
+  }
+
+  def delete(id: $2Id): DBIO[Int] = {
+    $2Query.filterById(id).query.delete
   }
 
   def findAll(offset: Option[Int], limit: Option[Int]): StreamingDBIO[Seq[$2], $2] = {

@@ -9,16 +9,21 @@ import core.slick.BaseQueryWrapper
 import models.Tables._
 import models.IdTypes._
 
-import $2QueryWrapper._
+import ${2:Entity}QueryWrapper._
 
-object ${2:Entity}QueryWrapper {
+object $2QueryWrapper {
   type $2Query = Query[$2T, $2, Seq]
 
   def apply(): $2QueryWrapper = $2QueryWrapper(Tables.$1)
 }
 
+trait $2QueryActions {
+  def filterById(id: $2Id) = $2QueryActions
+}
+
 case class $2QueryWrapper(query: $2Query)
-    extends BaseQueryWrapper(query) {
+    extends BaseQueryWrapper(query)
+    with $2QueryActions {
 
   def insert(new$2: $2): DBIO[$2] =
     query returning query.map(_.id) into { ($1, id) ⇒
