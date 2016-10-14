@@ -100,6 +100,7 @@
 
 ;; Browse file system
 
-(global-set-key (kbd "M-0")             'neotree-toggle)
+(global-set-key              (kbd "M-0")   'neotree-toggle)
+(evil-global-set-key 'normal (kbd "M-0")   'neotree-toggle)
 
 ;;; keybindings.el ends here
