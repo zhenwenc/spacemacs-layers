@@ -19,6 +19,11 @@
       ;; NOTE: Disabled to avoid performance impact
       ;; (add-hook 'scala-mode-hook (lambda () (linum-mode t)))
 
+      ;; Disable scala-mode semantic font highlight
+      ;; TODO: Only do this for Numero Project
+      ;; (setq font-lock-defaults nil)
+      ;; (setq font-lock-syntactic-face-function (eval (car (get 'font-lock-syntactic-face-function 'standard-value))))
+
       ;; Automatically replace arrows with unicode ones when enabled
       (when zc-scala-use-unicode-arrows
         (define-key scala-mode-map (kbd ">") 'scala/unicode-gt)
