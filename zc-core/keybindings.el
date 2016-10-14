@@ -27,8 +27,8 @@
 
 ;; NOTE: Disabled as it creates weird effect while using j/k
 ;; (setq-default evil-escape-key-sequence "jk")
-(setq-default evil-escape-delay 0.85)
-(setq-default evil-escape-unordered-key-sequence t)
+;; (setq-default evil-escape-delay 0.85)
+;; (setq-default evil-escape-unordered-key-sequence t)
 
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
 (global-set-key (kbd "C-c C-g") 'evil-escape)
@@ -85,7 +85,7 @@
 ;; (global-set-key (kbd "A-M-<up>")        'windmove-up)
 ;; (global-set-key (kbd "A-M-<down>")      'windmove-down)
 
-;; Multiple cursors
+;;; Multiple cursors
 
 (global-set-key (kbd "C-S-c C-S-c")     'mc/edit-lines)
 (global-set-key (kbd "C->")             'mc/mark-next-like-this)
@@ -98,7 +98,7 @@
 (define-key isearch-mode-map (kbd "M-v")           'isearch-yank-pop)
 (define-key isearch-mode-map (kbd "M-<backspace>") 'isearch-delete-char)
 
-;; Browse file system
+;;; Browse file system
 
 (global-set-key              (kbd "M-0")   'neotree-toggle)
 (evil-global-set-key 'normal (kbd "M-0")   'neotree-toggle)
