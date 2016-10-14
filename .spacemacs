@@ -92,6 +92,7 @@ values."
      zc-go
      zc-html
      zc-highlight
+     zc-java
      zc-layouts
      zc-scala
      zc-typescript
