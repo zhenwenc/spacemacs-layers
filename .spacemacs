@@ -105,6 +105,7 @@ values."
      cb-git
      cb-groovy
      cb-js
+     cb-smartparens
      cb-scala
      )
    ;; List of additional packages that will be installed without being
@@ -166,8 +167,8 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(spacemacs-dark
-                         monokai
+   dotspacemacs-themes '(monokai
+                         spacemacs-dark
                       ;; solarized-light
                       ;; sanityinc-solarized-light
                       ;; ample
@@ -316,32 +317,10 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
-
-  (zc-bootstrap/enable-debugging)
+  (zc-bootstrap/disable-debugging)
   (setq exec-path-from-shell-check-startup-files nil)
   (zc-bootstrap/initialize-packages)
-  (zc-bootstrap/load-preloadable-lisp-files)
-
-  ;; ;; Initialize package.el and repositories.
-  ;; (require 'package)
-  ;; (package-initialize)
-  ;; (dolist (archive '(("melpa" . "https://melpa.org/packages/")
-  ;;                    ("org" . "http://orgmode.org/elpa/")))
-  ;;   (add-to-list 'package-archives archive))
-
-  ;; (unless package-archives
-  ;;   (package-refresh-contents))
-
-  ;; ;; Install core packages required for boostrap.
-  ;; (dolist (pkg '(s dash f noflet use-package))
-  ;;   (unless (package-installed-p pkg)
-  ;;     (package-install pkg)))
-
-  ;; (require 'cb-vars "~/spacemacs-layers-cb/cb-vars.el")
-  ;; (require 'cb-buffers "~/spacemacs-layers-cb/cb-core/local/cb-buffers/cb-buffers.el")
-  ;; (require 'smart-ops "~/spacemacs-layers-cb/cb-core/local/smart-ops/smart-ops.el")
-  ;; (require 'sp-generic-prog "~/spacemacs-layers-cb/cb-smartparens/local/sp-generic-prog/sp-generic-prog.el")
-  )
+  (zc-bootstrap/load-preloadable-lisp-files))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.

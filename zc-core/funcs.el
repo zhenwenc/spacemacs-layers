@@ -71,7 +71,7 @@
   (evil-escape))
 
 ;; Ivy swiper pull next work to search
-(defun core/swiper-symbol-at-point ()
+(defun core/yank-symbol-at-point ()
   "Pull next word from buffer into search string."
   (interactive)
   (let (query)

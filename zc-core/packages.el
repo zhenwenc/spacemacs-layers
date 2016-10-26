@@ -66,18 +66,11 @@
   (use-package ivy
     :config
     (progn
+      ;; Unset the fucking key binding
+      (global-set-key (kbd "<f6>") #'eyebrowse-switch-to-window-config-2)
+
+      ;; To match ISearch behaviour
+      (define-key ivy-minibuffer-map (kbd "C-w") 'ivy-yank-word)
+
       ;; Prevent minibuffer close
       (set-variable 'ivy-on-del-error-function '(lambda())))))
-
-(defun zc-core/post-init-ivy ()
-  (use-package ivy
-    :config
-    (progn
-      ;; Prevent minibuffer close
-      (set-variable 'ivy-on-del-error-function '(lambda())))))
-
-(defun zc-core/post-init-swiper ()
-  (use-package swiper
-    :config
-    (progn
-      (define-key swiper-map (kbd "C-w") 'core/swiper-symbol-at-point))))
