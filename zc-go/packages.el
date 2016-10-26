@@ -1,16 +1,16 @@
 ;;; packages.el --- Go Layer packages File for My Spacemacs
 
-(eval-when-compile
-  (require 'use-package nil t))
+;; (eval-when-compile
+;;   (require 'use-package nil t))
 
-(defconst zc-go-packages
-  '(go-mode))
+;; (defconst zc-go-packages
+;;   '(go-mode))
 
-(defun fk-hacky-set-go-keybindings ()
-  (define-key go-mode-map (kbd "<f5>") nil)
-  (define-key go-mode-map (kbd "<f6>") nil))
+;; (defun fk-hacky-set-go-keybindings ()
+;;   (define-key go-mode-map (kbd "<f5>") nil)
+;;   (define-key go-mode-map (kbd "<f6>") nil))
 
-(add-hook 'go-mode-hook #'fk-hacky-set-go-keybindings)
+;; (add-hook 'go-mode-hook #'fk-hacky-set-go-keybindings)
 
 ;; (defun zc-go/post-init-go-mode ()
 ;;   (use-package go-mode
