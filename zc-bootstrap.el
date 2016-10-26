@@ -243,11 +243,6 @@
     )
   "Packages required for bootstrapping configuration.")
 
-(defconst zc-bootstrap-additional-exec-path-entries
-  '("~/.cabal/bin/"
-    "~/bin")
-  "Additional paths to add to `exec-path'.  They may contain utilities needed for bootstrap.")
-
 (defconst zc-bootstrap-package-archives
   '(("melpa" . "http://melpa.org/packages/")
     ("org" . "http://orgmode.org/elpa/")
@@ -281,10 +276,6 @@
   (add-to-list 'load-path user-layers-directory)
   (dolist (el zc-bootstrap-preload-lisp-files)
     (load el)))
-
-(defun zc-bootstrap/initialize-exec-path ()
-  (dolist (dir zc-bootstrap-additional-exec-path-entries)
-    (add-to-list 'exec-path dir)))
 
 (defun zc-bootstrap/user-config ()
   (setq custom-file (concat user-emacs-directory "custom.el"))
