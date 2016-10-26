@@ -1,0 +1,10 @@
+# -*- mode: snippet -*-
+# name: Angular Directive
+# key: ngdir
+# --
+import { Directive } from '@angular/core';
+
+@Directive({
+  selector: '[nc${1:directive}]',
+})
+export class Nc$1Directive {}
