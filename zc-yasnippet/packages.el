@@ -13,7 +13,7 @@
   '(yasnippet))
 
 (defvar zc-yasnippet/main-snippets-dir
-  (f-join root-layers-directory "zc-yasnippet/snippets"))
+  (f-join user-layers-directory "zc-yasnippet/snippets"))
 
 (defun zc-yasnippet/post-init-yasnippet ()
   (use-package yasnippet

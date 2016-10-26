@@ -4,9 +4,13 @@
 
 ;; SPC h Space
 
-(defconst root-layers-directory "~/spacemacs-layers/")
-(defconst user-layers-directory "~/spacemacs-layers-cb/")
-(add-to-list 'load-path "~/spacemacs-layers-cb")
+(eval-and-compile
+  (defconst user-layers-directory "~/spacemacs-layers/")
+  (require 'zc-bootstrap (concat user-layers-directory "zc-bootstrap")))
+
+;; (defconst root-layers-directory "~/spacemacs-layers/")
+;; (defconst user-layers-directory "~/spacemacs-layers-cb/")
+;; (add-to-list 'load-path "~/spacemacs-layers-cb")
 
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
@@ -313,25 +317,30 @@ It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
 
-  ;; Initialize package.el and repositories.
-  (require 'package)
-  (package-initialize)
-  (dolist (archive '(("melpa" . "https://melpa.org/packages/")
-                     ("org" . "http://orgmode.org/elpa/")))
-    (add-to-list 'package-archives archive))
+  (zc-bootstrap/enable-debugging)
+  (setq exec-path-from-shell-check-startup-files nil)
+  (zc-bootstrap/initialize-packages)
+  (zc-bootstrap/load-preloadable-lisp-files)
 
-  (unless package-archives
-    (package-refresh-contents))
+  ;; ;; Initialize package.el and repositories.
+  ;; (require 'package)
+  ;; (package-initialize)
+  ;; (dolist (archive '(("melpa" . "https://melpa.org/packages/")
+  ;;                    ("org" . "http://orgmode.org/elpa/")))
+  ;;   (add-to-list 'package-archives archive))
 
-  ;; Install core packages required for boostrap.
-  (dolist (pkg '(dash f s use-package))
-    (unless (package-installed-p pkg)
-      (package-install pkg)))
+  ;; (unless package-archives
+  ;;   (package-refresh-contents))
 
-  (require 'cb-vars "~/spacemacs-layers-cb/cb-vars.el")
-  (require 'cb-buffers "~/spacemacs-layers-cb/cb-core/local/cb-buffers/cb-buffers.el")
-  (require 'smart-ops "~/spacemacs-layers-cb/cb-core/local/smart-ops/smart-ops.el")
-  (require 'sp-generic-prog "~/spacemacs-layers-cb/cb-smartparens/local/sp-generic-prog/sp-generic-prog.el")
+  ;; ;; Install core packages required for boostrap.
+  ;; (dolist (pkg '(s dash f noflet use-package))
+  ;;   (unless (package-installed-p pkg)
+  ;;     (package-install pkg)))
+
+  ;; (require 'cb-vars "~/spacemacs-layers-cb/cb-vars.el")
+  ;; (require 'cb-buffers "~/spacemacs-layers-cb/cb-core/local/cb-buffers/cb-buffers.el")
+  ;; (require 'smart-ops "~/spacemacs-layers-cb/cb-core/local/smart-ops/smart-ops.el")
+  ;; (require 'sp-generic-prog "~/spacemacs-layers-cb/cb-smartparens/local/sp-generic-prog/sp-generic-prog.el")
   )
 
 (defun dotspacemacs/user-config ()

@@ -2,30 +2,45 @@
 ;;; Commentary:
 ;;; Code:
 
-;; iedit mode
-
-
 (eval-when-compile
   (require 'use-package nil t))
+
+(require 's)
+(require 'dash)
+(require 'f)
+(require 'noflet)
 
 (defconst zc-core-packages
   '(wgrep-ag
     goto-chg
+    ivy
     nginx-mode
     swiper
     ivy
+    neotree
+    swiper
+    (cb-vars :location local)
     (cb-buffers :location local)
-    (smart-ops :location local)
-    (sp-generic-prog :location local)
-    evil))
+    (smart-ops :location local)))
 
 (defun zc-core/init-cb-buffers ()
-  (use-package cb-buffers))
+  (use-package cb-buffers
+    :bind
+    (("C-c k b" . cb-buffers-maybe-kill-all))
+    :bind*
+    (("C-<backspace>" . cb-buffers-maybe-kill))))
 
-(defun zc-core/post-init-evil ()
-  (with-eval-after-load 'evil
-    (setq evil-insert-state-cursor 'bar)
-    (setq evil-emacs-state-cursor 'bar)))
+(defun zc-core/init-smart-ops ()
+  (use-package smart-ops
+    :diminish smart-ops-mode
+    :functions (smart-ops-init)
+    :config (smart-ops-init)))
+
+(defun zc-core/post-init-neotree ()
+  (use-package neotree
+    :config
+    (progn
+      (setq neo-theme 'arrow))))
 
 (defun zc-core/init-wgrep-ag ()
   (use-package wgrep-ag
