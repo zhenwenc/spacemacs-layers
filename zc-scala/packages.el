@@ -5,9 +5,7 @@
 
 (defconst zc-scala-packages
   '(scala-mode
-    sbt-mode
     ensime
-    noflet
     ))
 
 (defun zc-scala/post-init-scala-mode ()
