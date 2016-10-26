@@ -12,7 +12,6 @@
 (defconst zc-typescript-packages
   '(tide
     web-mode
-    smartparens
     typescript-mode))
 
 (defun zc-typescript/post-init-tide ()
