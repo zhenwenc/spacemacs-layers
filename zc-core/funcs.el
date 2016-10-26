@@ -69,3 +69,15 @@
       (iedit-quit))
   (evil-mc-undo-all-cursors)
   (evil-escape))
+
+;; Ivy swiper pull next work to search
+(defun core/swiper-symbol-at-point ()
+  "Pull next word from buffer into search string."
+  (interactive)
+  (let (query)
+    (with-ivy-window
+      (let ((tmp (symbol-at-point)))
+        (setq query tmp)))
+    (when query
+      (insert (format "%s" query))
+      )))
