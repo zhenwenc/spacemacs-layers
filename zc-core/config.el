@@ -21,4 +21,5 @@
 ;;
 ;; NOTE: If projectile cache gets out of sync, running 'projectile-find-file'
 ;;       again with a prefix argument (SPC u) or (C-u) will refresh the cache.
-(setq projectile-enable-caching t)
+;; NOTE: Disabled since switch from Helm to Ivy.
+;; (setq projectile-enable-caching t)

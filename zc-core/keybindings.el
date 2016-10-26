@@ -70,12 +70,11 @@
 (global-set-key (kbd "C-S-v")           'evil-scroll-up)
 (global-set-key (kbd "C-v")             'evil-scroll-down)
 
-(global-set-key (kbd "M-p")             'helm-projectile-find-file)
-(global-set-key (kbd "M-P")             'helm-projectile-switch-project)
+;; TODO: Set to alternative in Ivy
 (global-set-key (kbd "M-y")             'helm-show-kill-ring)
 
-(global-set-key (kbd "C-s")             'helm-occur)
-(global-set-key (kbd "C-S-s")           'helm-projectile-ag)
+(global-set-key (kbd "C-s")             'swiper)
+(global-set-key (kbd "C-S-s")           'counsel-ag)
 
 (global-set-key (kbd "M-C-<up>")        'core/move-line-up)
 (global-set-key (kbd "M-C-<down>")      'core/move-line-down)

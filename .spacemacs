@@ -42,13 +42,13 @@ values."
      dockerfile
      emacs-lisp
      evernote
-     ;; eyebrowse
      git
      (go
       :variables
       go-tab-width 2)
      gtags
      html
+     ivy
      java
      markdown
      org
@@ -89,7 +89,6 @@ values."
      zc-core
      zc-editing
      zc-eshell
-     zc-go
      zc-html
      zc-highlight
      zc-java
@@ -164,7 +163,8 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(spacemacs-dark
-                         solarized-light
+                         monokai
+                      ;; solarized-light
                       ;; sanityinc-solarized-light
                       ;; ample
                       ;; solarized-light
@@ -313,7 +313,6 @@ It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
 
-
   ;; Initialize package.el and repositories.
   (require 'package)
   (package-initialize)
@@ -354,7 +353,7 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "889a93331bc657c0f05a04b8665b78b3c94a12ca76771342cee27d6605abcd0e" default)))
+    ("a800120841da457aa2f86b98fb9fd8df8ba682cebde033d7dbf8077c1b7d677a" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "889a93331bc657c0f05a04b8665b78b3c94a12ca76771342cee27d6605abcd0e" default)))
  '(evil-want-Y-yank-to-eol t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
