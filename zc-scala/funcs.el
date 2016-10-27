@@ -74,44 +74,6 @@ replace it with the unicode arrow."
 (defun scala/maybe-project-root ()
   (or (locate-dominating-file default-directory ".ensime") (projectile-project-p)))
 
-;; TODO Fix this function
-;; (defun scala/sbt-gen-ensime (dir)
-;;   (interactive (list
-;;                 (read-directory-name "Directory: " nil nil t (scala/maybe-project-root))))
-;;
-;;   (let ((default-directory (f-slash dir)))
-;;     (-when-let (buf (scala/inf-ensime-buffer))
-;;       (message "Killing an existing Ensime server.")
-;;       (kill-buffer buf))
-;;
-;;     (message "Initialising Ensime at %s." default-directory)
-;;
-;;     (let* ((bufname (format "*sbt gen-ensime [%s]*" (f-filename dir)))
-;;            (proc (start-process "gen-ensime" bufname "sbt" "gen-ensime"))
-;;
-;;            (kill-process-buffer
-;;             (lambda ()
-;;               (when (get-buffer bufname)
-;;                 (-when-let (windows (--filter (equal (get-buffer bufname)
-;;                                                      (window-buffer it))
-;;                                               (window-list)))
-;;                   (-each windows 'delete-window))
-;;                 (kill-buffer bufname))))
-;;
-;;            (kill-proc-buffer
-;;             (lambda (_ status)
-;;               (when (s-matches? "finished" status)
-;;                 (scala/fix-ensime-file)
-;;                 (ignore-errors
-;;                   (funcall kill-process-buffer))
-;;                 (ensime)
-;;                 (message "Ensime ready.")))))
-;;
-;;       (set-process-sentinel proc kill-proc-buffer)
-;;       (display-buffer bufname)
-;;       (recenter-top-bottom -1)
-;;       (redisplay))))
-
 (defun scala/fix-ensime-file (&optional file)
   "Fix malformed scalariform settings in FILE."
   (interactive)
@@ -135,6 +97,43 @@ replace it with the unicode arrow."
       (goto-char (point-min))
       (while (search-forward-regexp invalid-formatter-rx nil t)
         (replace-match "_" t t nil 1)))))
+
+;; ----------------------------------------------------------------------------
+;; Scala Mode
+;; - ref:
+;; https://github.com/chrisbarrett/spacemacs-layers/blob/master/cb-scala/packages.el
+
+(defun zc-scala/ensime-refactor-accept ()
+  (interactive)
+  (with-no-warnings (funcall continue-refactor))
+  (ensime-popup-buffer-quit-function))
+
+(defun zc-scala/ensime-refactor-cancel ()
+  (interactive)
+  (with-no-warnings (funcall cancel-refactor))
+  (ensime-popup-buffer-quit-function))
+
+(defun zc-scala/ensime-gen-and-restart()
+  "Regenerate `.ensime' file and restart the ensime server."
+  (interactive)
+  (progn
+    (sbt-command ";ensimeConfig;ensimeConfigProject")
+    (ensime-shutdown)
+    (ensime)))
+
+(defun zc-scala/ensime-inf-eval-buffer-switch ()
+  "Send buffer content to shell and switch to it in insert mode."
+  (interactive)
+  (ensime-inf-eval-buffer)
+  (ensime-inf-switch)
+  (evil-insert-state))
+
+(defun zc-scala/ensime-inf-eval-region-switch (start end)
+  "Send region content to shell and switch to it in insert mode."
+  (interactive "r")
+  (ensime-inf-switch)
+  (ensime-inf-eval-region start end)
+  (evil-insert-state))
 
 ;; -----------------------------------------------------------------------------
 ;; HACK: Manually reset some company variables that were set by Ensime

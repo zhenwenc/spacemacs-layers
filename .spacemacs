@@ -105,8 +105,6 @@ values."
      cb-git
      cb-groovy
      cb-js
-     cb-smartparens
-     cb-scala
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
