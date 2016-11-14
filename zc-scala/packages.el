@@ -152,6 +152,7 @@
            ("iI" . ensime-inspect-type-at-point-other-frame)
            ("ip" . ensime-inspect-project-package)
 
+           ("nf" . ensime-reload)
            ("nF" . ensime-reload-open-files)
            ("ns" . ensime)
            ("nS" . zc-scala/ensime-gen-and-restart)
