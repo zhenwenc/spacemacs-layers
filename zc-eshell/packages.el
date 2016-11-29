@@ -5,8 +5,7 @@
   (require 'f nil t))
 
 (defconst zc-eshell-packages
-  '(eshell
-    '(eshell-prompt-extras :excluded t)))
+  '('(eshell-prompt-extras :excluded t)))
 
 ;; Disable company for eshell.
 (with-eval-after-load 'company

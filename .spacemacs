@@ -158,7 +158,7 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(monokai
+   dotspacemacs-themes '(sanityinc-tomorrow-eighties
                          spacemacs-dark
                       ;; solarized-light
                       ;; sanityinc-solarized-light
@@ -169,7 +169,6 @@ values."
                       ;; spacemacs-light
                       ;; spacemacs-dark
                       ;; leuven
-                      ;; monokai
                       ;; zenburn
                          )
    ;; If non nil the cursor color matches the state color in GUI Emacs.
@@ -321,6 +320,10 @@ layers configuration. You are free to put any user code."
   ;; Enable evil multiple-cursors.
   ;; https://github.com/gabesoft/evil-mc
   (global-evil-mc-mode)
+
+  ;; Change powerline separator for MacOS
+  (setq powerline-default-separator 'nil)
+  (setq ns-use-srgb-colorspace nil)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
@@ -332,7 +335,7 @@ layers configuration. You are free to put any user code."
  ;; If there is more than one, they won't work right.
  '(custom-safe-themes
    (quote
-    ("a800120841da457aa2f86b98fb9fd8df8ba682cebde033d7dbf8077c1b7d677a" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "889a93331bc657c0f05a04b8665b78b3c94a12ca76771342cee27d6605abcd0e" default)))
+    ("628278136f88aa1a151bb2d6c8a86bf2b7631fbea5f0f76cba2a0079cd910f7d" "a800120841da457aa2f86b98fb9fd8df8ba682cebde033d7dbf8077c1b7d677a" "4cf3221feff536e2b3385209e9b9dc4c2e0818a69a1cdb4b522756bcdf4e00a4" "889a93331bc657c0f05a04b8665b78b3c94a12ca76771342cee27d6605abcd0e" default)))
  '(evil-want-Y-yank-to-eol t))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
@@ -340,4 +343,5 @@ layers configuration. You are free to put any user code."
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
  '(company-tooltip-common ((t (:inherit company-tooltip :weight bold :underline nil))))
- '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil)))))
+ '(company-tooltip-common-selection ((t (:inherit company-tooltip-selection :weight bold :underline nil))))
+ '(scala-font-lock:var-face ((t (:foreground "#cb4b16" :underline nil)))))

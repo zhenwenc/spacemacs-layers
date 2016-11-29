@@ -18,7 +18,7 @@
     swiper
     ivy
     neotree
-    (cb-vars :location local)
+    ;; (cb-vars :location local)
     (cb-buffers :location local)
     (smart-ops :location local)))
 
