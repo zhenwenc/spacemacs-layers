@@ -50,10 +50,9 @@ values."
      (go
       :variables
       go-tab-width 2)
-     gtags
      html
      ivy
-     java
+     javascript
      markdown
      org
      php
@@ -63,11 +62,6 @@ values."
       ranger-cleanup-eagerly t)
      restclient
      rust
-     ;; (scala
-     ;;  :variables
-     ;;  scala-enable-eldoc nil
-     ;;  scala-auto-start-ensime nil
-     ;;  scala-auto-insert-asterisk-in-comments t)
      sql
      shell-scripts
      typescript
@@ -93,6 +87,7 @@ values."
      zc-core
      zc-editing
      zc-eshell
+     zc-ensime
      zc-html
      zc-highlight
      zc-java
@@ -101,10 +96,8 @@ values."
      zc-typescript
      zc-yasnippet
 
-     cb-coffeescript
      cb-git
      cb-groovy
-     cb-js
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
