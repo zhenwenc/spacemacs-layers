@@ -9,34 +9,10 @@
 ;;
 ;;; License: GPLv3
 
-;;; Commentary:
-
-;; See the Spacemacs documentation and FAQs for instructions on how to implement
-;; a new layer:
-;;
-;;   SPC h SPC layers RET
-;;
-;;
-;; Briefly, each package to be installed or configured by this layer should be
-;; added to `zc-editing-packages'. Then, for each package PACKAGE:
-;;
-;; - If PACKAGE is not referenced by any other Spacemacs layer, define a
-;;   function `zc-editing/init-PACKAGE' to load and initialize the package.
-
-;; - Otherwise, PACKAGE is already referenced by another Spacemacs layer, so
-;;   define the functions `zc-editing/pre-init-PACKAGE' and/or
-;;   `zc-editing/post-init-PACKAGE' to customize the package as it is loaded.
-
 ;;; Code:
 
 (defconst zc-editing-packages
-  '(iedit
-    evil-mc))
-
-(defun zc-editing/init-iedit ()
-  (use-package iedit
-    :config
-    (spacemacs/set-leader-keys "se" #'iedit-mode)))
+  '(vil-mc))
 
 (defun zc-editing/post-init-evil-mc ()
   (use-package evil-mc
