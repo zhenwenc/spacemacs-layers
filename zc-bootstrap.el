@@ -15,7 +15,6 @@
     evil
     dash
     dash-functional
-    noflet
     f
     let-alist
     hydra)

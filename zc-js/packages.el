@@ -7,8 +7,7 @@
 
 (defconst zc-js-packages
   '(js2-mode
-    js
-    smart-ops))
+    js))
 
 (defun zc-js/init-js2-mode ()
   (use-package js2-mode
@@ -31,12 +30,3 @@
     :defer t
     :config
     (setq js-indent-level 2)))
-
-(defun zc-js/post-init-smart-ops ()
-  (define-smart-ops-for-mode 'js-mode
-    (smart-ops ";" ":" "," :pad-before nil)
-    (smart-ops-default-ops))
-
-  (define-smart-ops-for-mode 'js2-mode
-    (smart-ops ";" ":" "," :pad-before nil)
-    (smart-ops-default-ops)))

@@ -8,7 +8,6 @@
 (require 's)
 (require 'dash)
 (require 'f)
-(require 'noflet)
 
 (defconst zc-core-packages
   '(wgrep-ag
@@ -18,9 +17,8 @@
     swiper
     ivy
     neotree
-    ;; (cb-vars :location local)
     (cb-buffers :location local)
-    (smart-ops :location local)))
+    ))
 
 (defun zc-core/init-cb-buffers ()
   (use-package cb-buffers
@@ -28,12 +26,6 @@
     (("C-c k b" . cb-buffers-maybe-kill-all))
     :bind*
     (("C-<backspace>" . cb-buffers-maybe-kill))))
-
-(defun zc-core/init-smart-ops ()
-  (use-package smart-ops
-    :diminish smart-ops-mode
-    :functions (smart-ops-init)
-    :config (smart-ops-init)))
 
 (defun zc-core/post-init-neotree ()
   (use-package neotree
