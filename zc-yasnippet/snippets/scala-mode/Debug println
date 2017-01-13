@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
 # name: Debug println
-# key: pl
+# key: dpl
 # --
 println(s">>>>>>>> DEBUG >>>>> $0")
