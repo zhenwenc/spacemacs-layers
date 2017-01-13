@@ -83,6 +83,12 @@
 ;; (global-set-key (kbd "A-M-<up>")        'windmove-up)
 ;; (global-set-key (kbd "A-M-<down>")      'windmove-down)
 
+(global-set-key (kbd "M-1")            'winum-select-window-1)
+(global-set-key (kbd "M-2")            'winum-select-window-2)
+(global-set-key (kbd "M-3")            'winum-select-window-3)
+(global-set-key (kbd "M-4")            'winum-select-window-4)
+(global-set-key (kbd "M-5")            'winum-select-window-5)
+
 ;;; Multiple cursors
 
 (global-set-key (kbd "C-S-c C-S-c")     'mc/edit-lines)
