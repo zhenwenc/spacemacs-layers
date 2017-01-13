@@ -308,6 +308,7 @@ any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
   (zc-bootstrap/disable-debugging)
   (setq exec-path-from-shell-check-startup-files nil)
+  (zc-bootstrap/configure-ensime-use-stable)
   (zc-bootstrap/initialize-packages)
   (zc-bootstrap/load-preloadable-lisp-files))
 

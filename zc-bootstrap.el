@@ -58,6 +58,10 @@
   (setq debug-on-error nil)
   (setq debug-on-quit nil))
 
+(defun zc-bootstrap/configure-ensime-use-stable ()
+  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+  (add-to-list 'package-pinned-packages '(ensime . "melpa-stable") t))
+
 (defun zc-bootstrap--mk-package-dir-regexp (pkg)
   (rx-to-string `(and ,(symbol-name pkg)
                       "-" (repeat 8 digit) "." (repeat 3 4 digit) (? "/"))))

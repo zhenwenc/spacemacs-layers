@@ -104,6 +104,7 @@
     :config
     (progn
       (setq ensime-startup-snapshot-notification nil)
+      (setq ensime-startup-notification nil)
       (setq ensime-auto-generate-config t)
       (setq ensime-implicit-gutter-icons nil)
       (setq ensime-startup-dirname (f-join spacemacs-cache-directory "ensime"))
