@@ -55,7 +55,6 @@ values."
      javascript
      markdown
      org
-     php
      puppet
      (ranger
       :variables
