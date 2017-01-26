@@ -64,4 +64,8 @@
       (define-key ivy-minibuffer-map (kbd "C-w") 'ivy-yank-word)
 
       ;; Prevent minibuffer close
-      (set-variable 'ivy-on-del-error-function '(lambda())))))
+      (set-variable 'ivy-on-del-error-function '(lambda()))
+
+      ;; Fuzzy matching
+      ;; http://oremacs.com/2016/01/06/ivy-flx/
+      (setq ivy-re-builders-alist '((t . ivy--regex-plus))))))
