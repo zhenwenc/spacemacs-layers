@@ -8,10 +8,6 @@
   (defconst user-layers-directory "~/spacemacs-layers/")
   (require 'zc-bootstrap (concat user-layers-directory "zc-bootstrap")))
 
-;; (defconst root-layers-directory "~/spacemacs-layers/")
-;; (defconst user-layers-directory "~/spacemacs-layers-cb/")
-;; (add-to-list 'load-path "~/spacemacs-layers-cb")
-
 (defun dotspacemacs/layers ()
   "Configuration Layers declaration.
 You should not put any user code in this function besides modifying the variable
@@ -43,7 +39,7 @@ values."
      better-defaults
      csv
      dash
-     dockerfile
+     docker
      emacs-lisp
      evernote
      git
