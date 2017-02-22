@@ -14,6 +14,12 @@
                          (list
                           'magit-status-mode
                           'magit-diff-mode
-                          'magit-popup-mode)))
+                          'magit-revision-mode
+                          'magit-auto-revert-mode
+                          'magit-reflog-mode
+                          'magit-log-mode
+                          'magit-popup-mode
+                          'minibuffer-inactive-mode
+                          'spacemacs-buffer-mode)))
           (highlight-symbol-mode 1))))
     (global-highlight-symbol-mode 1)))
