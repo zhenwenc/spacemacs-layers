@@ -17,29 +17,31 @@
 (defun zc-typescript/post-init-tide ()
   (use-package tide
     :defer t
-    :init (progn
-            (evilified-state-evilify tide-references-mode tide-references-mode-map
-              (kbd "p") 'tide-find-previous-reference
-              (kbd "n") 'tide-find-next-reference
-              (kbd "g") 'tide-goto-reference
-              (kbd "q") 'quit-window))
-    :evil-bind
-    (:map
-     tide-mode-map
-     :state normal
-     ("M-." . tide-jump-to-definition)
-     ("M-," . tide-jump-back)
-     :state insert
-     ("M-." . tide-jump-to-definition)
-     ("M-," . tide-jump-back))))
+    :init
+    (progn
+      (evilified-state-evilify tide-references-mode tide-references-mode-map
+        (kbd "p") 'tide-find-previous-reference
+        (kbd "n") 'tide-find-next-reference
+        (kbd "g") 'tide-goto-reference
+        (kbd "q") 'quit-window))
+    :config
+    (progn
+      (evil-define-key 'insert tide-mode-map
+        (kbd "M-.") 'tide-jump-to-definition
+        (kbd "M-,") 'tide-jump-back)
+
+      (evil-define-key 'normal tide-mode-map
+        (kbd "M-.") 'tide-jump-to-definition
+        (kbd "M-,") 'tide-jump-back))
+    ))
 
 (defun zc-typescript/post-init-typescript-mode ()
   (use-package typescript-mode
     :defer t
-    :config (progn
-              (setq typescript-indent-level 2))))
+    :config
+    (progn
+      (setq typescript-indent-level 2))))
 
-;; Copy from: https://github.com/chrisbarrett/spacemacs-layers/blob/master/cb-js/packages.el#L157
 (defun zc-typescript/post-init-web-mode ()
   ;; HACK: Delete web-mode auto-mode config set by Spacemacs so that I can use
   ;; specialised derived modes instead.
@@ -58,7 +60,6 @@
       (setq web-mode-enable-auto-pairing nil)
 
       ;; Use 2 spaces for indentation
-
       (defun zc-typescript/set-local-vars ()
         (setq-local web-mode-enable-auto-quoting nil)
         (setq web-mode-markup-indent-offset 2)

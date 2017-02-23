@@ -90,7 +90,7 @@ values."
      zc-js
      zc-layouts
      zc-scala
-     ;; zc-typescript
+     zc-typescript
      zc-yasnippet
      )
    ;; List of additional packages that will be installed without being
