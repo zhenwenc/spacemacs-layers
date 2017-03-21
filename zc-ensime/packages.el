@@ -17,16 +17,13 @@
   '(ensime
     (ensime-diminished-modeline :location local)))
 
-;; NOTE: ENSIME must aggressively loaded, not sure why.
+;; NOTE: ENSIME must be loaded aggressively, not sure why.
 (defun zc-ensime/init-ensime ()
   (use-package ensime
     :init
     (progn
-      (message "ensime init ensime")
       (setq ensime-startup-dirname (concat spacemacs-cache-directory "ensime/"))
-      (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime")
-      (message "ensime init ensime")
-      )
+      (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime"))
     :config
     (progn
       (setq ensime-startup-snapshot-notification nil)
