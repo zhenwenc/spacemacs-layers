@@ -7,6 +7,9 @@
   '(aggressive-indent
     ensime
     flycheck
+    ggtags
+    helm-gtags
+    noflet
     scala-mode))
 
 (defun zc-scala/post-init-aggressive-indent ()
@@ -24,6 +27,7 @@
     (progn
       (setq flycheck-scalastylerc "~/.scalastyle.xml")
 
+      ;; Disable scala checker if ensime mode is active
       (defun zc-scala/disable-flycheck-scala ()
         (when (boundp 'flycheck-disabled-checkers)
           (push 'scala flycheck-disabled-checkers)))
@@ -34,29 +38,33 @@
     :defer t
     :mode ("\\.scala\\'" . scala-mode)
     :init
-    ;; For Play Framework
-    (add-to-list 'auto-mode-alist '("/conf/routes\\'" . conf-mode))
+    (progn
+      ;; For Play Framework
+      (add-to-list 'auto-mode-alist '("/conf/routes\\'" . conf-mode))
+      ;; Hope it will be faster
+      (dolist (ext '(".cfe" ".cfs" ".si" ".gen" ".lock"))
+        (add-to-list 'completion-ignored-extensions ext)))
+
     :config
     (progn
       (setq scala-indent:align-forms t)
       (setq scala-indent:align-parameters t)
       (setq scala-indent:default-run-on-strategy scala-indent:operator-strategy)
 
-
       ;; Automatically replace arrows with unicode ones when enabled
       (when zc-scala-use-unicode-arrows
         (define-key scala-mode-map (kbd ">") 'scala/unicode-gt)
         (define-key scala-mode-map (kbd "-") 'scala/unicode-hyphen))
 
-      ;; Fuck the `aggressive-indent'
+      ;; Compatibility with `aggressive-indent'
       (setq scala-indent:align-forms t
             scala-indent:align-parameters nil
-            scala-indent:default-run-on-strategy scala-indent:operator-strategy)
+            scala-indent:default-run-on-strategy
+            scala-indent:operator-strategy)
 
       (custom-set-faces
        `(scala-font-lock:var-face
          ((t (:foreground, (with-no-warnings cb-vars-solarized-hl-orange) :underline nil))))))
-
     ))
 
 (defun zc-scala/post-init-ensime ()
@@ -101,11 +109,19 @@
       (spacemacs/set-leader-keys-for-major-mode 'scala-mode
         "yT"     'scala/yank-type-at-point-full-name
         "yt"     'scala/yank-type-at-point)
-      ))
-  )
+      )))
 
 (defun zc-scala/post-init-indent-dwim ()
   (use-package indent-dwim
     :after ensime
     :config
     (add-to-list 'indent-dwim-commands-alist '(scala-mode . ensime-format-source))))
+
+(defun zc-scala/post-init-ggtags ()
+  (add-hook 'scala-mode-local-vars-hook #'spacemacs/ggtags-mode-enable))
+
+(defun zc-scala/post-init-helm-gtags ()
+  (spacemacs/helm-gtags-define-keys-for-mode 'scala-mode))
+
+(defun zc-scala/init-noflet ()
+  (use-package noflet))
