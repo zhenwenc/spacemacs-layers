@@ -45,8 +45,9 @@
   (package-initialize)
   (unless (file-exists-p (concat user-emacs-directory "elpa"))
     (package-refresh-contents))
-  (dolist (pkg zc-bootstrap-packages)
-    (zc-bootstrap--install-package pkg)))
+  (unless (file-exists-p (concat user-emacs-directory "elpa"))
+    (dolist (pkg zc-bootstrap-packages)
+      (zc-bootstrap--install-package pkg))))
 
 (defun zc-bootstrap/load-preloadable-lisp-files ()
   (add-to-list 'load-path user-layers-directory)
