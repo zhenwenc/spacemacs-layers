@@ -59,10 +59,6 @@
 
     ))
 
-(defun zc-scala/pre-init-ensime ()
-  (spacemacs|use-package-add-hook ensime
-        :pre-config (add-to-list 'zc-ensime--ensime-modes 'scala-mode)))
-
 (defun zc-scala/post-init-ensime ()
   (use-package ensime
     :defer t
@@ -83,6 +79,7 @@
                         ("ms" . "scala/repl")
                         ("my" . "scala/yank")))
         (spacemacs/declare-prefix-for-mode 'scala-mode (car prefix) (cdr prefix))))
+
     :config
     (progn
       (setq ensime-sem-high-faces
