@@ -32,6 +32,9 @@
 (global-set-key (kbd "M-SPC") 'cycle-spacing)
 (global-set-key (kbd "C-c C-g") 'evil-escape)
 
+(global-set-key (kbd "TAB") 'indent-for-tab-command)
+(evil-global-set-key 'insert (kbd "TAB")   'indent-for-tab-command)
+
 (evil-global-set-key 'normal (kbd "M-s")   'core/evil-escape-and-save)
 (evil-global-set-key 'insert (kbd "M-s")   'core/evil-escape-and-save)
 (evil-global-set-key 'visual (kbd "M-s")   'core/evil-escape-and-save)
@@ -72,7 +75,7 @@
 ;; TODO: Set to alternative in Ivy
 (global-set-key (kbd "M-y")             'helm-show-kill-ring)
 
-(global-set-key (kbd "C-s")             'spacemacs/swiper-region-or-symbol)
+(global-set-key (kbd "C-s")             'swiper)
 (global-set-key (kbd "C-S-s")           'spacemacs/search-project-auto)
 
 (global-set-key (kbd "M-C-<up>")        'core/move-line-up)

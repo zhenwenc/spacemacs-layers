@@ -15,19 +15,27 @@
 
 (defconst zc-ensime-packages
   '(ensime
-    sbt-mode
     (ensime-diminished-modeline :location local)))
 
+;; NOTE: ENSIME must aggressively loaded, not sure why.
 (defun zc-ensime/init-ensime ()
   (use-package ensime
-    :defer t
+    :init
+    (progn
+      (message "ensime init ensime")
+      (setq ensime-startup-dirname (concat spacemacs-cache-directory "ensime/"))
+      (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime")
+      (message "ensime init ensime")
+      )
     :config
     (progn
       (setq ensime-startup-snapshot-notification nil)
       (setq ensime-startup-notification nil)
       (setq ensime-auto-generate-config nil)
       (setq ensime-implicit-gutter-icons nil)
-      (setq ensime-startup-dirname (f-join spacemacs-cache-directory "ensime"))
+      (setq ensime-tooltip-hints nil)
+      (setq ensime-typecheck-when-idle nil)
+      (setq ensime-sem-high-enabled-p nil)
 
       (setq ensime-goto-test-config-defaults
             (list :test-class-names-fn #'ensime-goto-test--test-class-names
@@ -39,8 +47,6 @@
                   :impl-class-name-fn #'ensime-goto-test--impl-class-name
                   :impl-to-test-dir-fn #'ensime-goto-test--impl-to-test-dir
                   :is-test-dir-fn #'ensime-goto-test--is-test-dir))
-
-      (spacemacs/register-repl 'ensime #'ensime-inf-switch "ensime")
 
       (evil-define-key 'insert ensime-mode-map
         (kbd "M-.") 'ensime-edit-definition

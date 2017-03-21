@@ -7,7 +7,6 @@
   '(aggressive-indent
     ensime
     flycheck
-    sbt-mode
     scala-mode))
 
 (defun zc-scala/post-init-aggressive-indent ()
@@ -20,7 +19,7 @@
 (defun zc-scala/post-init-flycheck ()
   (use-package flycheck
     :init
-    (spacemacs/add-flycheck-hook 'scala-mode)
+    (spacemacs/enable-flycheck 'scala-mode)
     :config
     (progn
       (setq flycheck-scalastylerc "~/.scalastyle.xml")
@@ -32,6 +31,7 @@
 
 (defun zc-scala/init-scala-mode ()
   (use-package scala-mode
+    :defer t
     :mode ("\\.scala\\'" . scala-mode)
     :init
     ;; For Play Framework
@@ -59,13 +59,16 @@
 
     ))
 
+(defun zc-scala/pre-init-ensime ()
+  (spacemacs|use-package-add-hook ensime
+        :pre-config (add-to-list 'zc-ensime--ensime-modes 'scala-mode)))
+
 (defun zc-scala/post-init-ensime ()
   (use-package ensime
-    :after scala-mode
-
+    :defer t
     :init
     (progn
-      (add-hook 'scala-mode-hook #'ensime-mode)
+      (add-hook 'scala-mode-hook #'zc-ensime/setup-ensime)
 
       (dolist (prefix '(("mb" . "scala/build")
                         ("mc" . "scala/check")
@@ -80,7 +83,6 @@
                         ("ms" . "scala/repl")
                         ("my" . "scala/yank")))
         (spacemacs/declare-prefix-for-mode 'scala-mode (car prefix) (cdr prefix))))
-
     :config
     (progn
       (setq ensime-sem-high-faces

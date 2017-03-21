@@ -48,7 +48,7 @@ values."
       go-tab-width 2)
      html
      ivy
-     javascript
+     ;; javascript
      markdown
      org
      puppet
@@ -86,7 +86,7 @@ values."
      zc-git
      zc-html
      zc-highlight
-     zc-java
+     ;; zc-java
      zc-js
      zc-layouts
      zc-scala

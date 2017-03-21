@@ -1,6 +1,20 @@
 ;;; funcs.el --- Ensime Layer functions File for My Spacemacs
 
 (autoload 'ensime "ensime")
+(autoload 'ensime-config-find-file "ensime-config")
+(autoload 'ensime-config-find "ensime-config")
+
+(defun zc-ensime/setup-ensime ()
+  "Setup ENSIME."
+  ;; jump handler
+  (add-to-list 'spacemacs-jump-handlers 'ensime-edit-definition)
+  ;; ensure the file exists before starting `ensime-mode'
+  (cond
+   ((and (buffer-file-name) (file-exists-p (buffer-file-name)))
+    (ensime-mode 1)
+    )
+   ((buffer-file-name)
+    (add-hook 'after-save-hook 'ensime-mode nil t))))
 
 (defun zc-ensime/ensime-refactor-accept ()
   (interactive)
