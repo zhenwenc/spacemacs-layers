@@ -11,36 +11,79 @@
 
 (defconst zc-typescript-packages
   '(tide
+    company
+    flycheck
     web-mode
     typescript-mode))
 
-(defun zc-typescript/post-init-tide ()
+(defun zc-typescript/post-init-company ()
+  (when (configuration-layer/package-usedp 'tide)
+    (spacemacs|add-company-backends
+      :backends company-tide
+      :modes typescript-mode)))
+
+(defun zc-typescript/post-init-eldoc ()
+  (add-hook 'typescript-mode-hook 'eldoc-mode))
+
+(defun zc-typescript/post-init-flycheck ()
+  (spacemacs/enable-flycheck 'typescript-mode))
+
+(defun zc-typescript/init-tide ()
   (use-package tide
     :defer t
+    :commands (zc-typescript/jump-to-type-def)
     :init
     (progn
+      (add-hook 'typescript-mode-hook 'tide-setup)
+      (add-hook 'typescript-mode-hook 'eldoc-mode)
+      (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition)
+
       (evilified-state-evilify tide-references-mode tide-references-mode-map
-        (kbd "p") 'tide-find-previous-reference
-        (kbd "n") 'tide-find-next-reference
-        (kbd "g") 'tide-goto-reference
-        (kbd "q") 'quit-window))
+        (kbd "p")   'tide-find-previous-reference
+        (kbd "n")   'tide-find-next-reference
+        (kbd "g")   'tide-goto-reference
+        (kbd "q")   'quit-window
+        (kbd "C-k") 'tide-find-previous-reference
+        (kbd "C-j") 'tide-find-next-reference
+        (kbd "C-l") 'tide-goto-reference)
+
+      (dolist (prefix `(("mg" . "goto")
+                        ("mh" . "help")
+                        ("mn" . "name")
+                        ("mr" . "rename")
+                        ("mS" . "server")
+                        ("ms" . "send")))
+        (spacemacs/declare-prefix-for-mode 'typescript-mode (car prefix) (cdr prefix))))
+
     :config
     (progn
+      (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+        "gb" 'tide-jump-back
+        "gt" 'zc-typescript/jump-to-type-def
+        "gu" 'tide-references
+        "hh" 'tide-documentation-at-point
+        "rr" 'tide-rename-symbol
+        "Sr" 'tide-restart-server)
+
       (evil-define-key 'insert tide-mode-map
         (kbd "M-.") 'tide-jump-to-definition
         (kbd "M-,") 'tide-jump-back)
 
       (evil-define-key 'normal tide-mode-map
         (kbd "M-.") 'tide-jump-to-definition
-        (kbd "M-,") 'tide-jump-back))
-    ))
+        (kbd "M-,") 'tide-jump-back)
+      )))
 
-(defun zc-typescript/post-init-typescript-mode ()
+(defun zc-typescript/init-typescript-mode ()
   (use-package typescript-mode
     :defer t
     :config
     (progn
-      (setq typescript-indent-level 2))))
+      (setq typescript-indent-level 2)
+      (when typescript-fmt-on-save
+        (add-hook 'typescript-mode-hook 'zc-typescript/fmt-before-save-hook))
+      (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+        "="  'zc-typescript/format))))
 
 (defun zc-typescript/post-init-web-mode ()
   ;; HACK: Delete web-mode auto-mode config set by Spacemacs so that I can use
