@@ -19,6 +19,7 @@
                           'magit-reflog-mode
                           'magit-log-mode
                           'magit-popup-mode
+                          'tide-references-mode
                           'minibuffer-inactive-mode
                           'spacemacs-buffer-mode)))
           (highlight-symbol-mode 1))))

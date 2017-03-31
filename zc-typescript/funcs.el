@@ -47,6 +47,6 @@
 (defun zc-typescript/fmt-before-save-hook ()
   (add-hook 'before-save-hook 'typescript/format t t))
 
-(defun zc-typescript/jump-to-type-def()
+(defun zc-typescript/jump-to-type-def ()
   (interactive)
   (tide-jump-to-definition t))

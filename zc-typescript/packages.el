@@ -38,14 +38,19 @@
       (add-hook 'typescript-mode-hook 'eldoc-mode)
       (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition)
 
-      (evilified-state-evilify tide-references-mode tide-references-mode-map
-        (kbd "p")   'tide-find-previous-reference
-        (kbd "n")   'tide-find-next-reference
-        (kbd "g")   'tide-goto-reference
-        (kbd "q")   'quit-window
-        (kbd "C-k") 'tide-find-previous-reference
-        (kbd "C-j") 'tide-find-next-reference
-        (kbd "C-l") 'tide-goto-reference)
+      (with-eval-after-load 'tide
+
+        (defun tide-doc-buffer (string)
+          (switch-to-buffer-other-window "*tide-documentation*")
+          (setq buffer-read-only t)
+          (let ((inhibit-read-only t))
+            (erase-buffer)
+            (when string
+              (save-excursion
+                (insert string))))
+          (evil-local-set-key 'normal (kbd "q") #'quit-window))
+
+        ) ;; -- End override tide functions
 
       (dolist (prefix `(("mg" . "goto")
                         ("mh" . "help")
@@ -58,19 +63,27 @@
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-        "gb" 'tide-jump-back
-        "gt" 'zc-typescript/jump-to-type-def
         "gu" 'tide-references
         "hh" 'tide-documentation-at-point
         "rr" 'tide-rename-symbol
-        "Sr" 'tide-restart-server)
+        "ns" 'tide-restart-server)
+
+      (evilified-state-evilify tide-references-mode tide-references-mode-map
+        (kbd "p")   'tide-find-previous-reference
+        (kbd "n")   'tide-find-next-reference
+        (kbd "g")   'tide-goto-reference
+        (kbd "q")   'quit-window
+
+        (kbd "C-k") 'tide-find-previous-reference
+        (kbd "C-j") 'tide-find-next-reference
+        (kbd "C-l") 'tide-goto-reference)
 
       (evil-define-key 'insert tide-mode-map
         (kbd "M-.") 'tide-jump-to-definition
         (kbd "M-,") 'tide-jump-back)
 
       (evil-define-key 'normal tide-mode-map
-        (kbd "M-.") 'tide-jump-to-definition
+        (kbd "M-.") 'zc-typescript/jump-to-type-def
         (kbd "M-,") 'tide-jump-back)
       )))
 
