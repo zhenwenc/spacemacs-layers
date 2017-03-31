@@ -99,7 +99,7 @@ values."
      zc-html
      zc-highlight
      zc-java
-     zc-js
+     zc-javascript
      zc-layouts
      zc-scala
      zc-typescript

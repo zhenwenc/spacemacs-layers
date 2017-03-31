@@ -1,10 +1,21 @@
-;;; packages.el --- JavaScript Layer packages File for My Spacemacs
+;;; packages.el --- zc-javascript layer packages file for Spacemacs.
+;;
+;; Copyright (c) 2012-2017 Sylvain Benner & Contributors
+;;
+;; Author: Frederick Cai <fredc@Fredericks-MacBook-Pro.local>
+;; URL: https://github.com/syl20bnr/spacemacs
+;;
+;; This file is not part of GNU Emacs.
+;;
+;;; License: GPLv3
 
-(defconst zc-js-packages
+;;; Code:
+
+(defconst zc-javascript-packages
   '(js2-mode
     js))
 
-(defun zc-js/init-js2-mode ()
+(defun zc-javascript/init-js2-mode ()
   (use-package js2-mode
     :defer t
     :mode (("\\.js\\'" . js2-mode)
@@ -20,8 +31,10 @@
       (setq js2-mode-show-parse-errors nil)
       (setq js2-mode-show-strict-warnings nil))))
 
-(defun zc-js/post-init-js ()
+(defun zc-javascript/post-init-js ()
   (use-package js
     :defer t
     :config
     (setq js-indent-level 2)))
+
+;;; packages.el ends here
