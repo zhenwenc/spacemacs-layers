@@ -2,9 +2,6 @@
 ;;; Commentary:
 ;;; Code:
 
-(eval-when-compile
-  (require 'use-package nil t))
-
 (require 's)
 (require 'dash)
 (require 'f)
@@ -14,7 +11,6 @@
     goto-chg
     ivy
     nginx-mode
-    swiper
     ivy
     neotree
     (cb-buffers :location local)

@@ -1,8 +1,8 @@
 ;;; packages.el --- Eshell packages
 
-(eval-when-compile
-  (require 'use-package nil t)
-  (require 'f nil t))
+;; (eval-when-compile
+;;   (require 'use-package nil t)
+;;   (require 'f nil t))
 
 (defconst zc-eshell-packages
   '('(eshell-prompt-extras :excluded t)))

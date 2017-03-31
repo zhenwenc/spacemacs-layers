@@ -1,8 +1,5 @@
 ;;; packages.el --- Go Layer packages File for My Spacemacs
 
-(eval-when-compile
-  (require 'use-package nil t))
-
 (defconst zc-go-packages
   '(go-mode))
 

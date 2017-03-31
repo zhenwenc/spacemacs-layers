@@ -1,8 +1,5 @@
 ;;; packages.el --- Scala Layer packages File for Spacemacs
 
-(eval-when-compile
-  (require 'use-package nil t))
-
 (defconst zc-scala-packages
   '(aggressive-indent
     ensime

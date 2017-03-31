@@ -12,7 +12,7 @@
 ;;; Code:
 
 (defconst zc-editing-packages
-  '(vil-mc))
+  '())
 
 (defun zc-editing/post-init-evil-mc ()
   (use-package evil-mc

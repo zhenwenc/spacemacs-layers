@@ -1,9 +1,4 @@
 ;;; packages.el --- JavaScript Layer packages File for My Spacemacs
-;;; Commentary:
-;;; Code:
-
-(eval-when-compile
-  (require 'use-package nil t))
 
 (defconst zc-js-packages
   '(js2-mode
