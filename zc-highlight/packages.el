@@ -7,13 +7,15 @@
   (use-package highlight-thing
     :defer t
     :init
+    (with-eval-after-load 'hi-lock
+      (set-face-background 'hi-yellow "#3e4446")
+      (set-face-foreground 'hi-yellow nil))
+    (global-highlight-thing-mode 1)
+    :config
     (progn
       (setq highlight-thing-delay-seconds 0.3)
-      (setq highlight-thing-case-sensitive-p t)
-      (set-face-background 'hi-yellow "#3e4446")
-      (set-face-foreground 'hi-yellow nil)
-      (global-highlight-thing-mode 1)
-      )))
+      (setq highlight-thing-case-sensitive-p t))
+    ))
 
 ;; =======================================================================================
 ;; NOTE: highlight-symbol uses font-lock, which problematic in many
