@@ -49,6 +49,13 @@
     :defer t
     :mode ("nginx\\.conf\\'" "/docker-nginx/.*\\.tmpl\\'")))
 
+(defun zc-core/post-init-projectile ()
+  (use-package projectile
+    :config
+    (progn
+      (dolist (dir '("vendor" "target", "node_modules"))
+        (add-to-list 'projectile-globally-ignored-directories dir)))))
+
 (defun zc-core/post-init-ivy ()
   (use-package ivy
     :config
