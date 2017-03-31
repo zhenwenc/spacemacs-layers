@@ -12,8 +12,12 @@
 ;;; Code:
 
 (defconst zc-tools-packages
-  '())
+  '((kubernetes :location local)))
 
-
+(defun zc-tools/init-kubernetes ()
+  (use-package kubernetes
+    :commands (kubernetes-display-pods)
+    :config
+    (use-package kubernetes-evil :after evil)))
 
 ;;; packages.el ends here
