@@ -37,7 +37,7 @@
   (interactive)
   (cond
    ((eq typescript-fmt-tool 'typescript-formatter)
-    (call-interactively 'typescript/tsfmt-format-buffer))
+    (call-interactively 'zc-typescript/tsfmt-format-buffer))
    ((eq typescript-fmt-tool 'tide)
     (call-interactively 'tide-format))
    (t (error (concat "%s isn't valid typescript-fmt-tool value."
@@ -45,7 +45,7 @@
                      (symbol-name typescript-fmt-tool))))))
 
 (defun zc-typescript/fmt-before-save-hook ()
-  (add-hook 'before-save-hook 'typescript/format t t))
+  (add-hook 'before-save-hook 'zc-typescript/format t t))
 
 (defun zc-typescript/jump-to-type-def ()
   (interactive)

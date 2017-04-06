@@ -96,7 +96,7 @@
       (when typescript-fmt-on-save
         (add-hook 'typescript-mode-hook 'zc-typescript/fmt-before-save-hook))
       (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-        "="  'zc-typescript/format))))
+        "rf"  'zc-typescript/format))))
 
 (defun zc-typescript/post-init-web-mode ()
   ;; HACK: Delete web-mode auto-mode config set by Spacemacs so that I can use
