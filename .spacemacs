@@ -61,7 +61,6 @@ values."
       go-tab-width 2)
      html
      ivy
-     ;; javascript
      markdown
      org
      puppet
