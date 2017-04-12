@@ -1,0 +1,24 @@
+# -*- mode: snippet -*-
+# name: Numero ES Function
+# key: nesfunc
+# --
+def ${1:funcName}($2)(
+  implicit ec: ExecutionContext, rc: RequestContext, es: ESAccess): Future[$3] = {
+
+  val startTime = System.nanoTime
+  es.execute { (boxofficeScope: IndexAndType) ⇒
+
+    val aggregation = ???
+
+    val query = ESBoxofficeFilterWrapper($4)
+      .buildAggregation(boxofficeScope)(aggregation)
+
+    if (log.isTraceEnabled) {
+      log.trace(s"$1: ${query.show}")
+    }
+    query
+  } map { resp ⇒
+    log.trace(s"$1 executed in [${(System.nanoTime - startTime) / 1000000}] ms")
+    ???
+  }
+}

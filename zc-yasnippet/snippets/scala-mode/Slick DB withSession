@@ -1,0 +1,7 @@
+# -*- mode: snippet -*-
+# name: Slick db.withSession
+# key: dbsession
+# --
+db.withSession { implicit session ⇒
+  $0
+}
