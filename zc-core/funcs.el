@@ -81,3 +81,14 @@
     (when query
       (insert (format "%s" query))
       )))
+
+;; Evaluate the last expression and replace with the result
+(defun eval-last-sexp-and-replace ()
+  "Replace the preceding sexp with its value."
+  (interactive)
+  (condition-case nil
+      (let ((value (eval (preceding-sexp))))
+        (evil-jump-item)
+        (kill-sexp)
+        (insert (format "%S" value)))
+    (error (message "Invalid expression"))))
