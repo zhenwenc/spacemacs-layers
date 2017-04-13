@@ -35,6 +35,9 @@
 (global-set-key (kbd "TAB") 'indent-for-tab-command)
 (evil-global-set-key 'insert (kbd "TAB")   'indent-for-tab-command)
 
+;; Unset keybinding of define macro
+(evil-global-set-key 'normal (kbd "q") nil)
+
 (evil-global-set-key 'normal (kbd "M-s")   'core/evil-escape-and-save)
 (evil-global-set-key 'insert (kbd "M-s")   'core/evil-escape-and-save)
 (evil-global-set-key 'visual (kbd "M-s")   'core/evil-escape-and-save)
