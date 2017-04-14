@@ -20,7 +20,7 @@
     ;; Treat command as super
     (setq mac-command-key-is-meta t)
     (setq mac-command-modifier 'meta)
-    (setq mac-option-modifier nil)
+    (setq mac-option-modifier 'alt)
 
     ;; Keybindings
     ;; (global-set-key (kbd "M-z") 'undo-tree-undo)
