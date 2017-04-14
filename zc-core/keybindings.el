@@ -17,16 +17,9 @@
 
   ;; this is only applicable to GUI mode
   (when (display-graphic-p)
-    ;; Treat command as super
     (setq mac-command-key-is-meta t)
     (setq mac-command-modifier 'meta)
     (setq mac-option-modifier 'alt)
-
-    ;; Keybindings
-    ;; (global-set-key (kbd "M-z") 'undo-tree-undo)
-    ;; (global-set-key (kbd "M-v") 'yank)
-    ;; (global-set-key (kbd "M-s") 'save-buffer)
-    ;; (global-set-key (kbd "M-c") 'kill-ring-save)
 
     (global-set-key (kbd "M-v") 'yank)
     (global-set-key (kbd "M-c") 'evil-yank)
