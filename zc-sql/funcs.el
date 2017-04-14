@@ -2,16 +2,14 @@
 
 (defun zc-sql/sql-connections ()
   "Return predefined SQL connections for helm selection."
-  `((name . "Predefined SQL Connections")
-    (candidates . ,(mapcar (lambda (connection) (car connection))
-                           zc-sql-connection-alist))
-    (action . (lambda (candidate) (helm-marked-candidates)))))
+  (mapcar (lambda (connection) (car connection)) zc-sql-connection-alist))
 
-(defun zc-sql/sql-connect-preset (connection connect-set)
+(defun zc-sql/sql-connect-preset (connection)
   ;; Load database passwords
   (require 'zc-secrets "/Users/fredc/dotfiles/secret/secrets.el.gpg")
 
-  (let* ((sql-password (assoc-string `sql-password connect-set))
+  (let* ((connect-set (assoc-string connection zc-sql-connection-alist))
+         (sql-password (assoc-string `sql-password connect-set))
          (password (if sql-password (cadr sql-password)
                       (cadr (assoc-string connection zc-sql-password-alist)))))
     ;; Replace SQL connection password
@@ -28,7 +26,8 @@
 (defun zc-sql/sql-connect ()
   "Connect to a predefined SQL database and start inferior SQLi process."
   (interactive)
-  (let ((connection (car (helm
-                          :sources (list (zc-sql/sql-connections))))))
-    (let* ((connect-set (assoc-string connection zc-sql-connection-alist)))
-      (zc-sql/sql-connect-preset connection connect-set))))
+  (ivy-read "Predefined SQL connections:"
+            (zc-sql/sql-connections)
+            :require-match t
+            :action #'zc-sql/sql-connect-preset
+            :caller 'zc-sql/sql-connect))
