@@ -10,20 +10,20 @@
 (defun zc-sql/sql-connect-preset (connection connect-set)
   ;; Load database passwords
   (require 'zc-secrets "/Users/fredc/dotfiles/secret/secrets.el.gpg")
+
   (let* ((sql-password (assoc-string `sql-password connect-set))
          (password `(if sql-password (cadr sql-password)
-                      (cadr (assoc-string connection zc-sql-password)))))
-    (print zc-sql-password)
+                      (cadr (assoc-string connection zc-sql-password-alist)))))
     ;; Replace SQL connection password
     (setq connect-set (assq-delete-all 'sql-password connect-set))
     (nconc connect-set `((sql-password ,password)))
     ;; Replace SQL connection presets
     (setq sql-connection-alist (cons connect-set '()))
-    (print sql-connection-alist)
     ;; Connect to database with SQLi
     (sql-connect connection)
+
     ;; Clear the loaded secrets
-    (makunbound 'zc-sql-password)))
+    (unload-feature 'zc-secrets)))
 
 (defun zc-sql/sql-connect ()
   "Connect to a predefined SQL database and start inferior SQLi process."
