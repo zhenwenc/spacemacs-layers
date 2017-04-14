@@ -12,7 +12,7 @@
   (require 'zc-secrets "/Users/fredc/dotfiles/secret/secrets.el.gpg")
 
   (let* ((sql-password (assoc-string `sql-password connect-set))
-         (password `(if sql-password (cadr sql-password)
+         (password (if sql-password (cadr sql-password)
                       (cadr (assoc-string connection zc-sql-password-alist)))))
     ;; Replace SQL connection password
     (setq connect-set (assq-delete-all 'sql-password connect-set))
@@ -30,18 +30,5 @@
   (interactive)
   (let ((connection (car (helm
                           :sources (list (zc-sql/sql-connections))))))
-    (let* ((connection-info (assoc-string connection zc-sql-connection-alist))
-           (connect-set (remove (assoc `ssh-params connection-info) connection-info))
-           (ssh-params (assoc-string `ssh-params connection-info)))
-      ;; Advice SQLi establish connection via SSH tunnel
-      (if ssh-params
-          (let ((ssh-hostname (cadr (assoc-string `hostname ssh-params))))
-            (defun zc-sql/sql-comint-with-remote (orig-func &rest args)
-              "Connect to database via SSH tunnel."
-              (let ((default-directory (format "/ssh:%s" ssh-hostname)))
-                (apply orig-func args)))
-            (advice-add 'sql-comint :around #'zc-sql/sql-comint-with-remote)
-            (zc-sql/sql-connect-preset connection connect-set)
-            (advice-remove 'sql-comint #'zc-sql/sql-comint-with-remote))
-        (zc-sql/sql-connect-preset connection connect-set))
-      )))
+    (let* ((connect-set (assoc-string connection zc-sql-connection-alist)))
+      (zc-sql/sql-connect-preset connection connect-set))))

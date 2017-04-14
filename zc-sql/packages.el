@@ -38,14 +38,14 @@
      (sql-user "root")
      (sql-password nil)
      (sql-database "backend_test")
-     (ssh-params (hostname "bonc-test2.movio.co:")))
+     (sql-default-directory "/ssh:bonc-test2.movio.co:"))
     (bonc-uat2
      (sql-product 'mysql)
      (sql-port 3306)
      (sql-server "127.0.0.1")
      (sql-user "root")
      (sql-database "backend_test")
-     (ssh-params (hostname "bonc-uat2.movio.co:")))
+     (sql-default-directory "/ssh:bonc-uat2.movio.co:"))
     ))
 
 (defun zc-sql/init-sql ()
