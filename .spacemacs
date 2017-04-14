@@ -68,8 +68,6 @@ values."
       :variables
       ranger-cleanup-eagerly t)
      restclient
-     rust
-     sql
      shell-scripts
      yaml
      ;; Themes
@@ -101,6 +99,7 @@ values."
      zc-javascript
      zc-layouts
      zc-scala
+     zc-sql
      zc-typescript
      zc-tools
      zc-yasnippet
