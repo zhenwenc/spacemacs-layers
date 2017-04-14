@@ -22,7 +22,7 @@
               "Connect to database via SSH tunnel."
               (let ((default-directory (format "/ssh:%s" ssh-hostname)))
                 (apply orig-func args)))
-            (advice-add 'sql-comint-mysql :around #'zc-sql/sql-comint-with-remote)
+            (advice-add 'sql-comint :around #'zc-sql/sql-comint-with-remote)
             (sql-connect connection)
-            (advice-remove 'sql-comint-mysql #'zc-sql/sql-comint-with-remote))
+            (advice-remove 'sql-comint #'zc-sql/sql-comint-with-remote))
         (sql-connect connection)))))
