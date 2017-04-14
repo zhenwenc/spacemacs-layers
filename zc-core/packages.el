@@ -75,11 +75,11 @@
       ;; http://oremacs.com/2016/01/06/ivy-flx/
       (setq ivy-re-builders-alist '((t . ivy--regex-plus))))))
 
-(defun osx/init-pbcopy ()
+(defun zc-core/init-pbcopy ()
   (use-package pbcopy
     :if (and (spacemacs/system-is-mac) (not (display-graphic-p)))
     :init (turn-on-pbcopy)))
 
-(defun osx/post-init-term ()
+(defun zc-core/post-init-term ()
   (with-eval-after-load 'term
     (define-key term-raw-map (kbd "s-v") 'term-paste)))
