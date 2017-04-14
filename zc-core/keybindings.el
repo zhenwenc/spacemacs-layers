@@ -11,15 +11,32 @@
   (define-key auto-highlight-symbol-mode-map (kbd "M-S-<left>") nil)
   (define-key auto-highlight-symbol-mode-map (kbd "M-S-<right>") nil))
 
-;; Fullscreen on Mac
-(global-set-key (kbd "C-x 9")           'toggle-frame-fullscreen)
+;; macOS
+(when (spacemacs/system-is-mac)
+  (spacemacs/set-leader-keys "bf" 'reveal-in-osx-finder)
 
-;; OSX
-(global-set-key (kbd "M-Z")             'undo-tree-redo)
-(global-set-key (kbd "M-z")             'undo-tree-undo)
-(global-set-key (kbd "M-v")             'yank)
-(global-set-key (kbd "M-s")             'save-buffer)
-(global-set-key (kbd "M-c")             'kill-ring-save)
+  ;; this is only applicable to GUI mode
+  (when (display-graphic-p)
+    ;; Treat command as super
+    (setq mac-command-key-is-meta t)
+    (setq mac-command-modifier 'meta)
+    (setq mac-option-modifier nil)
+
+    ;; Keybindings
+    ;; (global-set-key (kbd "M-z") 'undo-tree-undo)
+    ;; (global-set-key (kbd "M-v") 'yank)
+    ;; (global-set-key (kbd "M-s") 'save-buffer)
+    ;; (global-set-key (kbd "M-c") 'kill-ring-save)
+
+    (global-set-key (kbd "M-v") 'yank)
+    (global-set-key (kbd "M-c") 'evil-yank)
+    (global-set-key (kbd "M-z") 'undo-tree-undo)
+    (global-set-key (kbd "M-Z") 'undo-tree-redo)
+    (global-set-key (kbd "M-s") 'core/evil-escape-and-save)
+    (global-set-key (kbd "M-Z") 'undo-tree-redo)
+    (global-set-key (kbd "C-M-f") 'spacemacs/toggle-frame-fullscreen)
+    ;; Emacs sometimes registers C-s-f as this weird keycode
+    (global-set-key (kbd "<C-M-268632070>") 'spacemacs/toggle-frame-fullscreen)))
 
 ;; Vim key bindings
 ;; https://github.com/syl20bnr/evil-escape
