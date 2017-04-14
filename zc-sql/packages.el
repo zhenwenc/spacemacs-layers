@@ -9,6 +9,10 @@
 ;;
 ;;; License: GPLv3
 
+;; Requirements:
+;; - The database passwords are stored in a file encrypted by GnuPG,
+;;   install via 'brew install gnupg'
+
 ;; Known bugs:
 ;; ------------------------------------------------------------------
 ;; sql-connect fails in first invocation: "Attempt to set a constant symbol: nil":
@@ -35,10 +39,13 @@
      (sql-password nil)
      (sql-database "backend_test")
      (ssh-params (hostname "bonc-test2.movio.co:")))
-    ))
-
-(defconst zc-sql-ssh-param-alist
-  '((bonc-test2 (ssh-hostname "bonc-test2.movio.co:"))
+    (bonc-uat2
+     (sql-product 'mysql)
+     (sql-port 3306)
+     (sql-server "127.0.0.1")
+     (sql-user "root")
+     (sql-database "backend_test")
+     (ssh-params (hostname "bonc-uat2.movio.co:")))
     ))
 
 (defun zc-sql/init-sql ()
@@ -46,14 +53,6 @@
     :defer t
     :init
     (progn
-      (spacemacs/register-repl 'sql 'spacemacs/sql-start "sql")
-      (setq sql-connection-alist
-            (mapcar #'(lambda (v) (remove (assoc `ssh-params v) v))
-                    zc-sql-connection-alist)))
-    :config
-    (progn
-
-      )
-    ))
+      (spacemacs/register-repl 'sql 'spacemacs/sql-start "sql"))))
 
 ;;; packages.el ends here
