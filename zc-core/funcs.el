@@ -92,3 +92,12 @@
         (kill-sexp)
         (insert (format "%S" value)))
     (error (message "Invalid expression"))))
+
+;; Returns secret value with the given key
+(defun core/get-secrets (key)
+  (interactive)
+  (let (value)
+    (require 'zc-secrets "~/dotfiles/secret/secrets.el.gpg")
+    (setq value (symbol-value key))
+    (unload-feature 'zc-secrets)
+    (identity value)))
