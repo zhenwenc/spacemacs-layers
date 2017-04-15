@@ -53,7 +53,7 @@
     :defer t
     :init
     (progn
-      (spacemacs/register-repl 'sql 'spacemacs/sql-start "sql")
-      (global-set-key (kbd "<f10>") 'zc-sql/sql-connect))))
+      (spacemacs/register-repl 'sql 'zc-sql/start-connection "sql")
+      (global-set-key (kbd "<f10>") 'zc-sql/start-connection))))
 
 ;;; packages.el ends here
