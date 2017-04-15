@@ -30,7 +30,8 @@
      (sql-server "127.0.0.1")
      (sql-user "root")
      (sql-password nil)
-     (sql-database "backend_test"))
+     (sql-database "backend_test")
+     (sql-default-directory "~/"))
     (bonc-test2
      (sql-product 'mysql)
      (sql-port 3306)
@@ -54,6 +55,27 @@
     :init
     (progn
       (spacemacs/register-repl 'sql 'zc-sql/start-connection "sql")
-      (global-set-key (kbd "<f10>") 'zc-sql/start-connection))))
+      (global-set-key (kbd "<f10>") 'zc-sql/start-connection)
+
+      (evil-define-key 'normal sql-mode-map
+        (kbd "RET") 'sql-send-paragraph)
+
+      (spacemacs/set-leader-keys-for-major-mode 'sql-mode
+        "ss" 'zc-sql/attach-to-sqli-buffer
+        "sS" 'zc-sql/attach-to-sqli-buffer-auto
+        "sn" 'zc-sql/attach-to-new-sqli-buffer
+        "st" 'zc-sql/show-attached-sqli-buffer
+
+        "bb" 'sql-send-buffer
+        "bp" 'sql-send-paragraph
+        "bs" 'sql-send-string
+        "br" 'sql-send-region
+
+        "dd" 'sql-list-all
+        "dt" 'sql-list-table)
+
+      (spacemacs/set-leader-keys-for-major-mode 'sql-interactive-mode
+        "sb" 'zc-sql/switch-to-sqli-buffer))
+    ))
 
 ;;; packages.el ends here
