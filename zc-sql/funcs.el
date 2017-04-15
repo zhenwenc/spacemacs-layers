@@ -7,7 +7,7 @@
 (defun zc-sql/sql-connect-password (connection)
   "Return the password of predefined SQL connection."
   (interactive "sPredefined SQL connections: ")
-  (let ((alist (core/get-secrets `zc-sql-password-alist)))
+  (let ((alist (zc-core/get-secrets `zc-sql-password-alist)))
     (cadr (assoc-string connection alist))))
 
 (defun zc-sql/sql-connect-preset (connection)

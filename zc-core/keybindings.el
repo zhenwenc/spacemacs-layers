@@ -25,7 +25,7 @@
     (global-set-key (kbd "M-c") 'evil-yank)
     (global-set-key (kbd "M-z") 'undo-tree-undo)
     (global-set-key (kbd "M-Z") 'undo-tree-redo)
-    (global-set-key (kbd "M-s") 'core/evil-escape-and-save)
+    (global-set-key (kbd "M-s") 'zc-core/evil-escape-and-save)
     (global-set-key (kbd "M-Z") 'undo-tree-redo)
     (global-set-key (kbd "C-M-f") 'spacemacs/toggle-frame-fullscreen)
     ;; Emacs sometimes registers C-s-f as this weird keycode
@@ -48,13 +48,13 @@
 ;; Unset keybinding of define macro
 (evil-global-set-key 'normal (kbd "q") nil)
 
-(evil-global-set-key 'normal (kbd "M-s")   'core/evil-escape-and-save)
-(evil-global-set-key 'insert (kbd "M-s")   'core/evil-escape-and-save)
-(evil-global-set-key 'visual (kbd "M-s")   'core/evil-escape-and-save)
+(evil-global-set-key 'normal (kbd "M-s")   'zc-core/evil-escape-and-save)
+(evil-global-set-key 'insert (kbd "M-s")   'zc-core/evil-escape-and-save)
+(evil-global-set-key 'visual (kbd "M-s")   'zc-core/evil-escape-and-save)
 
-(evil-global-set-key 'normal (kbd "M-a")   'core/evil-escape)
-(evil-global-set-key 'insert (kbd "M-a")   'core/evil-escape)
-(evil-global-set-key 'visual (kbd "M-a")   'core/evil-escape)
+(evil-global-set-key 'normal (kbd "M-a")   'zc-core/evil-escape)
+(evil-global-set-key 'insert (kbd "M-a")   'zc-core/evil-escape)
+(evil-global-set-key 'visual (kbd "M-a")   'zc-core/evil-escape)
 
 (evil-global-set-key 'normal (kbd "C-e")   'evil-end-of-line)
 (evil-global-set-key 'insert (kbd "C-e")   'mwim-end-of-code-or-line)
@@ -75,8 +75,8 @@
 (global-set-key (kbd "M-<right>")       'mwim-end-of-code-or-line)
 
 (global-set-key (kbd "C-<right>")       'forward-sentence)
-(global-set-key (kbd "C-<return>")      'core/start-newline-next)
-(global-set-key (kbd "M-<backspace>")   'core/backward-kill-line)
+(global-set-key (kbd "C-<return>")      'zc-core/start-newline-next)
+(global-set-key (kbd "M-<backspace>")   'zc-core/backward-kill-line)
 (global-set-key (kbd "C-S-d")           'kill-whole-line)
 (global-set-key (kbd "M-k")             'kill-whole-line)
 
@@ -91,8 +91,8 @@
 (global-set-key (kbd "C-s")             'swiper)
 (global-set-key (kbd "C-S-s")           'spacemacs/search-project-auto)
 
-(global-set-key (kbd "M-C-<up>")        'core/move-line-up)
-(global-set-key (kbd "M-C-<down>")      'core/move-line-down)
+(global-set-key (kbd "M-C-<up>")        'zc-core/move-line-up)
+(global-set-key (kbd "M-C-<down>")      'zc-core/move-line-down)
 
 ;; (global-set-key (kbd "A-M-<left>")      'windmove-left)
 ;; (global-set-key (kbd "A-M-<right>")     'windmove-right)

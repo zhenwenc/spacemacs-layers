@@ -3,12 +3,12 @@
 (autoload 'org-move-item-down "org-list")
 (autoload 'org-move-item-up "org-list")
 
-(defun core/start-newline-next ()
+(defun zc-core/start-newline-next ()
   (interactive)
   (end-of-line)
   (newline-and-indent))
 
-(defun core/start-newline-prev ()
+(defun zc-core/start-newline-prev ()
   (interactive)
   (if (eq (forward-line -1) 0)
       (start-newline-next)
@@ -19,7 +19,7 @@
       (forward-line -1))))
 
 ;; Copy the current line to below
-(defun core/copy-line-buttom ()
+(defun zc-core/copy-line-buttom ()
   (interactive)
   (beginning-of-line)
   (kill-line)
@@ -28,13 +28,13 @@
   (yank))
 
 ;; Backward kill line, behave as 'Command + delete'
-(defun core/backward-kill-line (arg)
+(defun zc-core/backward-kill-line (arg)
   "Kill ARG lines backward."
   (interactive "p")
   (kill-line (- 1 arg)))
 
 ;; Move the current line up
-(defun core/move-line-up ()
+(defun zc-core/move-line-up ()
   "Move the current line up."
   (interactive)
   (if (derived-mode-p 'org-mode)
@@ -44,7 +44,7 @@
     (indent-according-to-mode)))
 
 ;; Move the current line down
-(defun core/move-line-down ()
+(defun zc-core/move-line-down ()
   "Move the current line up."
   (interactive)
   (if (derived-mode-p 'org-mode)
@@ -55,14 +55,14 @@
     (indent-according-to-mode)))
 
 ;; Evil escape everything and save buffer
-(defun core/evil-escape-and-save ()
+(defun zc-core/evil-escape-and-save ()
   "Escape everything and save buffer."
   (interactive)
-  (core/evil-escape)
+  (zc-core/evil-escape)
   (save-buffer))
 
 ;; Evil escape everything
-(defun core/evil-escape ()
+(defun zc-core/evil-escape ()
   "Escape everything."
   (interactive)
   (if (bound-and-true-p iedit-mode)
@@ -71,7 +71,7 @@
   (evil-escape))
 
 ;; Ivy swiper pull next work to search
-(defun core/yank-symbol-at-point ()
+(defun zc-core/yank-symbol-at-point ()
   "Pull next word from buffer into search string."
   (interactive)
   (let (query)
@@ -94,7 +94,7 @@
     (error (message "Invalid expression"))))
 
 ;; Returns secret value with the given key
-(defun core/get-secrets (key)
+(defun zc-core/get-secrets (key)
   (interactive)
   (let (value)
     (require 'zc-secrets "~/dotfiles/secret/secrets.el.gpg")
