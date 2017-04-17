@@ -69,10 +69,11 @@ result, the function returns nil if there are multiple visible SQLi buffers."
   "Set the SQLi buffer SQL strings are sent to."
   (interactive)
   (if (and buffer (derived-mode-p 'sql-mode))
-      (progn
+      (let ((product (buffer-local-value 'sql-product buffer)))
         (message "Attach to interactive SQLi buffer: %s" buffer)
         (pop-to-buffer (current-buffer))
         (setq sql-buffer buffer)
+        (sql-set-product product)
         (run-hooks 'sql-set-sqli-hook))
     (error "No SQLi buffer to attach to")))
 
