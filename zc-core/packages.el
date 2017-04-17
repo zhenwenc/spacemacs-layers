@@ -18,6 +18,9 @@
     (cb-buffers :location local)
     ))
 
+(defconst zc-core/secret-sources
+  '((zc-db-secrets . "~/dotfiles/secret/db-secrets.el.gpg")))
+
 (defun zc-core/init-cb-buffers ()
   (use-package cb-buffers
     :bind

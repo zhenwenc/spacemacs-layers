@@ -94,10 +94,14 @@
     (error (message "Invalid expression"))))
 
 ;; Returns secret value with the given key
-(defun zc-core/get-secrets (key)
+(defun zc-core/load-secrets (pkg key)
+  "Return the secret value with KEY from PKG."
   (interactive)
-  (let (value)
-    (require 'zc-secrets "~/dotfiles/secret/secrets.el.gpg")
-    (setq value (symbol-value key))
-    (unload-feature 'zc-secrets)
-    (identity value)))
+  (let ((value) (package (assoc pkg zc-core/secret-sources)))
+    (if (not (null package))
+        (progn
+          (require pkg (cdr package))
+          (setq value (symbol-value key))
+          (unload-feature pkg)
+          (identity value))
+      (user-error "No secret package [%s] found" pkg))))

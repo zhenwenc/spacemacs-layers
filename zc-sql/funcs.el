@@ -1,21 +1,25 @@
 ;;; packages.el --- SQLi functions File for Spacemacs
 
 (defun zc-sql/connections ()
-  "Return predefined SQL connections for helm selection."
-  (mapcar (lambda (connection) (car connection)) zc-sql-connection-alist))
+  "Return the predefined SQL connections for selection."
+  (zc-core/load-secrets 'zc-db-secrets 'zc-sql-connection-alist))
 
-(defun zc-sql/get-password (connection)
+(defun zc-sql/connection-keys ()
+  "Return the names of predefined SQL connections for selection."
+  (mapcar (lambda (connection) (car connection)) (zc-sql/connections)))
+
+(defun zc-sql/read-password (connection)
   "Return the password of predefined SQL connection."
-  (interactive "sPredefined SQL connections: ")
-  (let ((alist (zc-core/get-secrets `zc-sql-password-alist)))
-    (cadr (assoc-string connection alist))))
+  (interactive "sPredefined SQL connection: ")
+  (read-passwd (format "Password for %s: " connection)))
 
 (defun zc-sql/connect-preset (connection)
-  (interactive "sPredefined SQL connections: ")
-  (let* ((connect-set (assoc-string connection zc-sql-connection-alist))
+  (interactive "sPredefined SQL connection: ")
+  (let* ((connect-set (assoc-string connection (zc-sql/connections)))
          (sql-password (assoc-string `sql-password connect-set))
          (password (if sql-password (cadr sql-password)
-                     (zc-sql/get-password connection))))
+                     (zc-sql/read-password connection))))
+    (print '("abc" . connect-set))
     ;; Replace SQL connection password
     (setq connect-set (assq-delete-all 'sql-password connect-set))
     (nconc connect-set `((sql-password ,password)))
@@ -35,7 +39,7 @@
   "Connect to a predefined SQL database and start inferior SQLi process."
   (interactive)
   (ivy-read "Predefined SQL connections:"
-            (zc-sql/connections)
+            (zc-sql/connection-keys)
             :require-match t
             :action #'zc-sql/connect-preset
             :caller 'zc-sql/connect))

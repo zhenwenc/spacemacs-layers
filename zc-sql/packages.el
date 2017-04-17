@@ -18,36 +18,18 @@
 ;; sql-connect fails in first invocation: "Attempt to set a constant symbol: nil":
 ;; - http://emacs.1067599.n8.nabble.com/bug-19452-24-4-sql-connect-fails-in-first-invocation-quot-Attempt-to-set-a-constant-symbol-nil-quot-td344566.html#a405288
 
+;; TODO:
+;; * Rewrite sql-send-paragraph function:
+;;   - execute on empty line should send the SQL statement above if there is any;
+;;   - execute on SQL comment should send the SQL statement above if there is any;
+;;   - execute on SQL statement body should send the paragraph.
+;; * Default result set limitation:
+;;   - set buffer local variable for "... LIMIT x" if statement doesn't contains LIMIT.
+
 ;;; Code:
 
 (defconst zc-sql-packages
   '(sql))
-
-(defconst zc-sql-connection-alist
-  '((local-mysql
-     (sql-product 'mysql)
-     (sql-port 3306)
-     (sql-server "127.0.0.1")
-     (sql-user "root")
-     (sql-password nil)
-     (sql-database "backend_test")
-     (sql-default-directory "~/"))
-    (bonc-test2
-     (sql-product 'mysql)
-     (sql-port 3306)
-     (sql-server "127.0.0.1")
-     (sql-user "root")
-     (sql-password nil)
-     (sql-database "backend_test")
-     (sql-default-directory "/ssh:bonc-test2.movio.co:"))
-    (bonc-uat2
-     (sql-product 'mysql)
-     (sql-port 3306)
-     (sql-server "127.0.0.1")
-     (sql-user "root")
-     (sql-database "backend_test")
-     (sql-default-directory "/ssh:bonc-uat2.movio.co:"))
-    ))
 
 (defun zc-sql/init-sql ()
   (use-package sql
