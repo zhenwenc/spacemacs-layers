@@ -95,6 +95,7 @@ values."
      zc-git
      zc-html
      zc-highlight
+     zc-ivy
      zc-java
      zc-javascript
      zc-layouts
