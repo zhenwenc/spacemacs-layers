@@ -99,6 +99,7 @@ values."
      zc-java
      zc-javascript
      zc-layouts
+     zc-projectile
      zc-scala
      zc-sql
      zc-typescript
