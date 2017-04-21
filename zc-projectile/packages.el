@@ -21,7 +21,7 @@
 
     :config
     (progn
-      (setq projectile-switch-project-action 'magit-status)
+      (setq projectile-switch-project-action 'counsel-projectile-find-file)
       (setq projectile-cache-file (concat zc-cache-directory "/projectile"))
       (setq projectile-enable-caching t)
 
