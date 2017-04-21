@@ -25,6 +25,7 @@
 
   (c-set-offset 'statement-cont '+)
   (c-set-offset 'inexpr-class '0)
+  (c-set-offset 'annotation-var-cont '0)
   )
 
 (defun zc-java/ensime-print-errors-at-point (&optional arg)

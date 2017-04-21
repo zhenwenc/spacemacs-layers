@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Debug println
+# key: dpl
+# --
+log.info(String.format("===== DEBUG ===== $1 %s $2", $0));
