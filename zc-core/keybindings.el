@@ -86,7 +86,7 @@
 (global-set-key (kbd "C-v")             'evil-scroll-down)
 
 ;; TODO: Set to alternative in Ivy
-(global-set-key (kbd "M-y")             'helm-show-kill-ring)
+(global-set-key (kbd "M-y")             'counsel-yank-pop)
 
 (global-set-key (kbd "C-s")             'swiper)
 (global-set-key (kbd "C-S-s")           'spacemacs/search-project-auto)
