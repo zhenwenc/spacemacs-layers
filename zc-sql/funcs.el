@@ -19,7 +19,6 @@
          (sql-password (assoc-string `sql-password connect-set))
          (password (if sql-password (cadr sql-password)
                      (zc-sql/read-password connection))))
-    (print '("abc" . connect-set))
     ;; Replace SQL connection password
     (setq connect-set (assq-delete-all 'sql-password connect-set))
     (nconc connect-set `((sql-password ,password)))
@@ -61,15 +60,15 @@ result, the function returns nil if there are multiple visible SQLi buffers."
   (interactive)
   (when (or (not (null (zc-sql/sqli-buffers)))
             (zc-sql/start-connection-p))
-    (let ((buffer (zc-sql/find-visible-sqli-buffer)))
-      (if buffer (buffer-name buffer)
-        (zc-sql/read-sqli-buffer "Attach to SQLi buffer:")))))
+    (-if-let (buffer (zc-sql/find-visible-sqli-buffer))
+        (buffer-name buffer)
+      (zc-sql/read-sqli-buffer "Attach to SQLi buffer:"))))
 
 (defun zc-sql/set-sqli-buffer-and-focus (buffer)
   "Set the SQLi buffer SQL strings are sent to."
   (interactive)
   (if (and buffer (derived-mode-p 'sql-mode))
-      (let ((product (buffer-local-value 'sql-product buffer)))
+      (let ((product (buffer-local-value 'sql-product (get-buffer buffer))))
         (message "Attach to interactive SQLi buffer: %s" buffer)
         (pop-to-buffer (current-buffer))
         (setq sql-buffer buffer)
@@ -98,9 +97,9 @@ If there has multiple SQLi buffer, prompt select which buffer to attach to."
 only one such buffer. Othersize fallback to \\[zc-sql/attach-to-sql-buffer]"
   (interactive)
   (when (derived-mode-p 'sql-mode)
-    (let ((buffer (zc-sql/find-visible-sqli-buffer)))
-      (if buffer (zc-sql/set-sqli-buffer-and-focus buffer)
-        (zc-sql/attach-to-sqli-buffer)))))
+    (-if-let (buffer (zc-sql/find-visible-sqli-buffer))
+        (zc-sql/set-sqli-buffer-and-focus buffer)
+      (zc-sql/attach-to-sqli-buffer))))
 
 (defun zc-sql/attach-to-new-sqli-buffer ()
   "Prompt create new SQL connection, and attach to the created SQLi buffer."

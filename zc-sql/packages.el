@@ -43,21 +43,21 @@
         (kbd "RET") 'sql-send-paragraph)
 
       (spacemacs/set-leader-keys-for-major-mode 'sql-mode
-        "ss" 'zc-sql/attach-to-sqli-buffer
-        "sS" 'zc-sql/attach-to-sqli-buffer-auto
-        "sn" 'zc-sql/attach-to-new-sqli-buffer
-        "st" 'zc-sql/show-attached-sqli-buffer
+        "ns" 'zc-sql/attach-to-sqli-buffer
+        "nS" 'zc-sql/attach-to-sqli-buffer-auto
+        "nn" 'zc-sql/attach-to-new-sqli-buffer
+        "nt" 'zc-sql/show-attached-sqli-buffer
 
-        "bb" 'sql-send-buffer
-        "bp" 'sql-send-paragraph
-        "bs" 'sql-send-string
-        "br" 'sql-send-region
+        "sb" 'sql-send-buffer
+        "sp" 'sql-send-paragraph
+        "ss" 'sql-send-string
+        "sr" 'sql-send-region
 
         "dd" 'sql-list-all
         "dt" 'sql-list-table)
 
       (spacemacs/set-leader-keys-for-major-mode 'sql-interactive-mode
-        "sb" 'zc-sql/switch-to-sqli-buffer))
+        "bb" 'zc-sql/switch-to-sqli-buffer))
     ))
 
 ;;; packages.el ends here
