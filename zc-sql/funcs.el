@@ -29,7 +29,7 @@
         (sql-connect connection connection)
       ((debug error) (sql-connect connection connection)))))
 
-(defun zc-sql/start-connection-p ()
+(defun zc-sql/start-connection-maybe ()
   (interactive "P")
   (when (y-or-n-p "Do you want to start new SQL connection? ")
     (zc-sql/start-connection)))
@@ -55,11 +55,11 @@ result, the function returns nil if there are multiple visible SQLi buffers."
   (let ((bufs (remove-if-not #'zc-sql/visible-sqli-buffer-p (buffer-list))))
     (when (= (length bufs) 1) (car bufs))))
 
-(defun zc-sql/find-sqli-buffer ()
+(defun zc-sql/find-or-read-sqli-buffer ()
   "Retrun the name of the an alive SQLi buffer."
   (interactive)
   (when (or (not (null (zc-sql/sqli-buffers)))
-            (zc-sql/start-connection-p))
+            (zc-sql/start-connection-maybe))
     (-if-let (buffer (zc-sql/find-visible-sqli-buffer))
         (buffer-name buffer)
       (zc-sql/read-sqli-buffer "Attach to SQLi buffer:"))))
@@ -105,7 +105,7 @@ only one such buffer. Othersize fallback to \\[zc-sql/attach-to-sql-buffer]"
   "Prompt create new SQL connection, and attach to the created SQLi buffer."
   (interactive)
   (when (derived-mode-p 'sql-mode)
-    (zc-sql/start-connection-p)
+    (zc-sql/start-connection-maybe)
     (zc-sql/set-sqli-buffer-and-focus (zc-sql/find-visible-sqli-buffer))))
 
 (defun zc-sql/show-attached-sqli-buffer ()
