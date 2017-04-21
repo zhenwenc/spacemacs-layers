@@ -181,7 +181,7 @@ values."
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(sanityinc-tomorrow-eighties
-                         spacemacs-dark
+                      ;; spacemacs-dark
                       ;; solarized-light
                       ;; sanityinc-solarized-light
                       ;; ample
@@ -376,18 +376,18 @@ in `dotspacemacs/user-config'."
   (setq exec-path-from-shell-check-startup-files nil)
   ;; (zc-bootstrap/configure-ensime-use-stable)
   (zc-bootstrap/initialize-packages)
-  (zc-bootstrap/load-preloadable-lisp-files)
-  ;; Enable evil multiple-cursors.
-  ;; https://github.com/gabesoft/evil-mc
-  (global-evil-mc-mode)
-  ;; Change powerline separator for MacOS
-  (setq powerline-default-separator 'nil)
-  (setq ns-use-srgb-colorspace nil))
+  (zc-bootstrap/load-preloadable-lisp-files))
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
-layers configuration. You are free to put any user code.")
+layers configuration. You are free to put any user code."
+  ;; Enable evil multiple-cursors.
+  ;; https://github.com/gabesoft/evil-mc
+  (global-evil-mc-mode)
+  ;; Change powerline separator for MacOS
+  (setq powerline-default-separator nil)
+  (setq ns-use-srgb-colorspace t))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
