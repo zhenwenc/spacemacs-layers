@@ -22,7 +22,7 @@
   (use-package ensime
     :init
     (progn
-      (setq ensime-startup-dirname (concat spacemacs-cache-directory "ensime/"))
+      (setq ensime-startup-dirname (concat zc-cache-directory "ensime/"))
       (spacemacs/register-repl 'ensime 'ensime-inf-switch "ensime"))
     :config
     (progn

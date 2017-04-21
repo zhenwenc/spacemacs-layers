@@ -16,7 +16,10 @@
     (cb-buffers :location local)
     ))
 
-(defconst zc-core/secret-sources
+(defconst zc-cache-directory
+  (concat user-emacs-directory ".cache"))
+
+(defconst zc-secret-sources
   '((zc-db-secrets . "~/dotfiles/secret/db-secrets.el.gpg")))
 
 (defun zc-core/init-cb-buffers ()

@@ -97,7 +97,7 @@
 (defun zc-core/load-secrets (pkg key)
   "Return the secret value with KEY from PKG."
   (interactive)
-  (let ((value) (package (assoc pkg zc-core/secret-sources)))
+  (let ((value) (package (assoc pkg zc-secret-sources)))
     (if (not (null package))
         (progn
           (require pkg (cdr package))
