@@ -1,0 +1,12 @@
+# -*- mode: snippet -*-
+# name: Bash template
+# key: bash
+# --
+#!/bin/bash
+
+set -e
+
+# Default source directory to current directory
+DIR=\$( cd "\$( dirname "\${BASH_SOURCE[0]}" )" && pwd )
+
+$0
