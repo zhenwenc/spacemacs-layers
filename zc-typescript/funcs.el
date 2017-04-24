@@ -50,3 +50,10 @@
 (defun zc-typescript/jump-to-type-def ()
   (interactive)
   (tide-jump-to-definition t))
+
+(defun zc-typescript/print-error-at-point ()
+  "Return the flycheck errors at current point."
+  (interactive)
+  (-if-let (msg (get-text-property (point) 'help-echo))
+      (message msg)
+    (message "No warning or error found.")))

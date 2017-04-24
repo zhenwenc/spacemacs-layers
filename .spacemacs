@@ -97,7 +97,6 @@ values."
      zc-highlight
      zc-ivy
      zc-java
-     zc-javascript
      zc-layouts
      zc-projectile
      zc-scala

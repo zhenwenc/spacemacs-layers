@@ -13,6 +13,7 @@
   '(tide
     company
     flycheck
+    js2-mode
     web-mode
     typescript-mode))
 
@@ -34,8 +35,8 @@
     :commands (zc-typescript/jump-to-type-def)
     :init
     (progn
+      (add-hook 'js2-mode-hook 'tide-setup)
       (add-hook 'typescript-mode-hook 'tide-setup)
-      (add-hook 'typescript-mode-hook 'eldoc-mode)
       (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition)
 
       (with-eval-after-load 'tide
@@ -68,6 +69,12 @@
         "rr" 'tide-rename-symbol
         "ns" 'tide-restart-server)
 
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+        "gu" 'tide-references
+        "hh" 'tide-documentation-at-point
+        "rr" 'tide-rename-symbol
+        "ns" 'tide-restart-server)
+
       (evilified-state-evilify tide-references-mode tide-references-mode-map
         (kbd "p")   'tide-find-previous-reference
         (kbd "n")   'tide-find-next-reference
@@ -87,6 +94,8 @@
         (kbd "M-,") 'tide-jump-back)
       )))
 
+
+
 (defun zc-typescript/init-typescript-mode ()
   (use-package typescript-mode
     :defer t
@@ -97,6 +106,43 @@
         (add-hook 'typescript-mode-hook 'zc-typescript/fmt-before-save-hook))
       (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
         "rf"  'zc-typescript/format))))
+
+
+
+(defun zc-typescript/init-js2-mode ()
+  (use-package js2-mode
+    :defer t
+    :mode (("\\.js\\'" . js2-mode)
+           ("\\.jsx\\'" . js2-jsx-mode))
+    :init
+    ;; Required to make imenu functions work correctly
+    (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
+    :config
+    (progn
+      ;; (setq js2-basic-offset 2)
+
+      (dolist (prefix '(("mh" . "documentation")
+                        ("mg" . "goto")
+                        ("mr" . "refactor")
+                        ("mz" . "floding")))
+        (spacemacs/declare-prefix-for-mode 'js2-mode (car prefix) (cdr prefix)))
+
+      (spacemacs/set-leader-keys-for-major-mode 'js2-mode
+        "ee" 'zc-typescript/print-error-at-point
+        "tw" 'js2-mode-toggle-warnings-and-errors
+        "zc" 'js2-mode-hide-element
+        "zo" 'js2-mode-show-element
+        "zr" 'js2-mode-show-all
+        "ze" 'js2-mode-toggle-element
+        "zF" 'js2-mode-toggle-hide-functions
+        "zC" 'js2-mode-toggle-hide-comments))
+
+    ;; Override the ugly face colors
+    (set-face-foreground 'js2-function-call nil)
+    (set-face-foreground 'js2-object-property nil)
+    (set-face-underline 'js2-warning '(:color "#d0bf8f" :style wave))))
+
+
 
 (defun zc-typescript/post-init-web-mode ()
   ;; HACK: Delete web-mode auto-mode config set by Spacemacs so that I can use
