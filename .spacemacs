@@ -101,8 +101,8 @@ values."
      zc-projectile
      zc-scala
      zc-sql
-     zc-typescript
      zc-tools
+     zc-web
      zc-yasnippet
      )
    ;; List of additional packages that will be installed without being

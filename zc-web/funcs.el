@@ -1,6 +1,6 @@
 ;;; funcs.el --- TypeScript Layer functions File for My Spacemacs
 
-(defun zc-typescript/tsfmt-format-buffer ()
+(defun zc-web/tsfmt-format-buffer ()
   "Format buffer with tsfmt."
   (interactive)
   (if (executable-find "tsfmt")
@@ -32,26 +32,26 @@
                 (delete-file tmpfile)))))
     (error "tsfmt not found. Run \"npm install -g typescript-formatter\"")))
 
-(defun zc-typescript/format ()
+(defun zc-web/format ()
   "Call formatting tool specified in `typescript-fmt-tool'."
   (interactive)
   (cond
    ((eq typescript-fmt-tool 'typescript-formatter)
-    (call-interactively 'zc-typescript/tsfmt-format-buffer))
+    (call-interactively 'zc-web/tsfmt-format-buffer))
    ((eq typescript-fmt-tool 'tide)
     (call-interactively 'tide-format))
    (t (error (concat "%s isn't valid typescript-fmt-tool value."
                      " It should be 'tide or 'typescript-formatter."
                      (symbol-name typescript-fmt-tool))))))
 
-(defun zc-typescript/fmt-before-save-hook ()
-  (add-hook 'before-save-hook 'zc-typescript/format t t))
+(defun zc-web/fmt-before-save-hook ()
+  (add-hook 'before-save-hook 'zc-web/format t t))
 
-(defun zc-typescript/jump-to-type-def ()
+(defun zc-web/jump-to-type-def ()
   (interactive)
   (tide-jump-to-definition t))
 
-(defun zc-typescript/print-error-at-point ()
+(defun zc-web/print-error-at-point ()
   "Return the flycheck errors at current point."
   (interactive)
   (-if-let (msg (get-text-property (point) 'help-echo))
