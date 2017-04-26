@@ -119,8 +119,6 @@
     (add-hook 'js2-mode-hook 'js2-imenu-extras-mode)
     :config
     (progn
-      ;; (setq js2-basic-offset 2)
-
       (dolist (prefix '(("mh" . "documentation")
                         ("mg" . "goto")
                         ("mr" . "refactor")
@@ -136,6 +134,12 @@
         "ze" 'js2-mode-toggle-element
         "zF" 'js2-mode-toggle-hide-functions
         "zC" 'js2-mode-toggle-hide-comments))
+
+    ;; Override the default styles
+    (setq js2-basic-offset 2)
+    (setq js2-strict-trailing-comma-warning nil)
+    (setq js2-mode-show-parse-errors t)
+    (setq js2-mode-show-strict-warnings t)
 
     ;; Override the ugly face colors
     (set-face-foreground 'js2-function-call nil)
