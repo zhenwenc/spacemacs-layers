@@ -11,6 +11,12 @@
 
 ;;; Code:
 
+;; Flycheck:
+;; * inspect flycheck config, e.g. check if config is valid:
+;; - SPC e v [flycheck-verify-setup]
+;; * verify eslint config:
+;; - ./node_modules/.bin/eslint --print-config .
+
 (defconst zc-web-packages
   '(aggressive-indent
     company
@@ -19,6 +25,7 @@
     tide
     typescript-mode
     web-mode
+    (prettier-js :location local)
     (zc-web-modes :location local)))
 
 
@@ -45,6 +52,8 @@
               (save-excursion
                 (insert string))))
           (evil-local-set-key 'normal (kbd "q") #'quit-window))
+
+        (defun tide-completion-doc-buffer (name) "Bye!") ;; FIXME
 
         ) ;; -- End override tide functions
 
@@ -110,7 +119,9 @@
   (use-package zc-web-modes
     :defer t
     :mode (("\\.es6\\'"  . zc-web-js-mode)
-           ("\\.jsx?\\'" . zc-web-js-mode))))
+           ("\\.jsx?\\'" . zc-web-js-mode))
+    :config
+    (remove-hook 'web-mode-hook #'spacemacs/toggle-smartparens-off)))
 
 (defun zc-web/post-init-web-mode ()
   (use-package web-mode
@@ -124,6 +135,11 @@
       (setq web-mode-css-indent-offset 2)
       (setq web-mode-markup-indent-offset 2)
       (setq web-mode-enable-auto-quoting nil)
+
+      (add-hook 'zc-web-js-mode-hook
+                #'(lambda ()
+                    ;; Force indentation for JSX
+                    (setq web-mode-attr-indent-offset 2)))
 
       ;; Disable web-mode-reload binding
       (define-key web-mode-map (kbd "C-c C-r") nil)
@@ -166,6 +182,20 @@
 (defun zc-web/post-init-eldoc ()
   (add-hook 'typescript-mode-hook 'eldoc-mode)
   (add-hook 'zc-web-js-mode-hook 'eldoc-mode))
+
+(defun zc-web/init-prettier-js ()
+  (use-package prettier-js
+    :after zc-web-modes
+    :commands (prettier prettier-before-save)
+    :config
+    (progn
+      (setq prettier-args '("--single-quote" "--trailing-comma=es5"))
+      (setq prettier-target-mode "zc-web-js-mode")
+      ;; FIXME: Removed the hook for Numero project
+      (add-hook 'before-save-hook #'prettier-before-save)
+
+      (spacemacs/set-leader-keys-for-major-mode 'zc-web-js-mode
+        "rf" 'prettier))))
 
 (defun zc-web/post-init-flycheck ()
   (use-package flycheck
