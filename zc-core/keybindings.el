@@ -45,6 +45,9 @@
 (global-set-key (kbd "TAB") 'indent-for-tab-command)
 (evil-global-set-key 'insert (kbd "TAB")   'indent-for-tab-command)
 
+;; Force dabbrev - buffer-only completion
+(evil-global-set-key 'insert (kbd "C-<tab>") 'dabbrev-expand)
+
 (evil-global-set-key 'normal (kbd "C-S-o") 'evil-jump-forward)
 
 ;; Unset keybinding of define macro
