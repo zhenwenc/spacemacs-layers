@@ -61,7 +61,7 @@
     (progn
       (evil-define-key 'normal ensime-mode-map
         ;; The type inspector for Java project has problem
-        (kbd "RET") 'ensime-type-at-point)
+        (kbd "RET") 'ensime-inspect-type-at-point)
 
       ;; NOTE: see ensime-emacs issue #408
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
