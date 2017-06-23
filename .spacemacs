@@ -181,10 +181,11 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press `SPC T n' to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(sanityinc-tomorrow-eighties
+   dotspacemacs-themes '(solarized-light
+                         dracula
+                         sanityinc-tomorrow-eighties
+                         sanityinc-solarized-light
                       ;; spacemacs-dark
-                      ;; solarized-light
-                      ;; sanityinc-solarized-light
                       ;; ample
                       ;; solarized-light
                       ;; monokai
@@ -200,7 +201,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
                                :size 12
-                               :weight normal
+                               :weight normal ;; use light for dark theme
                                :width normal
                                :powerline-scale 1.1)
    ;; The leader key
