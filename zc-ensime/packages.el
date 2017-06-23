@@ -121,9 +121,9 @@
           "gi"     'ensime-goto-impl
           "gt"     'ensime-goto-test
 
-          "hh"     'ensime-show-doc-for-symbol-at-point
-          "hT"     'ensime-type-at-point-full-name
-          "ht"     'ensime-type-at-point
+          "hd"     'ensime-show-doc-for-symbol-at-point
+          "hH"     'ensime-type-at-point-full-name
+          "hh"     'ensime-type-at-point
           "hu"     'ensime-show-uses-of-symbol-at-point
 
           "ii"     'ensime-import-type-at-point
