@@ -63,13 +63,13 @@
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
         "gu" 'tide-references
-        "hh" 'tide-documentation-at-point
+        "hd" 'tide-documentation-at-point
         "rr" 'tide-rename-symbol
         "ns" 'tide-restart-server)
 
       (spacemacs/set-leader-keys-for-major-mode 'zc-web-js-mode
         "gu" 'tide-references
-        "hh" 'tide-documentation-at-point
+        "hd" 'tide-documentation-at-point
         "rr" 'tide-rename-symbol
         "ns" 'tide-restart-server)
 
