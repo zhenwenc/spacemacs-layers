@@ -44,8 +44,7 @@
     (add-to-list 'package-archives archive))
   (package-initialize)
   (unless (file-exists-p (concat user-emacs-directory "elpa"))
-    (package-refresh-contents))
-  (unless (file-exists-p (concat user-emacs-directory "elpa"))
+    (package-refresh-contents)
     (dolist (pkg zc-bootstrap-packages)
       (zc-bootstrap--install-package pkg))))
 
