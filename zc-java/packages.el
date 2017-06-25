@@ -59,14 +59,9 @@
     :defer t
     :config
     (progn
-      (evil-define-key 'normal ensime-mode-map
-        ;; The type inspector for Java project has problem
-        (kbd "RET") 'ensime-inspect-type-at-point)
-
       ;; NOTE: see ensime-emacs issue #408
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
-        "ee" 'zc-java/ensime-print-errors-at-point)
-      )
+        "ee" 'zc-java/ensime-print-errors-at-point))
     ))
 
 ;;; packages.el ends here

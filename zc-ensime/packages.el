@@ -52,7 +52,8 @@
       (evil-define-key 'normal ensime-mode-map
         (kbd "M-.") 'ensime-edit-definition
         (kbd "M-,") 'ensime-pop-find-definition-stack
-        (kbd "RET") 'ensime-inspect-type-at-point)
+        (kbd "·") 'ensime-edit-definition-other-window
+        (kbd "RET") 'ensime-type-at-point)
 
       (evil-define-key 'normal ensime-popup-buffer-map
         (kbd "q") 'ensime-popup-buffer-quit-function)
@@ -159,16 +160,16 @@
           "z"      'ensime-expand-selection-command))
 
       ;; HACK: Fix errors with ensime eldoc function.
-      (with-eval-after-load 'ensime-inspector
-        (defun ensime-type-at-point (&optional arg)
-          "Echo the type at point to the minibuffer.
-      A prefix argument will add the type to the kill ring."
-          (interactive "P")
-          (let* ((type (ensime-rpc-get-type-at-point))
-                 (fullname (ensime-type-full-name-with-args type)))
-            (when arg
-              (kill-new fullname))
-            (message fullname))))
+      ;; (with-eval-after-load 'ensime-inspector
+      ;;   (defun ensime-type-at-point (&optional arg)
+      ;;     "Echo the type at point to the minibuffer.
+      ;; A prefix argument will add the type to the kill ring."
+      ;;     (interactive "P")
+      ;;     (let* ((type (ensime-rpc-get-type-at-point))
+      ;;            (fullname (ensime-type-full-name-with-args type)))
+      ;;       (when arg
+      ;;         (kill-new fullname))
+      ;;       (message fullname))))
       ))
 
   (use-package ensime-company
