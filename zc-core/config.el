@@ -1,10 +1,17 @@
-;; Unify auto-save files
 (defvar spacemacs-autosaves-directory
   (concat user-emacs-directory "autosaves/"))
 
-;; Turn on delete selection mode
-(delete-selection-mode 1)
+(defconst zc-cache-directory
+  (concat user-emacs-directory ".cache"))
 
+(defconst zc-secret-sources
+  '((zc-db-secrets . "~/dotfiles/secret/db-secrets.el.gpg")))
+
+;; Unify auto-save files
+;; (setq backup-directory-alist
+;;       `((".*" . spacemacs-autosaves-directory,))
+;;       auto-save-file-name-transforms
+;;       `((".*" ,spacemacs-autosaves-directory t)))
 
 ;; ----------------------------------------------------------------------------
 

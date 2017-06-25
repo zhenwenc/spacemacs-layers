@@ -13,14 +13,7 @@
     neotree
     pbcopy
     term
-    (cb-buffers :location local)
-    ))
-
-(defconst zc-cache-directory
-  (concat user-emacs-directory ".cache"))
-
-(defconst zc-secret-sources
-  '((zc-db-secrets . "~/dotfiles/secret/db-secrets.el.gpg")))
+    (cb-buffers :location local)))
 
 (defun zc-core/init-cb-buffers ()
   (use-package cb-buffers

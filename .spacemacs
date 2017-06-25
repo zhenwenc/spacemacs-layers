@@ -387,6 +387,8 @@ layers configuration. You are free to put any user code."
   ;; Enable evil multiple-cursors.
   ;; https://github.com/gabesoft/evil-mc
   (global-evil-mc-mode)
+  ;; Turn on delete selection mode
+  (delete-selection-mode 1)
   ;; Change powerline separator for MacOS
   (setq powerline-default-separator nil)
   (setq ns-use-srgb-colorspace t))

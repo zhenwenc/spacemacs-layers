@@ -39,16 +39,15 @@
 ;; (setq-default evil-escape-delay 0.85)
 ;; (setq-default evil-escape-unordered-key-sequence t)
 
-(global-set-key (kbd "M-SPC") 'cycle-spacing)
+(global-set-key (kbd "M-SPC")   'cycle-spacing)
 (global-set-key (kbd "C-c C-g") 'evil-escape)
-
-(global-set-key (kbd "TAB") 'indent-for-tab-command)
-(evil-global-set-key 'insert (kbd "TAB")   'indent-for-tab-command)
+(global-set-key (kbd "TAB")     'indent-for-tab-command)
 
 ;; Force dabbrev - buffer-only completion
 (evil-global-set-key 'insert (kbd "C-<tab>") 'dabbrev-expand)
-
-(evil-global-set-key 'normal (kbd "C-S-o") 'evil-jump-forward)
+(evil-global-set-key 'insert (kbd "TAB")     'indent-for-tab-command)
+(evil-global-set-key 'normal (kbd "C-S-o")   'evil-jump-forward)
+(evil-global-set-key 'normal (kbd "C-z")     'spacemacs/toggle-maximize-buffer)
 
 ;; Unset keybinding of define macro
 (evil-global-set-key 'normal (kbd "q") nil)
