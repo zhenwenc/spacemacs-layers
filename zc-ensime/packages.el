@@ -88,7 +88,7 @@
       (dolist (mode '(scala-mode java-mode))
 
         (spacemacs/set-leader-keys-for-major-mode mode
-          "/"      'ensime-search
+          "/"      'ensime-search-ivy
           "'"      'ensime-inf-switch
 
           "bc"     'ensime-sbt-do-compile
