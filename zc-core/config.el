@@ -7,12 +7,6 @@
 (defconst zc-secret-sources
   '((zc-db-secrets . "~/dotfiles/secret/db-secrets.el.gpg")))
 
-;; Unify auto-save files
-;; (setq backup-directory-alist
-;;       `((".*" . spacemacs-autosaves-directory,))
-;;       auto-save-file-name-transforms
-;;       `((".*" ,spacemacs-autosaves-directory t)))
-
 ;; ----------------------------------------------------------------------------
 
 ;; Resolve HELM find file slow issue

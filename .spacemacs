@@ -52,7 +52,6 @@ This function should only modify configuration layer settings."
      dash
      docker
      emacs-lisp
-     evernote
      git
      (go
       :variables
@@ -61,15 +60,10 @@ This function should only modify configuration layer settings."
      ivy
      markdown
      org
-     php
      puppet
-     (ranger
-      :variables
-      ranger-cleanup-eagerly t)
      restclient
      shell-scripts
      yaml
-     ;; Themes
      themes-megapack
      (shell
       :variables
@@ -255,7 +249,7 @@ It should only modify the values of Spacemacs settings."
    ;; auto-save the file in-place, `cache' to auto-save the file to another
    ;; file stored in the cache directory and `nil' to disable auto-saving.
    ;; (default 'cache)
-   dotspacemacs-auto-save-file-location 'cache
+   dotspacemacs-auto-save-file-location nil
    ;; Maximum number of rollback slots to keep in the cache. (default 5)
    dotspacemacs-max-rollback-slots 5
    ;; If non-nil, `helm' will try to minimize the space it uses. (default nil)
@@ -412,7 +406,14 @@ layers configuration. You are free to put any user code."
   (delete-selection-mode 1)
   ;; Change powerline separator for MacOS
   (setq powerline-default-separator nil)
-  (setq ns-use-srgb-colorspace t))
+  (setq ns-use-srgb-colorspace t)
+  ;; Unify auto-save files
+  (setq backup-directory-alist
+        `((".*" . ,temporary-file-directory))
+        auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t)))
+  ;; Disable creating lock files
+  (setq create-lockfiles nil))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
