@@ -8,8 +8,8 @@
     :defer t
     :init
     (with-eval-after-load 'hi-lock
-      ;; (set-face-background 'hi-yellow "#3e4446") ;; dark background
-      (set-face-background 'hi-yellow "LightBlue2") ;; light background
+      (set-face-background 'hi-yellow "#3e4446") ;; dark background
+      ;; (set-face-background 'hi-yellow "LightBlue2") ;; light background
       (set-face-foreground 'hi-yellow nil))
     (global-highlight-thing-mode 1)
     :config
