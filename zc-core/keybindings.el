@@ -46,7 +46,8 @@
 ;; Force dabbrev - buffer-only completion
 (evil-global-set-key 'insert (kbd "C-<tab>") 'dabbrev-expand)
 (evil-global-set-key 'insert (kbd "TAB")     'indent-for-tab-command)
-(evil-global-set-key 'normal (kbd "C-S-o")   'evil-jump-forward)
+(evil-global-set-key 'normal (kbd "C-o")     'goto-last-change)
+(evil-global-set-key 'normal (kbd "C-S-o")   'goto-last-change-reverse)
 (evil-global-set-key 'normal (kbd "C-z")     'spacemacs/toggle-maximize-buffer)
 
 ;; Unset keybinding of define macro
