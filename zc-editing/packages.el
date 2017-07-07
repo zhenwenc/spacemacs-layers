@@ -13,7 +13,8 @@
 
 (defconst zc-editing-packages
   '(evil-mc
-    company))
+    company
+    iedit))
 
 (defun zc-editing/post-init-evil-mc ()
   (use-package evil-mc
@@ -43,5 +44,11 @@
       (define-key map (kbd "C-w") nil)
       (define-key map (kbd "TAB") nil)
       (define-key map [tab] nil))))
+
+(defun zc-editing/init-iedit ()
+  (use-package iedit
+    :commands iedit-mode
+    :config
+    (set-face-background 'iedit-occurrence "PaleVioletRed4")))
 
 ;;; packages.el ends here
