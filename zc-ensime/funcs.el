@@ -47,3 +47,10 @@
   (ensime-inf-switch)
   (ensime-inf-eval-region start end)
   (evil-insert-state))
+
+;; HACK: Manually reset some company variables that were set by Ensime
+(defun zc-ensime/set-company-variables (&rest _)
+  (unless (ensime-connected-p)
+    (setq-local company-idle-delay (default-value 'company-idle-delay))
+    (setq-local company-minimum-prefix-length (default-value 'company-minimum-prefix-length))
+    ))

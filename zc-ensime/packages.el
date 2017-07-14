@@ -177,15 +177,16 @@
     :config
     (progn
       ;; HACK: Reset company idle delay.
-      ;; (advice-add 'ensime-company-enable :after #'scala/set-company-variables)
+      (advice-add 'ensime-company-enable :after #'zc-ensime/set-company-variables)
 
       ;; HACK: Prevent ensime from clobbering company settings.
-      (with-eval-after-load 'ensime-company
-        (defun ensime-company-enable ()
-          (set (make-local-variable 'company-backends) '(ensime-company))
-          (company-mode)
-          (yas-minor-mode-on)
-          (set (make-local-variable 'company-idle-delay) 0))))))
+      ;; (with-eval-after-load 'ensime-company
+      ;;   (defun ensime-company-enable ()
+      ;;     (set (make-local-variable 'company-backends) '(ensime-company))
+      ;;     (company-mode)
+      ;;     (yas-minor-mode-on)
+      ;;     (set (make-local-variable 'company-idle-delay) 0)))
+      )))
 
 (defun zc-ensime/init-ensime-diminished-modeline ()
   (use-package ensime-diminished-modeline
