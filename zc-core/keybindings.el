@@ -93,8 +93,9 @@
 ;; TODO: Set to alternative in Ivy
 (global-set-key (kbd "M-y")             'counsel-yank-pop)
 
-(global-set-key (kbd "C-s")             'swiper)
+(global-set-key (kbd "C-s")             'counsel-grep-or-swiper)
 (global-set-key (kbd "C-S-s")           'spacemacs/search-project-auto)
+(spacemacs/set-leader-keys "ss"         'counsel-grep-or-swiper)
 
 (global-set-key (kbd "M-C-<up>")        'zc-core/move-line-up)
 (global-set-key (kbd "M-C-<down>")      'zc-core/move-line-down)
