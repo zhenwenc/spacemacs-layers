@@ -56,7 +56,6 @@ This function should only modify configuration layer settings."
      (go
       :variables
       go-tab-width 2)
-     html
      ivy
      markdown
      org
@@ -86,7 +85,6 @@ This function should only modify configuration layer settings."
      zc-eshell
      zc-ensime
      zc-git
-     zc-html
      zc-highlight
      zc-ivy
      zc-java

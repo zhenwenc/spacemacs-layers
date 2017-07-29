@@ -1,5 +1,14 @@
 ;;; funcs.el --- TypeScript Layer functions File for My Spacemacs
 
+(defun zc-web/add-node-modules-bin-to-path ()
+  "Use binaries from node_modules, where available."
+  (when-let (root (projectile-project-p))
+    (make-local-variable 'exec-path)
+    (add-to-list 'exec-path (f-join root "node_modules" ".bin"))))
+
+
+;; Formatter
+
 (defun zc-web/tsfmt-format-buffer ()
   "Format buffer with tsfmt."
   (interactive)
@@ -32,22 +41,9 @@
                 (delete-file tmpfile)))))
     (error "tsfmt not found. Run \"npm install -g typescript-formatter\"")))
 
-(defun zc-web/format ()
-  "Call formatting tool specified in `typescript-fmt-tool'."
-  (interactive)
-  (cond
-   ((eq typescript-fmt-tool 'typescript-formatter)
-    (call-interactively 'zc-web/tsfmt-format-buffer))
-   ((eq typescript-fmt-tool 'tide)
-    (call-interactively 'tide-format))
-   (t (error (concat "%s isn't valid typescript-fmt-tool value."
-                     " It should be 'tide or 'typescript-formatter."
-                     (symbol-name typescript-fmt-tool))))))
+
 
-(defun zc-web/fmt-before-save-hook ()
-  (add-hook 'before-save-hook 'zc-web/format t t))
-
-(defun zc-web/jump-to-type-def ()
+(defun zc-web/tide-jump-to-type-def ()
   (interactive)
   (tide-jump-to-definition t))
 
@@ -57,3 +53,18 @@
   (-if-let (msg (get-text-property (point) 'help-echo))
       (message msg)
     (message "No warning or error found.")))
+
+
+;; Emmet
+
+(defun zc-web/buffer-contains-react-p ()
+  (save-excursion
+    (save-match-data
+      (goto-char (point-min))
+      (search-forward "React" nil t))))
+
+(defun zc-web/emmet-expand ()
+  (interactive)
+  (if (bound-and-true-p yas-minor-mode)
+      (call-interactively 'emmet-expand-yas)
+    (call-interactively 'emmet-expand-line)))

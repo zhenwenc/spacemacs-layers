@@ -20,6 +20,7 @@
 (defconst zc-web-packages
   '(aggressive-indent
     company
+    emmet-mode
     eldoc
     flycheck
     tide
@@ -34,11 +35,11 @@
 (defun zc-web/init-tide ()
   (use-package tide
     :defer t
-    :commands (zc-web/jump-to-type-def)
+    :commands (zc-web/tide-jump-to-type-def)
     :init
     (progn
       (add-hook 'zc-web-js-mode-hook 'tide-setup)
-      (add-hook 'typescript-mode-hook 'tide-setup)
+      (add-hook 'zc-web-ts-mode-hook 'tide-setup)
       (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition)
 
       (with-eval-after-load 'tide
@@ -59,15 +60,14 @@
 
       (dolist (prefix `(("mg" . "goto")
                         ("mh" . "help")
-                        ("mn" . "name")
-                        ("mr" . "rename")
-                        ("mS" . "server")
+                        ("mn" . "server")
+                        ("mr" . "refactor")
                         ("ms" . "send")))
-        (spacemacs/declare-prefix-for-mode 'typescript-mode (car prefix) (cdr prefix))))
+        (spacemacs/declare-prefix-for-mode 'zc-web-ts-mode (car prefix) (cdr prefix))))
 
     :config
     (progn
-      (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
+      (spacemacs/set-leader-keys-for-major-mode 'zc-web-ts-mode
         "gu" 'tide-references
         "hh" 'tide-documentation-at-point
         "rr" 'tide-rename-symbol
@@ -94,36 +94,30 @@
         (kbd "M-,") 'tide-jump-back)
 
       (evil-define-key 'normal tide-mode-map
-        (kbd "M-.") 'zc-web/jump-to-type-def
+        (kbd "M-.") 'zc-web/tide-jump-to-type-def
         (kbd "M-,") 'tide-jump-back)
       )))
 
 
-;; Typescript
-
-(defun zc-web/init-typescript-mode ()
-  (use-package typescript-mode
-    :defer t
-    :config
-    (progn
-      (setq typescript-indent-level 2)
-      (when typescript-fmt-on-save
-        (add-hook 'typescript-mode-hook 'zc-web/fmt-before-save-hook))
-      (spacemacs/set-leader-keys-for-major-mode 'typescript-mode
-        "rf"  'zc-web/format))))
-
-
-;; Javascript
+;; Typescript / Javascript
 
 (defun zc-web/init-zc-web-modes ()
   (use-package zc-web-modes
     :defer t
-    :mode (("\\.es6\\'"  . zc-web-js-mode)
-           ("\\.jsx?\\'" . zc-web-js-mode))
+    :mode (("\\.json\\'" . zc-web-json-mode)
+           ("\\.eslintrc\\'" . zc-web-json-mode)
+           ("\\.babelrc\\'" . zc-web-json-mode)
+           ("\\.es6\\'"  . zc-web-js-mode)
+           ("\\.jsx?\\'" . zc-web-js-mode)
+           ("\\.tsx?\\'"  . zc-web-ts-mode)
+           ("\\.css\\'"  . zc-web-css-mode)
+           ("\\.scss\\'"  . zc-web-css-mode)
+           ("\\.html\\'" . zc-web-html-mode))
+    :defines (flycheck-html-tidy-executable)
     :config
     (remove-hook 'web-mode-hook #'spacemacs/toggle-smartparens-off)))
 
-(defun zc-web/post-init-web-mode ()
+(defun zc-web/init-web-mode ()
   (use-package web-mode
     :defines (web-mode-markup-indent-offset
               web-mode-css-indent-offset)
@@ -135,6 +129,7 @@
       (setq web-mode-css-indent-offset 2)
       (setq web-mode-markup-indent-offset 2)
       (setq web-mode-enable-auto-quoting nil)
+      (setq typescript-indent-level 2)
 
       (add-hook 'zc-web-js-mode-hook
                 #'(lambda ()
@@ -155,6 +150,32 @@
       ;; Treat es6 files as JS files.
       (add-to-list 'web-mode-content-types '("javascript" . "\\.es6\\'"))
       (add-to-list 'web-mode-content-types '("jsx" . "\\.jsx?\\'")))))
+
+
+;; HTML
+
+(defun zc-web/init-emmet-mode ()
+  (use-package emmet-mode
+    :defer t
+    :defines (emmet-expand-jsx-className?)
+    :commands (emmet-mode emmet-expand-line)
+    :preface
+    (progn
+      (defun zc-web/maybe-emmet-mode ()
+        (cond
+         ((derived-mode-p 'zc-web-html-mode 'html-mode 'nxml-mode)
+          (emmet-mode +1))
+
+         ((and (derived-mode-p 'zc-web-js-mode)
+               (zc-web/buffer-contains-react-p))
+          (emmet-mode +1)))))
+    :init
+    (add-hook 'web-mode-hook #'zc-web/maybe-emmet-mode)
+    :config
+    (progn
+      (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'zc-web/emmet-expand)
+      (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'zc-web/emmet-expand)
+      (spacemacs|hide-lighter emmet-mode))))
 
 
 
@@ -180,22 +201,26 @@
       :modes typescript-mode zc-web-js-mode)))
 
 (defun zc-web/post-init-eldoc ()
-  (add-hook 'typescript-mode-hook 'eldoc-mode)
+  (add-hook 'zc-web-ts-mode-hook 'eldoc-mode)
   (add-hook 'zc-web-js-mode-hook 'eldoc-mode))
 
 (defun zc-web/init-prettier-js ()
   (use-package prettier-js
     :after zc-web-modes
-    :commands (prettier prettier-before-save)
+    :commands (prettier-js prettier-js-mode)
+    :init
+    ;; Format typescript file on save
+    (when zc-web-fmt-on-save
+      (add-hook 'zc-web-js-mode-hook 'prettier-js-mode)
+      (add-hook 'zc-web-ts-mode-hook 'prettier-js-mode))
     :config
     (progn
-      (setq prettier-args '("--single-quote" "--trailing-comma=es5"))
-      (setq prettier-target-mode "zc-web-js-mode")
-      ;; FIXME: Removed the hook for Numero project
-      (add-hook 'before-save-hook #'prettier-before-save)
-
+      (setq prettier-args '("--single-quote"
+                            "--trailing-comma" "es5"))
       (spacemacs/set-leader-keys-for-major-mode 'zc-web-js-mode
-        "rf" 'prettier))))
+        "rf" 'prettier-js)
+      (spacemacs/set-leader-keys-for-major-mode 'zc-web-ts-mode
+        "rf" 'prettier-js))))
 
 (defun zc-web/post-init-flycheck ()
   (use-package flycheck
@@ -208,26 +233,29 @@
       (autoload 'projectile-project-p "projectile")
       (autoload 'f-join "f")
 
-      (defun zc-web/add-node-modules-bin-to-path ()
-        "Use binaries from node_modules, where available."
-        (when-let (root (projectile-project-p))
-          (make-local-variable 'exec-path)
-          (add-to-list 'exec-path (f-join root "node_modules" ".bin"))))
-
       (with-eval-after-load 'flycheck
         (let ((tidy-bin "/usr/local/bin/tidy"))
           (when (file-exists-p tidy-bin)
             (setq flycheck-html-tidy-executable tidy-bin)))
 
         (flycheck-add-mode 'javascript-eslint 'zc-web-js-mode)
-        ))
+        (flycheck-add-mode 'typescript-tslint 'zc-web-ts-mode)
+        (flycheck-add-mode 'css-csslint 'zc-web-css-mode)
+        (flycheck-add-mode 'json-jsonlint 'zc-web-json-mode)
+        (flycheck-add-mode 'html-tidy 'zc-web-html-mode)))
     :init
     (progn
-      (spacemacs/enable-flycheck 'typescript-mode)
+      (spacemacs/enable-flycheck 'zc-web-ts-mode)
       (spacemacs/enable-flycheck 'zc-web-js-mode))
     :config
     (progn
       (add-to-list 'flycheck-disabled-checkers 'javascript-jshint)
-      (add-hook 'zc-web-js-mode-hook #'zc-web/add-node-modules-bin-to-path))))
+      (add-to-list 'flycheck-disabled-checkers 'json-jsonlint)
+      (add-to-list 'flycheck-disabled-checkers 'css-csslint)
+
+      (add-hook 'zc-web-js-mode-hook #'zc-web/add-node-modules-bin-to-path)
+      (add-hook 'zc-web-ts-mode-hook #'zc-web/add-node-modules-bin-to-path)
+      (add-hook 'zc-web-css-mode-hook #'zc-web/add-node-modules-bin-to-path)
+      )))
 
 ;;; packages.el ends here
