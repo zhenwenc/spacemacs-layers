@@ -49,6 +49,7 @@
   (evil-insert-state))
 
 ;; HACK: Manually reset some company variables that were set by Ensime
+;; TODO: Revisit company backends for ensime
 (defun zc-ensime/set-company-variables (&rest _)
   (unless (ensime-connected-p)
     (setq-local company-idle-delay (default-value 'company-idle-delay))
