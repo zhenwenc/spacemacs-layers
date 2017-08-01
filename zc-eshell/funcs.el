@@ -2,7 +2,7 @@
 
 ;; Toggle display of Eshell
 
-(defun zc-eshell-bring (&optional new)
+(defun zc-eshell/bring (&optional new)
   "Display an eshell buffer, creating a new one if needed.
 With prefix argument ARG, always create a new shell."
   (interactive "P")
@@ -49,3 +49,9 @@ With prefix argument ARG, always create a new shell."
 (defun zc-eshell--mk-register-name ()
   (-let [(&alist 'window-id id) (frame-parameters (zc-shell--current-frame))]
     (intern (format "zc-eshell-%s" id))))
+
+
+
+(defun zc-eshell/setup ()
+  (vi-tilde-fringe-mode -1)
+  (local-set-key (kbd "C-c RET") 'eshell-toggle-direct-send))

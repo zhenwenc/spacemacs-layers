@@ -69,8 +69,8 @@ This function should only modify configuration layer settings."
       shell-default-height 30
       shell-default-position 'bottom
       shell-default-shell 'eshell
-      shell-default-term-shell "/usr/bin/zsh"
-      shell-protect-eshell-prompt nil)
+      shell-default-term-shell "/bin/zsh"
+      shell-protect-eshell-prompt t)
      (spell-checking
       :variables
       spell-checking-enable-by-default nil)
