@@ -37,7 +37,6 @@
     :init
     (progn
       (spacemacs/register-repl 'sql 'zc-sql/start-connection "sql")
-      (global-set-key (kbd "<f10>") 'zc-sql/start-connection)
 
       (evil-define-key 'normal sql-mode-map
         (kbd "RET") 'sql-send-paragraph)
