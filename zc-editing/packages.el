@@ -12,15 +12,22 @@
 ;;; Code:
 
 (defconst zc-editing-packages
-  '(evil-mc
+  '((evil-mc :excluded t)
     company
     iedit))
 
 (defun zc-editing/post-init-evil-mc ()
   (use-package evil-mc
     :defer t
+    :init
+    ;; Enable evil multiple-cursors.
+    ;; https://github.com/gabesoft/evil-mc
+    (global-evil-mc-mode)
     :config
     (progn
+      ;; HACK: clear all cursors when escape/save
+      (advice add 'zc-core/evil-escape :after #'evil-mc-undo-all-cursors)
+
       (evil-define-key 'normal map (kbd "C-p") nil))))
 
 (defun zc-editing/post-init-company ()

@@ -67,7 +67,7 @@
   (interactive)
   (if (bound-and-true-p iedit-mode)
       (iedit-quit))
-  (evil-mc-undo-all-cursors)
+  ;; (evil-mc-undo-all-cursors)
   (evil-escape))
 
 ;; Ivy swiper pull next work to search
