@@ -24,7 +24,6 @@
     eldoc
     flycheck
     tide
-    typescript-mode
     web-mode
     (prettier-js :location local)
     (zc-web-modes :location local)))
@@ -40,7 +39,8 @@
     (progn
       (add-hook 'zc-web-js-mode-hook 'tide-setup)
       (add-hook 'zc-web-ts-mode-hook 'tide-setup)
-      (add-to-list 'spacemacs-jump-handlers-typescript-mode 'tide-jump-to-definition)
+      (add-to-list 'spacemacs-jump-handlers-typescript-mode
+                   '(tide-jump-to-definition :async t))
 
       (with-eval-after-load 'tide
 
@@ -90,7 +90,7 @@
         (kbd "C-l") 'tide-goto-reference)
 
       (evil-define-key 'insert tide-mode-map
-        (kbd "M-.") 'tide-jump-to-definition
+        (kbd "M-.") 'zc-web/tide-jump-to-definition
         (kbd "M-,") 'tide-jump-back)
 
       (evil-define-key 'normal tide-mode-map
@@ -215,7 +215,7 @@
       (add-hook 'zc-web-ts-mode-hook 'prettier-js-mode))
     :config
     (progn
-      (setq prettier-args '("--single-quote"
+      (setq prettier-js-args '("--single-quote"
                             "--trailing-comma" "es5"))
       (spacemacs/set-leader-keys-for-major-mode 'zc-web-js-mode
         "rf" 'prettier-js)
@@ -238,8 +238,10 @@
           (when (file-exists-p tidy-bin)
             (setq flycheck-html-tidy-executable tidy-bin)))
 
+        (with-eval-after-load 'tide
+          (flycheck-add-mode 'typescript-tide 'zc-web-ts-mode))
+
         (flycheck-add-mode 'javascript-eslint 'zc-web-js-mode)
-        (flycheck-add-mode 'typescript-tslint 'zc-web-ts-mode)
         (flycheck-add-mode 'css-csslint 'zc-web-css-mode)
         (flycheck-add-mode 'json-jsonlint 'zc-web-json-mode)
         (flycheck-add-mode 'html-tidy 'zc-web-html-mode)))
@@ -255,7 +257,6 @@
 
       (add-hook 'zc-web-js-mode-hook #'zc-web/add-node-modules-bin-to-path)
       (add-hook 'zc-web-ts-mode-hook #'zc-web/add-node-modules-bin-to-path)
-      (add-hook 'zc-web-css-mode-hook #'zc-web/add-node-modules-bin-to-path)
-      )))
+      (add-hook 'zc-web-css-mode-hook #'zc-web/add-node-modules-bin-to-path))))
 
 ;;; packages.el ends here
