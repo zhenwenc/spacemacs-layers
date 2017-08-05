@@ -31,8 +31,11 @@
       (setq ensime-auto-generate-config nil)
       (setq ensime-implicit-gutter-icons nil)
       (setq ensime-tooltip-hints nil)
-      (setq ensime-typecheck-when-idle nil)
+      (setq ensime-search-interface 'ivy)
+
+      ;; Make ENSIME faster
       (setq ensime-sem-high-enabled-p nil)
+      (setq ensime-typecheck-when-idle nil)
 
       (setq ensime-goto-test-config-defaults
             (list :test-class-names-fn #'ensime-goto-test--test-class-names
