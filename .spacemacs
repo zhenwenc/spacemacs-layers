@@ -56,6 +56,9 @@ This function should only modify configuration layer settings."
      (go
       :variables
       go-tab-width 2)
+     (ibuffer
+      :variables
+      ibuffer-group-buffers-by 'projects)
      ivy
      markdown
      org
