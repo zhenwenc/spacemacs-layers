@@ -1,8 +1,7 @@
 ;;; packages.el --- Eshell packages
 
 (defconst zc-eshell-packages
-  '(term
-    (eshell :location built-in)
+  '((eshell :location built-in)
     (eshell-prompt-extras :excluded t)))
 
 (defconst zc-eshell/prompt-regexp
