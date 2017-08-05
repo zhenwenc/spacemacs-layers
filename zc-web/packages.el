@@ -35,6 +35,7 @@
   (use-package tide
     :defer t
     :commands (zc-web/tide-jump-to-type-def)
+    :diminish "Ⓣ"
     :init
     (progn
       (add-hook 'zc-web-js-mode-hook 'tide-setup)
@@ -149,7 +150,8 @@
 
       ;; Treat es6 files as JS files.
       (add-to-list 'web-mode-content-types '("javascript" . "\\.es6\\'"))
-      (add-to-list 'web-mode-content-types '("jsx" . "\\.jsx?\\'")))))
+      (add-to-list 'web-mode-content-types '("jsx" . "\\.jsx?\\'"))
+      (add-to-list 'web-mode-content-types '("tsx" . "\\.tsx\\'")))))
 
 
 ;; HTML
@@ -159,23 +161,19 @@
     :defer t
     :defines (emmet-expand-jsx-className?)
     :commands (emmet-mode emmet-expand-line)
-    :preface
-    (progn
-      (defun zc-web/maybe-emmet-mode ()
-        (cond
-         ((derived-mode-p 'zc-web-html-mode 'html-mode 'nxml-mode)
-          (emmet-mode +1))
-
-         ((and (derived-mode-p 'zc-web-js-mode)
-               (zc-web/buffer-contains-react-p))
-          (emmet-mode +1)))))
     :init
-    (add-hook 'web-mode-hook #'zc-web/maybe-emmet-mode)
+    (progn
+      (add-hook 'web-mode-hook #'zc-web/emmet-mode-maybe)
+      (add-hook 'zc-web-ts-mode-hook #'zc-web/emmet-mode-maybe))
+    :preface
+    (defun zc-web/emmet-enable-expand-jsx-classname ()
+      (setq-local emmet-expand-jsx-className? t))
     :config
     (progn
       (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'zc-web/emmet-expand)
       (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'zc-web/emmet-expand)
-      (spacemacs|hide-lighter emmet-mode))))
+      (spacemacs|hide-lighter emmet-mode)
+      (add-hook 'zc-web-js-mode-hook #'zc-web/emmet-enable-expand-jsx-classname))))
 
 
 
@@ -208,6 +206,7 @@
   (use-package prettier-js
     :after zc-web-modes
     :commands (prettier-js prettier-js-mode)
+    :diminish "Ⓟ"
     :init
     ;; Format typescript file on save
     (when zc-web-fmt-on-save

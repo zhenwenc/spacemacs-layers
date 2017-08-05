@@ -63,6 +63,16 @@
       (goto-char (point-min))
       (search-forward "React" nil t))))
 
+(defun zc-web/emmet-mode-maybe ()
+  (cond
+   ((derived-mode-p 'zc-web-html-mode 'html-mode 'nxml-mode)
+    (emmet-mode +1))
+
+   ((and (derived-mode-p 'zc-web-js-mode 'zc-web-ts-mode)
+         (zc-web/buffer-contains-react-p))
+    (emmet-mode +1))))
+
+
 (defun zc-web/emmet-expand ()
   (interactive)
   (if (bound-and-true-p yas-minor-mode)
