@@ -13,7 +13,8 @@
 
 (defconst zc-ivy-packages
   '(ivy
-    counsel))
+    counsel
+    swiper))
 
 (defun zc-ivy/post-init-ivy ()
   (use-package ivy
@@ -39,5 +40,11 @@
       ;; Display separator in kill-ring buffer
       (setq counsel-yank-pop-separator (concat "\n" (make-string 30 ?-) "\n"))
       )))
+
+(defun zc-ivy/post-init-swiper ()
+  (use-package swiper
+    :config
+    (progn
+      (add-to-list 'swiper-font-lock-exclude 'scala-mode))))
 
 ;;; packages.el ends here
