@@ -17,14 +17,14 @@
 (defun zc-projectile/post-init-projectile ()
   (use-package projectile
     :init
-    (counsel-projectile-on)
+    (progn
+      (counsel-projectile-on)
+      (setq projectile-switch-project-action 'counsel-projectile-find-file)
+      (setq projectile-cache-file (concat zc-cache-directory "/projectile"))
+      (setq projectile-enable-caching t))
 
     :config
     (progn
-      (setq projectile-switch-project-action 'counsel-projectile-find-file)
-      (setq projectile-cache-file (concat zc-cache-directory "/projectile"))
-      (setq projectile-enable-caching t)
-
       (dolist (f '("TAGS" ".DS_Store"))
         (add-to-list 'projectile-globally-ignored-files f))
 
