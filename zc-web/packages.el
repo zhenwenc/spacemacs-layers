@@ -34,7 +34,6 @@
 (defun zc-web/init-tide ()
   (use-package tide
     :defer t
-    :commands (zc-web/tide-jump-to-type-def)
     :diminish "Ⓣ"
     :init
     (progn
@@ -69,13 +68,17 @@
     :config
     (progn
       (spacemacs/set-leader-keys-for-major-mode 'zc-web-ts-mode
-        "gu" 'tide-references
+        "gg" 'tide-jump-to-definition
+        "gi" 'tide-jump-to-implementation
+        "hu" 'tide-references
         "hh" 'tide-documentation-at-point
         "rr" 'tide-rename-symbol
         "ns" 'tide-restart-server)
 
       (spacemacs/set-leader-keys-for-major-mode 'zc-web-js-mode
-        "gu" 'tide-references
+        "gg" 'tide-jump-to-definition
+        "gi" 'tide-jump-to-implementation
+        "hu" 'tide-references
         "hh" 'tide-documentation-at-point
         "rr" 'tide-rename-symbol
         "ns" 'tide-restart-server)
@@ -91,11 +94,11 @@
         (kbd "C-l") 'tide-goto-reference)
 
       (evil-define-key 'insert tide-mode-map
-        (kbd "M-.") 'zc-web/tide-jump-to-definition
+        (kbd "M-.") 'tide-jump-to-definition
         (kbd "M-,") 'tide-jump-back)
 
       (evil-define-key 'normal tide-mode-map
-        (kbd "M-.") 'zc-web/tide-jump-to-type-def
+        (kbd "M-.") 'tide-jump-to-definition
         (kbd "M-,") 'tide-jump-back)
       )))
 
@@ -170,10 +173,15 @@
       (setq-local emmet-expand-jsx-className? t))
     :config
     (progn
-      (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'zc-web/emmet-expand)
-      (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'zc-web/emmet-expand)
+      (evil-define-key 'insert emmet-mode-keymap (kbd "M-e") 'zc-web/emmet-expand)
+
+      ;; TODO Fix key conflicts with emmet
+      (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'yas-expand)
+      (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'yas-expand)
+
       (spacemacs|hide-lighter emmet-mode)
-      (add-hook 'zc-web-js-mode-hook #'zc-web/emmet-enable-expand-jsx-classname))))
+      (add-hook 'zc-web-js-mode-hook #'zc-web/emmet-enable-expand-jsx-classname)
+      (add-hook 'zc-web-ts-mode-hook #'zc-web/emmet-enable-expand-jsx-classname))))
 
 
 

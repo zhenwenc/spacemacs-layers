@@ -43,10 +43,6 @@
 
 
 
-(defun zc-web/tide-jump-to-type-def ()
-  (interactive)
-  (tide-jump-to-definition t))
-
 (defun zc-web/print-error-at-point ()
   "Return the flycheck errors at current point."
   (interactive)
@@ -70,8 +66,10 @@
 
    ((and (derived-mode-p 'zc-web-js-mode 'zc-web-ts-mode)
          (zc-web/buffer-contains-react-p))
-    (emmet-mode +1))))
+    (emmet-mode +1))
 
+   ((-contains? '("jsx" "tsx") (file-name-extension (buffer-file-name)))
+    (emmet-mode +1))))
 
 (defun zc-web/emmet-expand ()
   (interactive)
