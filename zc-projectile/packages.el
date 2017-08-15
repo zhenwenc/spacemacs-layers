@@ -18,10 +18,12 @@
   (use-package projectile
     :init
     (progn
-      (counsel-projectile-on)
       (setq projectile-switch-project-action 'counsel-projectile-find-file)
       (setq projectile-cache-file (concat zc-cache-directory "/projectile"))
-      (setq projectile-enable-caching t))
+      (setq projectile-enable-caching nil)
+
+      (counsel-projectile-on)
+      (projectile-cleanup-known-projects))
 
     :config
     (progn
