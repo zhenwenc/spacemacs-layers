@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: Import Variables
+# key: vars
+# --
+@import 'variables';
