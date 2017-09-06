@@ -60,6 +60,7 @@ This function should only modify configuration layer settings."
       :variables
       ibuffer-group-buffers-by 'projects)
      ivy
+     lua
      markdown
      org
      puppet

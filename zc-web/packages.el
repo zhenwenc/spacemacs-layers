@@ -140,6 +140,11 @@
                     ;; Force indentation for JSX
                     (setq web-mode-attr-indent-offset 2)))
 
+      (add-hook 'zc-web-css-mode-hook
+                #'(lambda ()
+                    (set (make-local-variable 'company-backends) '(company-css))
+                    (company-mode)))
+
       ;; Disable web-mode-reload binding
       (define-key web-mode-map (kbd "C-c C-r") nil)
 
