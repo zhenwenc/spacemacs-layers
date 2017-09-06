@@ -38,8 +38,9 @@
      company-dabbrev-ignore-case nil
      company-dabbrev-code-ignore-case nil
      company-dabbrev-downcase nil
-     company-idle-delay 0
-     company-minimum-prefix-length 4)
+     company-idle-delay 0.3
+     company-minimum-prefix-length 2
+     company-tooltip-align-annotations t)
     :config
     ;; (define-key company-active-map (kbd "<tab>") nil)
     (dolist (map (list company-active-map company-search-map company-filter-map))
