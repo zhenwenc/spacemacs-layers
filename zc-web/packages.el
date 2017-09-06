@@ -228,7 +228,7 @@
     :config
     (progn
       (setq prettier-js-args '("--single-quote"
-                            "--trailing-comma" "es5"))
+                               "--trailing-comma" "es5"))
       (spacemacs/set-leader-keys-for-major-mode 'zc-web-js-mode
         "rf" 'prettier-js)
       (spacemacs/set-leader-keys-for-major-mode 'zc-web-ts-mode
