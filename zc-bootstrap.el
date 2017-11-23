@@ -21,9 +21,13 @@
   "Packages required for bootstrapping my configuration.")
 
 (defconst zc-bootstrap-package-archives
-  '(("melpa" . "http://melpa.org/packages/")
-    ("org" . "http://orgmode.org/elpa/")
-    ("gnu" . "http://elpa.gnu.org/packages/"))
+  '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
+    ("org-cn"   . "http://elpa.emacs-china.org/org/")
+    ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")
+    ;; ("melpa" . "http://melpa.org/packages/")
+    ;; ("org" . "http://orgmode.org/elpa/")
+    ;; ("gnu" . "http://elpa.gnu.org/packages/")
+    )
   "An alist of package archives required during bootstrap.")
 
 (defconst zc-bootstrap-preload-lisp-files
