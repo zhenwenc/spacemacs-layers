@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: import
+# name: Import
 # key: im
 # --
 import { $0 } from '$1';
