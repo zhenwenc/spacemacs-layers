@@ -22,6 +22,7 @@
 
 (defconst zc-bootstrap-package-archives
   '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
+    ("melpa-stable-cn" . "http://elpa.emacs-china.org/melpa-stable/")
     ("org-cn"   . "http://elpa.emacs-china.org/org/")
     ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")
     ;; ("melpa" . "http://melpa.org/packages/")
@@ -52,6 +53,13 @@
     (dolist (pkg zc-bootstrap-packages)
       (zc-bootstrap--install-package pkg))))
 
+(defun zc-bootstrap/configure-pinned-stable-packages ()
+  ;; (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
+  ;; (add-to-list 'package-archives '("melpa-stable" . "http://elpa.emacs-china.org/melpa-stable/"))
+  ;; (add-to-list 'package-pinned-packages '(ensime . "melpa-stable") t)
+  ;; TODO: counsel should use stable instead of ivy
+  (add-to-list 'package-pinned-packages '(ivy . "melpa-stable-cn") t))
+
 (defun zc-bootstrap/load-preloadable-lisp-files ()
   (add-to-list 'load-path user-layers-directory)
   (dolist (el zc-bootstrap-preload-lisp-files)
@@ -60,10 +68,6 @@
 (defun zc-bootstrap/disable-debugging ()
   (setq debug-on-error nil)
   (setq debug-on-quit nil))
-
-(defun zc-bootstrap/configure-ensime-use-stable ()
-  (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
-  (add-to-list 'package-pinned-packages '(ensime . "melpa-stable") t))
 
 (defun zc-bootstrap--mk-package-dir-regexp (pkg)
   (rx-to-string `(and ,(symbol-name pkg)
