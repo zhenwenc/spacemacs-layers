@@ -19,7 +19,7 @@
 (defun zc-scala/post-init-flycheck ()
   (use-package flycheck
     :init
-    (spacemacs/enable-flycheck 'scala-mode)
+    (spacemacs/add-flycheck-hook 'scala-mode)
     :config
     (progn
       (setq flycheck-scalastylerc "~/.scalastyle.xml")

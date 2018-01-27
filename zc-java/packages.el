@@ -17,7 +17,7 @@
 (defun zc-java/post-init-flycheck ()
   (use-package flycheck
     :init
-    (spacemacs/enable-flycheck 'java-mode)
+    (spacemacs/add-flycheck-hook 'java-mode)
     :config
     (progn
       ;; Disable java checker if ensime mode is active

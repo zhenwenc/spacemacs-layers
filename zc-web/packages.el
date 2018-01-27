@@ -19,7 +19,6 @@
 
 (defconst zc-web-packages
   '(aggressive-indent
-    company
     emmet-mode
     eldoc
     flycheck
@@ -146,6 +145,16 @@
                     (set (make-local-variable 'company-backends) '(company-css))
                     (company-mode)))
 
+      (add-hook 'zc-web-ts-mode-hook
+                #'(lambda ()
+                    (set (make-local-variable 'company-backends) '(company-tide))
+                    (company-mode)))
+
+      (add-hook 'zc-web-js-mode-hook
+                #'(lambda ()
+                    (set (make-local-variable 'company-backends) '(company-tide))
+                    (company-mode)))
+
       ;; Disable web-mode-reload binding
       (define-key web-mode-map (kbd "C-c C-r") nil)
 
@@ -214,12 +223,6 @@
       (add-to-list 'aggressive-indent-dont-indent-if '(zc-web/in-flow-strict-object-type-p))
       (add-hook 'aggressive-indent-stop-here-hook #'zc-web/in-flow-strict-object-type-p))))
 
-(defun zc-web/post-init-company ()
-  (when (configuration-layer/package-usedp 'tide)
-    (spacemacs|add-company-backends
-      :backends company-tide
-      :modes typescript-mode zc-web-js-mode)))
-
 (defun zc-web/post-init-eldoc ()
   (add-hook 'zc-web-ts-mode-hook 'eldoc-mode)
   (add-hook 'zc-web-js-mode-hook 'eldoc-mode))
@@ -268,8 +271,8 @@
         (flycheck-add-mode 'html-tidy 'zc-web-html-mode)))
     :init
     (progn
-      (spacemacs/enable-flycheck 'zc-web-ts-mode)
-      (spacemacs/enable-flycheck 'zc-web-js-mode))
+      (spacemacs/add-flycheck-hook 'zc-web-ts-mode)
+      (spacemacs/add-flycheck-hook 'zc-web-js-mode))
     :config
     (progn
       (add-to-list 'flycheck-disabled-checkers 'javascript-jshint)
