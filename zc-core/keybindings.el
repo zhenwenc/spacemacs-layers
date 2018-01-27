@@ -54,6 +54,7 @@
 
 ;; Unset keybinding of define macro
 (evil-global-set-key 'normal (kbd "q") nil)
+(evil-global-set-key 'insert (kbd "C-k") nil)
 
 (evil-global-set-key 'normal (kbd "M-s")   'zc-core/evil-escape-and-save)
 (evil-global-set-key 'insert (kbd "M-s")   'zc-core/evil-escape-and-save)

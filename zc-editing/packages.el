@@ -34,24 +34,12 @@
   (use-package company
     :commands company-mode
     :init
-    (setq
-     company-dabbrev-ignore-case nil
-     company-dabbrev-code-ignore-case nil
-     company-dabbrev-downcase nil
-     company-idle-delay 0.3
-     company-minimum-prefix-length 2
-     company-tooltip-align-annotations t)
-    :config
-    ;; (define-key company-active-map (kbd "<tab>") nil)
-    (dolist (map (list company-active-map company-search-map company-filter-map))
-      (define-key map (kbd "C-n") 'company-select-next)
-      (define-key map (kbd "C-p") 'company-select-previous)
-      (define-key map (kbd "C-j") 'company-select-next)
-      (define-key map (kbd "C-k") 'company-select-previous)
-      (define-key map (kbd "C-h") 'company-show-doc-buffer)
-      (define-key map (kbd "C-w") nil)
-      (define-key map (kbd "TAB") nil)
-      (define-key map [tab] nil))))
+    (setq company-idle-delay 0.2
+          company-minimum-prefix-length 2
+          company-tooltip-align-annotations t
+          company-dabbrev-ignore-case nil
+          company-dabbrev-code-ignore-case nil
+          company-dabbrev-downcase nil)))
 
 (defun zc-editing/init-iedit ()
   (use-package iedit
