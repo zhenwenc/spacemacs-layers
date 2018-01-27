@@ -70,6 +70,7 @@
       (spacemacs/set-leader-keys-for-major-mode 'zc-web-ts-mode
         "gg" 'tide-jump-to-definition
         "gi" 'tide-jump-to-implementation
+        "gj" 'counsel-imenu
         "hu" 'tide-references
         "hh" 'tide-documentation-at-point
         "rr" 'tide-rename-symbol
@@ -148,18 +149,26 @@
       ;; Disable web-mode-reload binding
       (define-key web-mode-map (kbd "C-c C-r") nil)
 
-      ;; Use line comments when commenting in JS.
+      ;; Use line comments when commenting in JS
       (setf (cdr (assoc "javascript" web-mode-comment-formats)) "//")
 
-      ;; Change default indentation behaviour.
+      ;; Change default indentation behaviour
       (setf (cdr (assoc "lineup-args" web-mode-indentation-params)) nil)
       (setf (cdr (assoc "lineup-concats" web-mode-indentation-params)) nil)
       (setf (cdr (assoc "lineup-calls" web-mode-indentation-params)) nil)
 
-      ;; Treat es6 files as JS files.
+      ;; Treat es6 files as JS files
       (add-to-list 'web-mode-content-types '("javascript" . "\\.es6\\'"))
       (add-to-list 'web-mode-content-types '("jsx" . "\\.jsx?\\'"))
-      (add-to-list 'web-mode-content-types '("tsx" . "\\.tsx\\'")))))
+      (add-to-list 'web-mode-content-types '("tsx" . "\\.tsx\\'"))
+
+      ;; Enhance smartparens
+      (sp-with-modes '(zc-web-ts-mode)
+        (sp-local-pair "<" ">"))
+      (sp-with-modes '(zc-web-ts-mode zc-web-js-mode)
+        (sp-local-pair "/**" "*/" :post-handlers '(newline-and-indent)))
+
+      )))
 
 
 ;; HTML

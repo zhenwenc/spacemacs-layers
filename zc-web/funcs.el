@@ -76,3 +76,12 @@
   (if (bound-and-true-p yas-minor-mode)
       (call-interactively 'emmet-expand-yas)
     (call-interactively 'emmet-expand-line)))
+
+
+;; Smartparens
+
+(defun zc-web/sp-skip-asterisk (ms mb me)
+  "Non-nil if we should ignore this asterisk as a delimiter."
+  (save-excursion
+    (goto-char mb)
+    (save-match-data (looking-at "^\\* "))))
