@@ -22,7 +22,6 @@
       (setq projectile-cache-file (concat zc-cache-directory "/projectile"))
       (setq projectile-enable-caching nil)
 
-      (counsel-projectile-on)
       (projectile-cleanup-known-projects))
 
     :config

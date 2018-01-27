@@ -38,6 +38,7 @@
 (setq-default evil-escape-key-sequence "jk")
 (setq-default evil-escape-delay 0.2)
 (setq-default evil-escape-excluded-states '(normal visual))
+(setq-default evil-escape-excluded-major-modes '(help-mode))
 (setq-default evil-escape-unordered-key-sequence nil)
 
 (global-set-key (kbd "M-SPC")   'cycle-spacing)

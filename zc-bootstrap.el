@@ -21,13 +21,12 @@
   "Packages required for bootstrapping my configuration.")
 
 (defconst zc-bootstrap-package-archives
-  '(("melpa-cn" . "http://elpa.emacs-china.org/melpa/")
-    ("melpa-stable-cn" . "http://elpa.emacs-china.org/melpa-stable/")
-    ("org-cn"   . "http://elpa.emacs-china.org/org/")
-    ("gnu-cn"   . "http://elpa.emacs-china.org/gnu/")
-    ;; ("melpa" . "http://melpa.org/packages/")
-    ;; ("org" . "http://orgmode.org/elpa/")
-    ;; ("gnu" . "http://elpa.gnu.org/packages/")
+  '(("melpa" . "http://melpa.org/packages/")
+    ("org" . "http://orgmode.org/elpa/")
+    ("gnu" . "http://elpa.gnu.org/packages/")
+    ;; ("melpa" . "http://elpa.emacs-china.org/melpa/")
+    ;; ("org"   . "http://elpa.emacs-china.org/org/")
+    ;; ("gnu"   . "http://elpa.emacs-china.org/gnu/")
     )
   "An alist of package archives required during bootstrap.")
 
@@ -53,12 +52,17 @@
     (dolist (pkg zc-bootstrap-packages)
       (zc-bootstrap--install-package pkg))))
 
-(defun zc-bootstrap/configure-pinned-stable-packages ()
-  ;; (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/"))
-  ;; (add-to-list 'package-archives '("melpa-stable" . "http://elpa.emacs-china.org/melpa-stable/"))
+(defun zc-bootstrap/configure-packages ()
+  (setq configuration-layer-elpa-archives zc-bootstrap-package-archives
+        configuration-layer--elpa-archives zc-bootstrap-package-archives)
+
+  (add-to-list 'package-archives
+               '("melpa-stable" . "http://stable.melpa.org/packages/"))
+  ;; '("melpa-stable-cn" . "http://elpa.emacs-china.org/melpa-stable/")
   ;; (add-to-list 'package-pinned-packages '(ensime . "melpa-stable") t)
-  ;; TODO: counsel should use stable instead of ivy
-  (add-to-list 'package-pinned-packages '(ivy . "melpa-stable-cn") t))
+
+  ;; Use advance version of ivy as counsel requires
+  (add-to-list 'package-pinned-packages '(ivy . "melpa") t))
 
 (defun zc-bootstrap/load-preloadable-lisp-files ()
   (add-to-list 'load-path user-layers-directory)
