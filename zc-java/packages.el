@@ -14,6 +14,18 @@
     (progn
       (add-to-list 'aggressive-indent-excluded-modes 'java-mode))))
 
+(defun zc-java/post-init-flycheck ()
+  (use-package flycheck
+    :init
+    (spacemacs/enable-flycheck 'java-mode)
+    :config
+    (progn
+      ;; Disable java checker if ensime mode is active
+      (defun zc-java/disable-flycheck-java ()
+        (when (boundp 'flycheck-disabled-checkers)
+          (push 'java flycheck-disabled-checkers)))
+      (add-hook 'ensime-mode-hook #'zc-java/disable-flycheck-java))))
+
 (defun zc-java/post-init-eldoc ()
   (add-hook 'java-mode-local-vars-hook #'zc-java/setup-ensime-eldoc))
 
@@ -63,5 +75,6 @@
       (spacemacs/set-leader-keys-for-major-mode 'java-mode
         "ee" 'zc-java/ensime-print-errors-at-point))
     ))
+
 
 ;;; packages.el ends here
