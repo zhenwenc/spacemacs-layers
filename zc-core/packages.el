@@ -25,8 +25,7 @@
 (defun zc-core/post-init-neotree ()
   (use-package neotree
     :config
-    (progn
-      (setq neo-theme 'arrow))))
+    (setq neo-theme 'arrow)))
 
 (defun zc-core/init-wgrep-ag ()
   (use-package wgrep-ag

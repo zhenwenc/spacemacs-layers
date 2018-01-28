@@ -99,8 +99,7 @@
 
       (evil-define-key 'normal tide-mode-map
         (kbd "M-.") 'tide-jump-to-definition
-        (kbd "M-,") 'tide-jump-back)
-      )))
+        (kbd "M-,") 'tide-jump-back))))
 
 
 ;; Typescript / Javascript
@@ -175,9 +174,7 @@
       (sp-with-modes '(zc-web-ts-mode)
         (sp-local-pair "<" ">"))
       (sp-with-modes '(zc-web-ts-mode zc-web-js-mode)
-        (sp-local-pair "/**" "*/" :post-handlers '(newline-and-indent)))
-
-      )))
+        (sp-local-pair "/**" "*/" :post-handlers '(newline-and-indent))))))
 
 
 ;; HTML
