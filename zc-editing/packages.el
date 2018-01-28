@@ -26,7 +26,7 @@
     :config
     (progn
       ;; HACK: clear all cursors when escape/save
-      (advice add 'zc-core/evil-escape :after #'evil-mc-undo-all-cursors)
+      (advice-add 'zc-core/evil-escape :after #'evil-mc-undo-all-cursors)
 
       (evil-define-key 'normal map (kbd "C-p") nil))))
 
