@@ -193,11 +193,8 @@
       (setq-local emmet-expand-jsx-className? t))
     :config
     (progn
-      (evil-define-key 'insert emmet-mode-keymap (kbd "M-e") 'zc-web/emmet-expand)
-
-      ;; TODO Fix key conflicts with emmet
-      (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'yas-expand)
-      (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'yas-expand)
+      (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'zc-web/emmet-expand-yas)
+      (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'zc-web/emmet-expand-yas)
 
       (spacemacs|hide-lighter emmet-mode)
       (add-hook 'zc-web-js-mode-hook #'zc-web/emmet-enable-expand-jsx-classname)

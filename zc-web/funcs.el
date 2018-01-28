@@ -71,10 +71,11 @@
    ((-contains? '("jsx" "tsx") (file-name-extension (buffer-file-name)))
     (emmet-mode +1))))
 
-(defun zc-web/emmet-expand ()
+(defun zc-web/emmet-expand-yas ()
   (interactive)
   (if (bound-and-true-p yas-minor-mode)
-      (call-interactively 'emmet-expand-yas)
+      (unless (call-interactively 'yas-expand)
+        (call-interactively 'emmet-expand-line))
     (call-interactively 'emmet-expand-line)))
 
 
