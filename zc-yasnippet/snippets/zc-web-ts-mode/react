@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
 # name: react
 # key: react
+# condition: (string= (thing-at-point 'line t) "react\n")
 # --
 import * as React from 'react';
 
