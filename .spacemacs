@@ -48,7 +48,7 @@ This function should only modify configuration layer settings."
       :variables
       auto-completion-enable-help-tooltip t
       auto-completion-return-key-behavior 'complete
-      auto-completion-tab-key-behavior 'complete)
+      auto-completion-tab-key-behavior nil)
      better-defaults
      csv
      dash
