@@ -37,9 +37,9 @@
 ;; NOTE: Disabled as it creates weird effect while using j/k
 (setq-default evil-escape-key-sequence "jk")
 (setq-default evil-escape-delay 0.2)
-(setq-default evil-escape-excluded-states '(normal visual))
-(setq-default evil-escape-excluded-major-modes '(help-mode))
 (setq-default evil-escape-unordered-key-sequence nil)
+(setq-default evil-escape-excluded-states '(normal visual))
+(setq-default evil-escape-excluded-major-modes '(help-mode neotree-mode))
 
 (global-set-key (kbd "M-SPC")   'cycle-spacing)
 (global-set-key (kbd "C-c C-g") 'evil-escape)
