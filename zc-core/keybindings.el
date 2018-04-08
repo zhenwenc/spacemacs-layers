@@ -31,15 +31,17 @@
     ;; Emacs sometimes registers C-s-f as this weird keycode
     (global-set-key (kbd "<C-M-268632070>") 'spacemacs/toggle-frame-fullscreen)))
 
+;; Unset stupid default keybindings
+(global-set-key (kbd "C-h h") nil)
+
 ;; Vim key bindings
 ;; https://github.com/syl20bnr/evil-escape
 
-;; NOTE: Disabled as it creates weird effect while using j/k
 (setq-default evil-escape-key-sequence "jk")
 (setq-default evil-escape-delay 0.2)
 (setq-default evil-escape-unordered-key-sequence nil)
 (setq-default evil-escape-excluded-states '(normal visual))
-(setq-default evil-escape-excluded-major-modes '(help-mode neotree-mode ibuffer-mode))
+(setq-default evil-escape-excluded-major-modes '(help-mode neotree-mode ibuffer-mode image-mode))
 
 (global-set-key (kbd "M-SPC")   'cycle-spacing)
 (global-set-key (kbd "C-c C-g") 'evil-escape)
@@ -116,11 +118,11 @@
 
 ;;; Multiple cursors
 
-(global-set-key (kbd "C-S-c C-S-c")     'mc/edit-lines)
-(global-set-key (kbd "C->")             'mc/mark-next-like-this)
-(global-set-key (kbd "C-<")             'mc/mark-previous-like-this)
-(global-set-key (kbd "C-c C-<")         'mc/mark-all-like-this)
-(global-set-key (kbd "C-c C->")         'mc/mark-all-like-this)
+;; (global-set-key (kbd "C-S-c C-S-c")     'mc/edit-lines)
+;; (global-set-key (kbd "C->")             'mc/mark-next-like-this)
+;; (global-set-key (kbd "C-<")             'mc/mark-previous-like-this)
+;; (global-set-key (kbd "C-c C-<")         'mc/mark-all-like-this)
+;; (global-set-key (kbd "C-c C->")         'mc/mark-all-like-this)
 
 ;; I-Search
 
