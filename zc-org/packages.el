@@ -19,10 +19,19 @@
   (expand-file-name "~/code/tools/scripts/plantuml.jar"))
 
 (defun zc-org/post-init-org ()
-  (setq org-plantuml-jar-path zc-org/plantuml-jar-path)
+  (use-package org
+    :defer t
+    :init
+    (progn
+      (setq org-plantuml-jar-path zc-org/plantuml-jar-path)
 
-  (spacemacs|use-package-add-hook org
-    :post-config (add-to-list 'org-babel-load-languages '(plantuml . t))))
+      ;; (spacemacs|use-package-add-hook org
+      ;;   :post-config
+      ;;   (add-to-list 'org-babel-load-languages '(plantuml . t)))
+      )
+    :config
+    (add-to-list 'org-babel-load-languages '(plantuml . t))
+    ))
 
 (defun zc-org/init-plantuml-mode ()
   (use-package plantuml-mode
