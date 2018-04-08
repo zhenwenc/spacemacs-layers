@@ -1,8 +1,8 @@
 # -*- mode: snippet -*-
 # name: react
 # key: react
-# condition: (string= (thing-at-point 'line t) "react\n")
+# condition: (or (string= (thing-at-point 'line t) "react") (string= (thing-at-point 'line t) "react\n"))
 # --
-import * as React from 'react';
+import React from 'react';
 
 $0
