@@ -134,6 +134,11 @@
       (setq web-mode-enable-auto-quoting nil)
       (setq typescript-indent-level 2)
 
+      (add-hook 'json-mode-hook
+                (lambda ()
+                  (make-local-variable 'js-indent-level)
+                  (setq js-indent-level 2)))
+
       (add-hook 'zc-web-js-mode-hook
                 #'(lambda ()
                     ;; Force indentation for JSX
