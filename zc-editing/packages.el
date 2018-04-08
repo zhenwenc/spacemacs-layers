@@ -44,6 +44,8 @@
 (defun zc-editing/init-iedit ()
   (use-package iedit
     :commands iedit-mode
+    :bind (:map iedit-mode-keymap
+                ("C-;" . iedit-toggle-selection))
     :config
     (set-face-background 'iedit-occurrence "PaleVioletRed4")))
 
