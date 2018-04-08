@@ -71,6 +71,12 @@
     (progn
       (add-hook 'scala-mode-hook #'zc-ensime/setup-ensime)
 
+      ;; TODO: Disable some ugly symbols, like true/false
+      ;; (add-hook 'scala-mode-hook
+      ;;           #'(lambda ()
+      ;;               (setq prettify-symbols-alist scala-prettify-symbols-alist)
+      ;;               (prettify-symbols-mode)))
+
       (dolist (prefix '(("mb" . "scala/build")
                         ("mc" . "scala/check")
                         ("md" . "scala/debug")
