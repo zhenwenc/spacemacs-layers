@@ -91,6 +91,7 @@ This function should only modify configuration layer settings."
      zc-eshell
      zc-ensime
      zc-git
+     zc-graphql
      zc-highlight
      zc-ivy
      zc-java
