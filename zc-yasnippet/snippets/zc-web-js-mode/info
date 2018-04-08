@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: console info
-# key: info
-# --
-console.info('$0');
