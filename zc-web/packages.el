@@ -231,11 +231,15 @@
     :after zc-web-modes
     :commands (prettier-js prettier-js-mode)
     :diminish "Ⓟ"
+    :preface
+    (defun enable-prettier-mode ()
+      (if (not (string= (projectile-project-name) "apollo-codegen"))
+          (prettier-js-mode)))
     :init
     ;; Format typescript file on save
     (when zc-web-fmt-on-save
-      (add-hook 'zc-web-js-mode-hook 'prettier-js-mode)
-      (add-hook 'zc-web-ts-mode-hook 'prettier-js-mode))
+      (add-hook 'zc-web-js-mode-hook 'enable-prettier-mode)
+      (add-hook 'zc-web-ts-mode-hook 'enable-prettier-mode))
     :config
     (progn
       (setq prettier-js-args '("--single-quote"

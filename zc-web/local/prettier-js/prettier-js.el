@@ -1,3 +1,5 @@
+;; git commit 9cac36f6b1c224e0772dc92d15a6105ec10d3f40
+
 ;;; prettier-js.el --- Minor mode to format JS code on file save
 
 ;; Version: 0.1.0
@@ -40,8 +42,6 @@
 
 ;;; Commentary:
 ;; Formats your JavaScript code using 'prettier' on file save.
-;;
-;; git commit 9cac36f6b1c224e0772dc92d15a6105ec10d3f40
 
 ;;; Code:
 
@@ -124,13 +124,14 @@ a `before-save-hook'."
               (with-current-buffer target-buffer
                 (prettier-js--goto-line (- from line-offset))
                 (setq line-offset (+ line-offset len))
-                (kill-whole-line len)
-                (setq kill-ring (cdr kill-ring))))
+                (let ((beg (point)))
+                  (forward-line len)
+                  (delete-region (point) beg))))
              (t
               (error "Invalid rcs patch or internal error in prettier-js--apply-rcs-patch")))))))))
 
-(defun prettier-js--process-errors (filename tmpfile errorfile errbuf)
-  "Process errors for FILENAME, using a TMPFILE an ERRORFILE and display the output in ERRBUF."
+(defun prettier-js--process-errors (filename errorfile errbuf)
+  "Process errors for FILENAME, using an ERRORFILE and display the output in ERRBUF."
   (with-current-buffer errbuf
     (if (eq prettier-js-show-errors 'echo)
         (progn
@@ -140,7 +141,7 @@ a `before-save-hook'."
       ;; Convert the prettier stderr to something understood by the compilation mode.
       (goto-char (point-min))
       (insert "prettier errors:\n")
-      (while (search-forward-regexp (regexp-quote tmpfile) nil t)
+      (while (search-forward-regexp "^stdin" nil t)
         (replace-match (file-name-nondirectory filename)))
       (compilation-mode)
       (display-buffer errbuf))))
@@ -187,14 +188,14 @@ a `before-save-hook'."
                              prettier-js-command bufferfile (list (list :file outputfile) errorfile)
                              nil (append prettier-js-args width-args (list "--stdin" "--stdin-filepath" buffer-file-name))))
                (progn
-                 (call-process-region (point-min) (point-max) "diff" nil patchbuf nil "-n" "-"
+                 (call-process-region (point-min) (point-max) "diff" nil patchbuf nil "-n" "--strip-trailing-cr" "-"
                                       outputfile)
                  (prettier-js--apply-rcs-patch patchbuf)
                  (message "Applied prettier with args `%s'" prettier-js-args)
                  (if errbuf (prettier-js--kill-error-buffer errbuf)))
              (message "Could not apply prettier")
              (if errbuf
-                 (prettier-js--process-errors (buffer-file-name) bufferfile errorfile errbuf))
+                 (prettier-js--process-errors (buffer-file-name) errorfile errbuf))
              ))
        (kill-buffer patchbuf)
        (delete-file errorfile)
@@ -204,7 +205,7 @@ a `before-save-hook'."
 ;;;###autoload
 (define-minor-mode prettier-js-mode
   "Runs prettier on file save when this mode is turned on"
-  :lighter " prettier"
+  :lighter " Prettier"
   :global nil
   (if prettier-js-mode
       (add-hook 'before-save-hook 'prettier-js nil 'local)
