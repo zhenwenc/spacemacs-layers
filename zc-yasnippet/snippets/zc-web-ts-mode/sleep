@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: sleep
+# key: sleep
+# --
+require('sleep').sleep($0); // TODO: DELETE
