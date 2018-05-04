@@ -239,7 +239,8 @@
     ;; Format typescript file on save
     (when zc-web-fmt-on-save
       (add-hook 'zc-web-js-mode-hook 'enable-prettier-mode)
-      (add-hook 'zc-web-ts-mode-hook 'enable-prettier-mode))
+      (add-hook 'zc-web-ts-mode-hook 'enable-prettier-mode)
+      (add-hook 'zc-web-css-mode-hook 'enable-prettier-mode))
     :config
     (progn
       (setq prettier-js-args '("--single-quote"
