@@ -390,7 +390,9 @@ before packages are loaded."
         auto-save-file-name-transforms
         `((".*" ,temporary-file-directory t)))
   ;; Disable creating lock files
-  (setq create-lockfiles nil))
+  (setq create-lockfiles nil)
+  ;; Override doom-theme default faces
+  (custom-set-faces '(default ((t (:background "#1d2021"))))))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
