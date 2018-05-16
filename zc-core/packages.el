@@ -47,7 +47,6 @@
     :defer t
     :mode ("nginx\\.conf\\'" "/docker-nginx/.*\\.tmpl\\'")))
 
-
 (defun zc-core/init-pbcopy ()
   (use-package pbcopy
     :if (and (spacemacs/system-is-mac) (not (display-graphic-p)))

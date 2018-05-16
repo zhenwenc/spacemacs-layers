@@ -107,7 +107,7 @@ values."
    ;; wrapped in a layer. If you need some configuration for these
    ;; packages, then consider creating a layer. You can also put the
    ;; configuration in `dotspacemacs/user-config'.
-   dotspacemacs-additional-packages '()
+   dotspacemacs-additional-packages '(doom-themes)
    ;; A list of packages that cannot be updated.
    dotspacemacs-frozen-packages '()
    ;; A list of packages that will not be installed and loaded.
@@ -179,19 +179,11 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(sanityinc-tomorrow-eighties
-                         sanityinc-solarized-light
-                         solarized-light
-                         dracula
-                      ;; spacemacs-dark
-                      ;; ample
-                      ;; solarized-light
-                      ;; monokai
-                      ;; solarized-dark
-                      ;; spacemacs-light
-                      ;; spacemacs-dark
-                      ;; leuven
-                      ;; zenburn
+   dotspacemacs-themes '(doom-one
+                         ;; sanityinc-tomorrow-eighties
+                         ;; sanityinc-solarized-light
+                         ;; solarized-light
+                         ;; dracula
                          )
 
    ;; Set the theme for the Spaceline. Supported themes are `spacemacs',
@@ -210,7 +202,7 @@ values."
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
                                :size 12
-                               :weight normal ;; use light for dark theme
+                               :weight medium ;; use light for dark theme
                                :width normal
                                :powerline-scale 1.1)
    ;; The leader key
