@@ -2,4 +2,4 @@
 # name: sleep
 # key: sleep
 # --
-require('sleep').sleep($0); // TODO: DELETE
+await require('sleep-promise')($0); // TODO: DELETE
