@@ -69,9 +69,9 @@
   (dolist (el zc-bootstrap-preload-lisp-files)
     (load el)))
 
-(defun zc-bootstrap/disable-debugging ()
-  (setq debug-on-error nil)
-  (setq debug-on-quit nil))
+(defun zc-bootstrap/set-debugging (&optional on)
+  (setq debug-on-error on)
+  (setq debug-on-quit on))
 
 (defun zc-bootstrap--mk-package-dir-regexp (pkg)
   (rx-to-string `(and ,(symbol-name pkg)

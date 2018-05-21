@@ -179,8 +179,10 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(doom-one
-                         ;; sanityinc-tomorrow-eighties
+   dotspacemacs-themes '(;;doom-dracula
+                         ;;doom-molokai
+                         ;;doom-one
+                         sanityinc-tomorrow-eighties
                          ;; sanityinc-solarized-light
                          ;; solarized-light
                          ;; dracula
@@ -201,7 +203,7 @@ values."
    ;; Default font, or prioritized list of fonts. `powerline-scale' allows to
    ;; quickly tweak the mode-line size to make separators look not too crappy.
    dotspacemacs-default-font '("Source Code Pro"
-                               :size 12
+                               :size 13
                                :weight medium ;; use light for dark theme
                                :width normal
                                :powerline-scale 1.1)
@@ -368,7 +370,7 @@ configuration.
 It is mostly for variables that should be set before packages are loaded.
 If you are unsure, try setting them in `dotspacemacs/user-config' first."
   (setq exec-path-from-shell-check-startup-files nil)
-  (zc-bootstrap/disable-debugging)
+  (zc-bootstrap/set-debugging nil)
   (zc-bootstrap/configure-packages)
   (zc-bootstrap/initialize-packages)
   (zc-bootstrap/load-preloadable-lisp-files))
@@ -392,7 +394,8 @@ before packages are loaded."
   ;; Disable creating lock files
   (setq create-lockfiles nil)
   ;; Override doom-theme default faces
-  (custom-set-faces '(default ((t (:background "#1d2021"))))))
+  (unless (display-graphic-p)
+    (custom-set-faces '(default ((t (:background "#1d2021")))))))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
