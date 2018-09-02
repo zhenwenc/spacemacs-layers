@@ -1,5 +1,5 @@
 # -*- mode: snippet -*-
-# name: react
+# name: React Import
 # key: react
 # condition: (or (string= (thing-at-point 'line t) "react") (string= (thing-at-point 'line t) "react\n"))
 # --

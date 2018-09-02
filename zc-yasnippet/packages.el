@@ -24,6 +24,11 @@
     (progn
       (setq yas-snippet-dirs zc-yasnippet/main-snippets-dir)
 
+      ;; This advice could be added to other functions that usually insert
+      ;; balanced parens, like `try-expand-list'.
+      (advice-add 'yas-hippie-try-expand
+                  :after-while #'zc-yasnippet/disable-sp-hippie-advice)
+
       (bind-key (kbd "TAB") #'yas-expand prog-mode-map)
       (evil-define-key 'insert yas-minor-mode-map (kbd "TAB") #'yas-expand)
 

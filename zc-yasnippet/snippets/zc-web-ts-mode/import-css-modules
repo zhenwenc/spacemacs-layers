@@ -1,5 +1,0 @@
-# -*- mode: snippet -*-
-# name: Import CSS Modules
-# key: ims
-# --
-import * as styles from './$0';

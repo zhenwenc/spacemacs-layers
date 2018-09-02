@@ -159,9 +159,6 @@
                     (set (make-local-variable 'company-backends) '(company-tide))
                     (company-mode)))
 
-      ;; Disable web-mode-reload binding
-      (define-key web-mode-map (kbd "C-c C-r") nil)
-
       ;; Use line comments when commenting in JS
       (setf (cdr (assoc "javascript" web-mode-comment-formats)) "//")
 
@@ -175,35 +172,43 @@
       (add-to-list 'web-mode-content-types '("jsx" . "\\.jsx?\\'"))
       (add-to-list 'web-mode-content-types '("tsx" . "\\.tsx\\'"))
 
+      ;; Disable web-mode-reload binding
+      (define-key web-mode-map (kbd "C-c C-r") nil)
+
+      ;; Keybindings
+      (evil-define-key 'insert web-mode-map (kbd "TAB") 'yas-expand)
+      (evil-define-key 'insert web-mode-map (kbd "<tab>") 'yas-expand)
+
       ;; Enhance smartparens
       (sp-with-modes '(zc-web-ts-mode)
         (sp-local-pair "<" ">"))
       (sp-with-modes '(zc-web-ts-mode zc-web-js-mode)
-        (sp-local-pair "/**" "*/" :post-handlers '(newline-and-indent))))))
+        (sp-local-pair "/**" "*/" :post-handlers '(newline-and-indent)))
+      )))
 
 
 ;; HTML
 
-(defun zc-web/init-emmet-mode ()
-  (use-package emmet-mode
-    :defer t
-    :defines (emmet-expand-jsx-className?)
-    :commands (emmet-mode emmet-expand-line)
-    :init
-    (progn
-      (add-hook 'web-mode-hook #'zc-web/emmet-mode-maybe)
-      (add-hook 'zc-web-ts-mode-hook #'zc-web/emmet-mode-maybe))
-    :preface
-    (defun zc-web/emmet-enable-expand-jsx-classname ()
-      (setq-local emmet-expand-jsx-className? t))
-    :config
-    (progn
-      (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'zc-web/emmet-expand-yas)
-      (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'zc-web/emmet-expand-yas)
+;; (defun zc-web/init-emmet-mode ()
+;;   (use-package emmet-mode
+;;     :defer t
+;;     :defines (emmet-expand-jsx-className?)
+;;     :commands (emmet-mode emmet-expand-line)
+;;     :init
+;;     (progn
+;;       (add-hook 'web-mode-hook #'zc-web/emmet-mode-maybe)
+;;       (add-hook 'zc-web-ts-mode-hook #'zc-web/emmet-mode-maybe))
+;;     :preface
+;;     (defun zc-web/emmet-enable-expand-jsx-classname ()
+;;       (setq-local emmet-expand-jsx-className? t))
+;;     :config
+;;     (progn
+;;       (evil-define-key 'insert emmet-mode-keymap (kbd "TAB") 'zc-web/emmet-expand-yas)
+;;       (evil-define-key 'insert emmet-mode-keymap (kbd "<tab>") 'zc-web/emmet-expand-yas)
 
-      (spacemacs|hide-lighter emmet-mode)
-      (add-hook 'zc-web-js-mode-hook #'zc-web/emmet-enable-expand-jsx-classname)
-      (add-hook 'zc-web-ts-mode-hook #'zc-web/emmet-enable-expand-jsx-classname))))
+;;       (spacemacs|hide-lighter emmet-mode)
+;;       (add-hook 'zc-web-js-mode-hook #'zc-web/emmet-enable-expand-jsx-classname)
+;;       (add-hook 'zc-web-ts-mode-hook #'zc-web/emmet-enable-expand-jsx-classname))))
 
 
 

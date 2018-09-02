@@ -1,6 +1,8 @@
 # -*- mode: snippet -*-
-# name: React Fragment
-# key: frag
+# name: React JSX
+# key: r
 # condition: (zc-yasnippet/buffer-match-p "react")
 # --
-<React.Fragment>$0</React.Fragment>
+<$1 $2>
+  $0
+</$1>

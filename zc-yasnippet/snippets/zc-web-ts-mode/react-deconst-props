@@ -1,5 +1,6 @@
 # -*- mode: snippet -*-
-# name: Deconst React Props
+# name: React Deconst Props
 # key: props
+# condition: (not (zc-yasnippet/line-match-p "const"))
 # --
 const { $0 } = this.props;

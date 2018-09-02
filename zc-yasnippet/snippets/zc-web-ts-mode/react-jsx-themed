@@ -1,0 +1,9 @@
+# -*- mode: snippet -*-
+# name: React JSX Themed
+# key: rt
+# --
+<Themed fn={createStyles}>
+  {styles => (
+    $0
+  )}
+</Themed>
