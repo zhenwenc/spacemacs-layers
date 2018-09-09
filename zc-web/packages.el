@@ -24,6 +24,7 @@
     flycheck
     tide
     web-mode
+    rjsx-mode
     (prettier-js :location local)
     (zc-web-modes :location local)))
 
@@ -33,6 +34,7 @@
 (defun zc-web/init-tide ()
   (use-package tide
     :defer t
+    :after (typescript-mode company flycheck)
     :diminish "Ⓣ"
     :init
     (progn
@@ -83,15 +85,6 @@
         "rr" 'tide-rename-symbol
         "ns" 'tide-restart-server)
 
-      (evilified-state-evilify tide-references-mode tide-references-mode-map
-        (kbd "p")   'tide-find-previous-reference
-        (kbd "n")   'tide-find-next-reference
-        (kbd "g")   'tide-goto-reference
-        (kbd "q")   'quit-window
-
-        (kbd "C-k") 'tide-find-previous-reference
-        (kbd "C-j") 'tide-find-next-reference
-        (kbd "C-l") 'tide-goto-reference)
 
       (evil-define-key 'insert tide-mode-map
         (kbd "M-.") 'tide-jump-to-definition
@@ -99,7 +92,20 @@
 
       (evil-define-key 'normal tide-mode-map
         (kbd "M-.") 'tide-jump-to-definition
-        (kbd "M-,") 'tide-jump-back))))
+        (kbd "M-,") 'tide-jump-back)
+
+      (evil-define-key 'normal tide-references-mode-map
+        (kbd "p")   'tide-find-previous-reference
+        (kbd "n")   'tide-find-next-reference
+        (kbd "g")   'tide-goto-reference
+        (kbd "q")   'quit-window
+
+        (kbd "C-k") 'tide-find-previous-reference
+        (kbd "C-j") 'tide-find-next-reference
+        (kbd "C-l") 'tide-goto-reference
+
+        (kbd "RET") 'tide-goto-reference)
+      )))
 
 
 ;; Typescript / Javascript
@@ -185,6 +191,9 @@
       (sp-with-modes '(zc-web-ts-mode zc-web-js-mode)
         (sp-local-pair "/**" "*/" :post-handlers '(newline-and-indent)))
       )))
+
+(defun zc-web/init-rjsx-mode ()
+  (use-package rjsx-modes :defer t))
 
 
 ;; HTML

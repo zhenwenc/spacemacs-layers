@@ -7,10 +7,11 @@
 ;;; Code:
 
 (require 'web-mode)
+(require 'rjsx-mode)
 (require 'typescript-mode)
 
 ;;;###autoload
-(define-derived-mode zc-web-js-mode web-mode "JS"
+(define-derived-mode zc-web-js-mode rjsx-mode "JS"
   "Derived mode for editing JavaScript files.")
 
 ;;;###autoload
