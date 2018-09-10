@@ -186,10 +186,20 @@
       (evil-define-key 'insert web-mode-map (kbd "<tab>") 'yas-expand)
 
       ;; Enhance smartparens
-      (sp-with-modes '(zc-web-ts-mode)
-        (sp-local-pair "<" ">"))
       (sp-with-modes '(zc-web-ts-mode zc-web-js-mode)
-        (sp-local-pair "/**" "*/" :post-handlers '(newline-and-indent)))
+        (sp-local-pair "{" "}" :post-handlers '(:add ("| " "SPC")))
+        (sp-local-pair "/*" "*/"
+                       :post-handlers
+                       '(("| " "SPC") (zc-web/sp-comment-expand "RET"))))
+
+      ;; Enter < inserts </> to start a new JSX node
+      (sp-with-modes '(zc-web-ts-mode)
+        (sp-local-pair "<" ">" :post-handlers '(zc-web/sp-jsx-expand-tag)))
+
+      ;; Enter > right before the slash in a self-closing tag automatically
+      ;; inserts a closing tag and places point inside the element
+      (evil-define-key 'insert zc-web-ts-mode-map
+        (kbd ">") 'zc-web/sp-jsx-rewrap-tag)
       )))
 
 (defun zc-web/init-rjsx-mode ()

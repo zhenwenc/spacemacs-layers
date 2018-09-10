@@ -86,3 +86,48 @@
   (save-excursion
     (goto-char mb)
     (save-match-data (looking-at "^\\* "))))
+
+(defun zc-web/sp-comment-expand (&rest _ignored)
+  "Expand Javascript comment block."
+  (save-excursion
+    (previous-line)
+    (insert "*"))
+  (insert "* ")
+  (save-excursion
+    (insert "\n")
+    (indent-according-to-mode))
+  (indent-according-to-mode))
+
+(defun zc-web/sp-jsx-expand-tag (id action _context)
+  "Expand JSX tag <> to self-closing form </> if point is not after a word."
+  (when (and (eq action 'insert)
+             (not (sp--looking-back-p
+                   (concat "\\(\\sw\\|\\s_\\)" (regexp-quote id)))))
+    (save-excursion (insert "/"))))
+
+(defun zc-web/sp-jsx-rewrap-tag (&rest _ignored)
+  "Rewrap the self-closing JSX tag <_/> to <_>|</_> if point is followed by />."
+  (interactive)
+  (if (sp--looking-at-p "/>")
+    (let ((tag (zc-web/sp-jsx-get-tag-name))
+          (beg (save-excursion (sp-backward-whitespace))))
+      (delete-region beg (re-search-forward ">"))
+      (insert ">\n")
+      (save-excursion
+        (insert "\n</" tag ">")
+        (indent-according-to-mode))
+      (indent-according-to-mode))
+    (self-insert-command 1)))
+
+(defun zc-web/sp-jsx-get-tag-name (&rest _ignored)
+  "Return the JSX tag name inclosed in <> pair."
+  (let* ((beg (save-excursion (re-search-backward "<")))
+         (end (save-excursion (re-search-forward ">")))
+         (str (buffer-substring beg end))
+         (sub (replace-regexp-in-string "/\\|<\\|>" "" str)))
+    (string-trim (car (split-string sub " ")))))
+
+(defun zc-web/sp-point-after-bol-and-chevron-p (&rest _ignored)
+  "Return t if point is after begining of line followed by <, nil otherwise."
+  (save-excursion
+    (sp--looking-back-p "^\\s-*<")))
