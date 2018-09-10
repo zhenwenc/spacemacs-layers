@@ -107,17 +107,18 @@
 
 (defun zc-web/sp-jsx-rewrap-tag (&rest _ignored)
   "Rewrap the self-closing JSX tag <_/> to <_>|</_> if point is followed by />."
-  (interactive)
+  (interactive "P")
   (if (sp--looking-at-p "/>")
-    (let ((tag (zc-web/sp-jsx-get-tag-name))
-          (beg (save-excursion (sp-backward-whitespace))))
-      (delete-region beg (re-search-forward ">"))
-      (insert ">\n")
-      (save-excursion
-        (insert "\n</" tag ">")
+      (let ((tag (zc-web/sp-jsx-get-tag-name))
+            (beg (save-excursion (sp-backward-whitespace))))
+        (delete-region beg (re-search-forward ">"))
+        (insert ">\n")
+        (save-excursion
+          (insert "\n</" tag ">")
+          (indent-according-to-mode))
         (indent-according-to-mode))
-      (indent-according-to-mode))
-    (self-insert-command 1)))
+    (self-insert-command
+     (prefix-numeric-value current-prefix-arg))))
 
 (defun zc-web/sp-jsx-get-tag-name (&rest _ignored)
   "Return the JSX tag name inclosed in <> pair."
