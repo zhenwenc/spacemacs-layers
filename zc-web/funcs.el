@@ -126,8 +126,3 @@
          (str (buffer-substring beg end))
          (sub (replace-regexp-in-string "/\\|<\\|>" "" str)))
     (string-trim (car (split-string sub " ")))))
-
-(defun zc-web/sp-point-after-bol-and-chevron-p (&rest _ignored)
-  "Return t if point is after begining of line followed by <, nil otherwise."
-  (save-excursion
-    (sp--looking-back-p "^\\s-*<")))
