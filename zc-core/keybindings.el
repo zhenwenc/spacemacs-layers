@@ -104,6 +104,9 @@
 (spacemacs/set-leader-keys "ss"         'counsel-grep-or-swiper)
 (spacemacs/set-leader-keys "qq"         'spacemacs/frame-killer)
 
+(spacemacs/set-leader-keys "jn"         'sp-next-sexp)
+(spacemacs/set-leader-keys "jp"         'sp-backward-up-sexp)
+
 (global-set-key (kbd "M-C-<up>")        'zc-core/move-line-up)
 (global-set-key (kbd "M-C-<down>")      'zc-core/move-line-down)
 

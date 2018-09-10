@@ -79,8 +79,7 @@
       (let ((tmp (symbol-at-point)))
         (setq query tmp)))
     (when query
-      (insert (format "%s" query))
-      )))
+      (insert (format "%s" query)))))
 
 ;; Evaluate the last expression and replace with the result
 (defun eval-last-sexp-and-replace ()
