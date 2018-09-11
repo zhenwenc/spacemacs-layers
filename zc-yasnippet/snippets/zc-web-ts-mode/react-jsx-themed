@@ -1,6 +1,7 @@
 # -*- mode: snippet -*-
 # name: React JSX Themed
 # key: rt
+# condition: (zc-yasnippet/react-jsx-expand-tag-p "rt")
 # --
 <Themed fn={createStyles}>
   {styles => (

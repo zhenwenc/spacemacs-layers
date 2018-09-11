@@ -1,8 +1,0 @@
-# -*- mode: snippet -*-
-# name: React JSX
-# key: r
-# condition: (zc-yasnippet/buffer-match-p "react")
-# --
-<$1 $2>
-  $0
-</$1>
