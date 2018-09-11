@@ -187,7 +187,11 @@
 
       ;; Enhance smartparens
       (sp-with-modes '(zc-web-ts-mode zc-web-js-mode)
-        (sp-local-pair "{" "}" :post-handlers '(:add ("| " "SPC")))
+        (sp-local-pair "{" "}"
+                       :post-handlers '(:add ("| " "SPC")))
+        (sp-local-pair "(" ")"
+                       :post-handlers
+                       '(:add ("| " "SPC") ("||\n[i]" "RET")))
         (sp-local-pair "/*" "*/"
                        :post-handlers
                        '(("| " "SPC") (zc-web/sp-comment-expand "RET"))))
