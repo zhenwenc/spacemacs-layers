@@ -2,6 +2,6 @@
 # name: React getDerivedStateFromProps
 # key: rgd
 # --
-static getDerivedStateFromProps(${1:props: ${2:Props}${3:, state: ${4:States}}}) {
+static getDerivedStateFromProps(${1:props: ${2:Props}${3:, state: ${4:State}}}) {
   $0
 }
