@@ -106,6 +106,7 @@
 
 (spacemacs/set-leader-keys "jn"         'sp-next-sexp)
 (spacemacs/set-leader-keys "jp"         'sp-backward-up-sexp)
+(spacemacs/set-leader-keys "jr"         'sp-rewrap-sexp)
 
 (global-set-key (kbd "M-C-<up>")        'zc-core/move-line-up)
 (global-set-key (kbd "M-C-<down>")      'zc-core/move-line-down)
