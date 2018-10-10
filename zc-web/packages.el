@@ -295,7 +295,9 @@
             (setq flycheck-html-tidy-executable tidy-bin)))
 
         (with-eval-after-load 'tide
-          (flycheck-add-mode 'typescript-tide 'zc-web-ts-mode))
+          (flycheck-add-mode 'typescript-tide 'zc-web-ts-mode)
+          ;; (flycheck-add-mode 'typescript-tslint 'zc-web-ts-mode)
+          )
 
         (flycheck-add-mode 'javascript-eslint 'zc-web-js-mode)
         (flycheck-add-mode 'css-csslint 'zc-web-css-mode)
