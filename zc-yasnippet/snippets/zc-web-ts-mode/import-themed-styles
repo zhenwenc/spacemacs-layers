@@ -2,4 +2,4 @@
 # name: Import Themed Styles
 # key: ims
 # --
-import { Theme, css $0 } from 'styles';
+import { Theme, WithStyles $0 } from 'styles';

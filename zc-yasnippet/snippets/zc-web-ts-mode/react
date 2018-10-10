@@ -1,8 +1,16 @@
 # -*- mode: snippet -*-
-# name: React Import
-# key: react
-# condition: (or (string= (thing-at-point 'line t) "react") (string= (thing-at-point 'line t) "react\n"))
+# name: React Bootstrap
+# key: r
+# condition: (and (zc-yasnippet/react-buffer-p) (not (zc-yasnippet/buffer-match-p "react")))
 # --
 import React from 'react';
+
+${1:export interface ${2:`(file-name-base)`Props} {
+
+}}
+
+${3:export interface ${4:`(file-name-base)`State} {
+
+}}
 
 $0
